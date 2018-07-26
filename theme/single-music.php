@@ -94,7 +94,7 @@ if (have_posts()) : while ( have_posts() ) : the_post();?>
 
 <style type="text/css">
 .idollist{display: flex;flex-wrap: wrap;}/* フレックスボックスにする */
-.idol{height:102px;width:50%;min-width: 336px;max-width:360px;border:solid 1px darkgray;border-radius:2px;background:white;font-family: "Rounded Mplus 1c";}/* アイテムの外枠、全体フォントに関する設定 */
+.idol{height:102px;width:50%;min-width: 336px;max-width:360px;border:solid 1px darkgray;border-radius:2px;font-family: "Rounded Mplus 1c";}/* アイテムの外枠、全体フォントに関する設定 */
 .idolicon{background:linear-gradient(lightgray,gray);float:left;padding:8px;width:100px;margin-bottom:0px;display:block;}/* アイコンに関する設定（バックグラウンドは、アイドルのテーマカラーを指定しなかったときのみ使用されます） */
 .idolname{font-size:20px;margin:7px 5px;border-bottom:dotted 2px gray;font-weight: bold;}/* アイドルの名前まわりのスタイル設定 */
 .moreinfo{margin:7px 7px;}.info{margin-left:100px;}/* CVまわりのスタイル */</style>
