@@ -3,18 +3,19 @@
 <?php get_template_part('module_pageTit'); ?>
 <?php get_template_part('module_panList'); ?>
 
+
 <div class="section siteContent">
 <div class="container">
 <div class="row">
 
 <div class="col-md-8 mainSection" id="main" role="main">
 <!-- OGP -->
-<meta name="description" content="ミリマス楽曲の収録されたCD「<?php echo get_the_archive_title();?>」の曲情報です。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
+<meta name="description" content="<?php echo $ryakusyou; ?>楽曲の収録されたCD「<?php echo get_the_archive_title();?>」の曲情報です。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@fujiwarahaji_me" />
-<meta name="twitter:creator" content="@maccha_pie" />
-<meta property="og:title" content="「<?php echo get_the_archive_title();?>」｜ミリマス楽曲DB なんやいねっと">
-<meta property="og:description" content="ミリマス楽曲の収録されたCD「<?php echo get_the_archive_title();?>」の曲情報です。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
+<meta name="twitter:site" content="@<?php echo $site_twitter; ?>" />
+<meta name="twitter:creator" content="@<?php echo $creator_twitter; ?>" />
+<meta property="og:title" content="<?php echo get_the_archive_title();?>｜<?php bloginfo('name'); ?>">
+<meta property="og:description" content="<?php echo $ryakusyou; ?>楽曲の収録されたCD「<?php echo get_the_archive_title();?>」の曲情報です。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
 <meta property="og:image" content="<?php echo get_stylesheet_directory_uri();?>/resources/cd_icon.png">
 
 

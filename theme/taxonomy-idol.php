@@ -3,6 +3,7 @@
 <?php get_template_part('module_pageTit'); ?>
 <?php get_template_part('module_panList'); ?>
 
+
 <div class="section siteContent">
 <div class="container">
 <div class="row">
@@ -23,9 +24,9 @@ $idol_color = get_field('idol_color',$term_idmenu.$term_id);//アイドルのイ
 <!-- OGP -->
 <meta name="description" content="ミリマスで<?php echo $CV;?>さん演じる<?php echo get_the_archive_title();?>の歌う曲の一覧ページです。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@fujiwarahaji_me" />
-<meta name="twitter:creator" content="@maccha_pie" />
-<meta property="og:title" content="<?php echo get_the_archive_title();?>（CV.<?php echo $CV;?>）の歌う楽曲｜ミリマス楽曲DB なんやいねっと">
+<meta name="twitter:site" content="@<?php echo $site_twitter; ?>" />
+<meta name="twitter:creator" content="@<?php echo $creator_twitter; ?>" />
+<meta property="og:title" content="<?php echo get_the_archive_title();?>（CV.<?php echo $CV;?>）の歌う楽曲｜<?php bloginfo('name'); ?>">
 <meta property="og:description" content="ミリマスで<?php echo $CV;?>さん演じる<?php echo get_the_archive_title();?>の歌う曲の一覧ページです。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
 <meta property="og:image" content="<?php echo $upload_dir['baseurl'];?>/idol/<?php echo $idol_term;?>.png">
 

@@ -3,12 +3,12 @@
 <?php get_template_part('module_panList'); ?>
 
 <!-- Metaデータ -->
-<meta name="description" content="ミリマス曲「<?php the_title(); ?>」の曲情報です。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
+<meta name="description" content="<?php echo "$ryakusyou"; ?>曲「<?php the_title(); ?>」の曲情報です。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
 <meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@fujiwarahaji_me" />
-<meta name="twitter:creator" content="@maccha_pie" />
-<meta property="og:title" content="「<?php the_title(); ?>」｜ミリマス楽曲DB なんやいねっと">
-<meta property="og:description" content="ミリマス曲「<?php the_title(); ?>」の歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
+<meta name="twitter:site" content="@<?php echo "$site_twitter"; ?>" />
+<meta name="twitter:creator" content="@<?php echo "$creator_twitter"; ?>" />
+<meta property="og:title" content="「<?php the_title(); ?>」｜<?php bloginfo('name'); ?>">
+<meta property="og:description" content="<?php echo "$ryakusyou"; ?>曲「<?php the_title(); ?>」の歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
 <meta property="og:image" content="<?php if ( has_post_thumbnail() ) {
 	$image_id = get_post_thumbnail_id ();
 	$image_url = wp_get_attachment_image_src ($image_id, true);
@@ -145,7 +145,7 @@ echo "\n";
 <a href="http://www.nicovideo.jp/search/<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">ワード検索</a>
 <a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">タグ検索</a>
 <a href="http://dic.nicovideo.jp/a/<?php the_field('NicoTag',$post->ID); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">大百科</a>
-<a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?> ミリシタMV" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">MV検索</a>
+<a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?> <?php echo "$MV_Tag"; ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">MV検索</a>
 <a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?> アイマスRemix" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:100%;">Remix検索</a>
 
 <p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">その他のサイトでさがす</p>
@@ -178,7 +178,7 @@ echo "\n";
 <a href="http://dic.nicovideo.jp/a/<?php the_field('NicoTag',$post->ID); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:18%;">大百科</a>
 
 <a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?> アイマスRemix" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:18%;">Remix検索</a>
-<a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?> ミリシタMV" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:18%;">MV検索</a>
+<a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?> <?php echo "$MV_Tag"; ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:18%;">MV検索</a>
 
 <p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">その他のサイトからさがす</p>
 <a href="https://www.google.co.jp/search?q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:30%;">Google検索</a>
@@ -187,11 +187,11 @@ echo "\n";
 
 
 <p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">歌詞をみる</p>
-<?php $ctm = get_post_meta($post->ID, 'kasi', true);?>
-<?php if(!empty($ctm)):?>
+<?php $kasi_umu = get_post_meta($post->ID, 'kasi', true);?>
+<?php if(!empty($kasi_umu)):?>
 <p><a href="<?php the_field('kasi',$post->ID); ?>" rel="nofollow" id="button">歌詞サイトでFULL歌詞を見る</a></p>
 <?php endif;?>
-<?php if(empty($ctm)):?>
+<?php if(empty($kasi_umu)):?>
 <p>この曲は歌詞サイトへのリンクが入力されていないため、リンクに対応していません。<br>必要であれば下のボタンからGoogle検索を行ってください<br>
 <a href="https://www.google.co.jp/search?q=<?php wp_title( '' ); ?> 歌詞" rel="nofollow" id="button">Google検索で歌詞を検索する</a></p>
 <?php endif;?>
