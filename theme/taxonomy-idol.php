@@ -1,3 +1,10 @@
+<?php
+get_template_part('_sitehensu');
+global $site_twitter;
+global $creator_twitter;
+global $ryakusyou;
+?>
+
 <?php get_header(); ?>
 
 <?php get_template_part('module_pageTit'); ?>
@@ -22,12 +29,12 @@ $idol_color = get_field('idol_color',$term_idmenu.$term_id);//アイドルのイ
 
 ?>
 <!-- OGP -->
-<meta name="description" content="ミリマスで<?php echo $CV;?>さん演じる<?php echo get_the_archive_title();?>の歌う曲の一覧ページです。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
+<meta name="description" content="<?php echo $ryakusyou; ?>で<?php echo $CV;?>さん演じる<?php echo get_the_archive_title();?>の歌う曲の一覧ページです。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@<?php echo $site_twitter; ?>" />
 <meta name="twitter:creator" content="@<?php echo $creator_twitter; ?>" />
 <meta property="og:title" content="<?php echo get_the_archive_title();?>（CV.<?php echo $CV;?>）の歌う楽曲｜<?php bloginfo('name'); ?>">
-<meta property="og:description" content="ミリマスで<?php echo $CV;?>さん演じる<?php echo get_the_archive_title();?>の歌う曲の一覧ページです。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
+<meta property="og:description" content="<?php echo $ryakusyou; ?>で<?php echo $CV;?>さん演じる<?php echo get_the_archive_title();?>の歌う曲の一覧ページです。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
 <meta property="og:image" content="<?php echo $upload_dir['baseurl'];?>/idol/<?php echo $idol_term;?>.png">
 
 <style type="text/css">.idol{height:134px;width:100%;border:solid 1px darkgray;border-radius:2px;font-family:"Rounded Mplus 1c";}/* アイドル欄の外枠、フォントの設定 */

@@ -7,12 +7,5 @@ function theme_enqueue_styles() {
 }
 remove_filter('the_content', 'wpautop');
 remove_filter ('acf_the_content', 'wpautop');
-the_field("partinfo", $post_id);
 ?>
 
-<?php
-$site_twitter = 'fujiwarahaji_me';//＠をはぶくこと
-$creator_twitter = 'maccha_pie';//＠をはぶくこと
-$ryakusyou = 'ミリマス';
-$MV_Tag = 'ミリシタMV';
-?>

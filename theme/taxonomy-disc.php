@@ -1,3 +1,11 @@
+<?php
+get_template_part('_sitehensu');
+global $site_twitter;
+global $creator_twitter;
+global $ryakusyou;
+
+?>
+
 <?php get_header(); ?>
 
 <?php get_template_part('module_pageTit'); ?>
@@ -15,7 +23,7 @@
 <meta name="twitter:site" content="@<?php echo $site_twitter; ?>" />
 <meta name="twitter:creator" content="@<?php echo $creator_twitter; ?>" />
 <meta property="og:title" content="<?php echo get_the_archive_title();?>｜<?php bloginfo('name'); ?>">
-<meta property="og:description" content="<?php echo $ryakusyou; ?>楽曲の収録されたCD「<?php echo get_the_archive_title();?>」の曲情報です。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
+<meta property="og:description" content="<?php echo $ryakusyou; ?>楽曲の収録されたCD「<?php echo get_the_archive_title();?>」の曲情報です。">
 <meta property="og:image" content="<?php echo get_stylesheet_directory_uri();?>/resources/cd_icon.png">
 
 

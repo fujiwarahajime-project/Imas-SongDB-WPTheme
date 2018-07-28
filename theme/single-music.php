@@ -1,3 +1,11 @@
+<?php
+get_template_part('_sitehensu');
+global $site_twitter;
+global $creator_twitter;
+global $ryakusyou;
+global $MV_Tag;
+?>
+
 <?php get_header(); ?>
 <?php get_template_part('module_pageTit'); ?>
 <?php get_template_part('module_panList'); ?>
