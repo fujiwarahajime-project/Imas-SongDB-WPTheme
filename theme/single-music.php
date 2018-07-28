@@ -68,7 +68,7 @@ if (have_posts()) : while ( have_posts() ) : the_post();?>
 	<tbody>
 		<tr>
 			<td>ニコ動タグ</td>
-			<td><a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?>" rel="nofollow" id="button"><?php the_field('NicoTag',$post->ID); ?></a></td>
+			<td><a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?>" rel="nofollow" id="button" style="display:block;padding:0px 15px;text-align:center;"><span style="line-height: 0px;"><?php the_field('NicoTag',$post->ID); ?></span></a></td>
 		</tr>
 		<tr>
 			<td>作詞</td>
