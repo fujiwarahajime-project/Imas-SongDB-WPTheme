@@ -1,0 +1,1 @@
+PostSnippetsでShortCodeとPHP Codeにチェックを入れて使用します

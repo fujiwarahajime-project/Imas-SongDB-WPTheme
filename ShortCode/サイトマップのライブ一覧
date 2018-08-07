@@ -1,0 +1,47 @@
+﻿// カスタム分類名
+$taxonomy = 'live';
+
+// パラメータ 
+$args = array(
+    'pad_counts' => true,
+  
+    // 投稿記事がなくても取得するか
+    'hide_empty' => false
+);
+
+// タームリスト取得
+$terms = get_terms( $taxonomy , $args );
+
+if ( count( $terms ) != 0 ) {
+//最初のTable処理
+    echo '<table><thead>';
+        echo '<tr><td></td><td>イベント名</td><td>会場</td><td>曲数</td></tr></thead><tbady>';
+
+     
+    // タームのリスト $terms を $term に格納して繰り返し処理
+    foreach ( $terms as $term ) {
+    
+        // タームのURL
+        $term = sanitize_term( $term, $taxonomy );
+        $term_link = get_term_link( $term, $taxonomy );
+        if ( is_wp_error( $term_link ) ) {
+            continue;
+        }
+//カスタムフィールドを取得
+				$place = get_field('place', $term);
+				$live_bd = get_field('shop', $term);
+
+if(empty($live_bd)) {//もしライブBDが発売されているのなら
+$star = '';}else{
+$star = '★';}//starに星を出力する
+
+        // 結果を出力
+        echo '<td>'.$star.'</td>';
+        echo '<td><a href="' . esc_url( $term_link ) . '">' .$term->name. '</a></td>';
+        echo '<td>'.$place.'</td>';
+        echo '<td>'.$term->count.'</td>';
+        echo '</tr>';
+    }
+//最後の処理
+echo '</tbody></table>';
+}
