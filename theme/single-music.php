@@ -120,7 +120,7 @@ $idol_color = get_field('idol_color',$term_idmenu.$term_id);//アイドルのテ
 $upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
 
 //出力
-echo '<div class="idol"><a href="'.$link.'"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';">';
+echo '<div class="idol"><a href="'.$link.'"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';" title="'.$term->term_id.'">';
 echo "\n";
 echo '<div class="info"><div class="idolname">'.esc_html($term->name).'</a></div>';
 echo "\n";
@@ -319,15 +319,33 @@ if ($terms = get_the_terms($post->ID, $taxonomy)) {
 foreach ( $terms as $term ) {
 $term_id = $term->term_id;//タームIDを取得
 $term_idmenu = $taxonomy.'_'; //「taxonomyname_ + termID」にする
-$shop = get_field('shop',$term_idmenu.$term_id);//販売情報を取得
 $link = get_term_link( $term, $taxonomy );//タームのリンクを取得
+$shop = get_field('shop',$term_idmenu.$term_id);//販売情報を取得
 
 //出力
 echo '<div class="vmenu_off">';
-echo '<div class="vmenuitem" onclick="doToggleClassName(getParentObj(this),\'vmenu_on\',\'vmenu_off\')"><img src="'.get_stylesheet_directory_uri().'/resources/cd_icon.png" class="cdicon"><div class="cdname">' . esc_html($term->name) . '</div></div>';
+echo '<div class="vmenuitem" onclick="doToggleClassName(getParentObj(this),\'vmenu_on\',\'vmenu_off\')"><img src="'.get_stylesheet_directory_uri().'/resources/cd_icon.png" class="cdicon"  title="'.$term->term_id.'"><div class="cdname">' . esc_html($term->name) . '</div></div>';
 echo "\n";
 echo '<div class="info_C"><a href="'.$link.'" id="button" style="text-align:center;display:inline-block;width:100%;">このCDのすべての収録曲を見る</a>';//リンク
 echo "\n";
+
+foreach (${"cdidol_".$term_id} as $idol_name_roop) {
+
+// パラメータ 
+$term = get_term_by('name',$idol_name_roop,'idol');
+
+        // タームのURLを取得
+$term_link = get_term_link( $term );
+        
+//場所を取得
+				$cv = get_field('cv', $term);
+				$idol_term = get_field('idol-thum', $term);
+				$idol_color = get_field('idol_color', $term);
+        // 結果を出力
+        echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'">';
+
+}
+
 echo $shop;
 echo '</div></div><br>';
 echo "\n";

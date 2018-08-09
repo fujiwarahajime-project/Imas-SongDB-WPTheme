@@ -1,0 +1,12 @@
+﻿//かならずパート情報より前の部分に入れるようにします。
+//本文などの表示部より下の部分に入力するとループ変数に入力されないため動作しません。
+
+
+//使用書式 [CD_member tax_id="923" member="喜多見柚,村上巴,荒木比奈,藤原肇,関裕美"]
+//tax_id部分はCDアイコンに暫定処理でマウスポインターを合わせると表示するIDになっています。
+//ほかに確認方法を実装するかもです。
+//tax_ID＝表示するタームID（$term->term_idで取得）
+
+global $cdidol_{tax_id};
+$idol_temp_{tax_id} = '{member}';
+$cdidol_{tax_id} = explode(',', $idol_temp_{tax_id});
