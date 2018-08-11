@@ -270,6 +270,8 @@ echo "\n";
 }
 
 .info_C {border-right:1px solid #cccc77;border-bottom:1px solid #cccc77; border-left:5px solid #cccc77;padding: 10px;}
+
+.idolicon_cd{padding:4px;width:85px;margin-bottom:0px;}
 </style>
 
 <?php the_field('partinfo',$post->ID); //パート分け情報の出力
