@@ -129,6 +129,11 @@ echo "\n";
     }
 }
 ?>
+<?php $partinfo = get_post_meta($post->ID, 'partinfo', true);?>
+<?php if(!empty($partinfo)):?>
+<p>この曲には、CDのメンバー情報があります。くわしくは<a href="#CD">CD情報</a>で確認ください。</p>
+<?php endif;?>
+
 </div>
 </div>
   <div class="msgboxfoot">
