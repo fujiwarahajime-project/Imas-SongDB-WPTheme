@@ -1,8 +1,5 @@
 <?php
 get_template_part('_sitehensu');
-global $site_twitter;
-global $creator_twitter;
-global $ryakusyou;
 
 $term_id = get_queried_object_id(); // タームIDの取得
 $term_idmenu = $taxonomy.'_'; //「taxonomyname_ + termID」を取得

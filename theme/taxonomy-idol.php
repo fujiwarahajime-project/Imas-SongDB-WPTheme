@@ -1,8 +1,5 @@
 <?php
 get_template_part('_sitehensu');
-global $site_twitter;
-global $creator_twitter;
-global $ryakusyou;
 ?>
 
 <?php get_header(); ?>
@@ -57,7 +54,7 @@ $page_for_posts = lightning_get_page_for_posts();
 if ( $page_for_posts['post_top_use'] || get_post_type() != 'post' ) {
   if ( is_year() || is_month() || is_day() || is_tag() || is_author() || is_tax() || is_category() ) {
       $archiveTitle = get_the_archive_title();
-      $archiveTitle_html = '<div class="idol"><a href="'.$link.'"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';"><div class="info"><div class="idolname"><ruby>'.$archiveTitle.'<rt>'.$Kana.'</rt></ruby></a>(CV.<ruby>'.$CV.'<rt>'.$CVKana.'</rt></ruby>)</div><div class="moreinfo"></div></div></div>';
+      $archiveTitle_html = '<div class="idol"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';"><div class="info"><div class="idolname"><ruby>'.$archiveTitle.'<rt>'.$Kana.'</rt></ruby>(CV.<ruby>'.$CV.'<rt>'.$CVKana.'</rt></ruby>)</div><div class="moreinfo"><a href="'.$idolinfo_URL.''.$idol_term.'" id="button">'.$idolsyosai_bun.'</a></div></div></div>';
       echo apply_filters( 'lightning_mainSection_archiveTitle' , $archiveTitle_html );
   }
 }
