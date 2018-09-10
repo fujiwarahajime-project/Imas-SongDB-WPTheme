@@ -10,8 +10,9 @@ global $MV_Tag;
 <?php get_template_part('module_pageTit'); ?>
 <?php get_template_part('module_panList'); ?>
 
-<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/song.css" type="text/css" />
-<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/no_git.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/song.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/no_git.css" type="text/css" />
+<script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/resources/cd_accordion.js"></script>
 
 <!-- Metaデータ -->
 <meta name="description" content="<?php echo "$ryakusyou"; ?>曲「<?php the_title(); ?>」の曲情報です。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
@@ -53,14 +54,16 @@ if (have_posts()) : while ( have_posts() ) : the_post();?>
 
 <?php if(wp_is_mobile()): ?>
 <!-- モバイル向けジャケット画像表示 -->
-<div class="msgbox">
-  <div class="msgboxtop">ジャケット画像</div>
-  <div class="msgboxbody">
+<div style="text-align:center;">
+<div class="case">
+      <div>
+        <div class="img">
         <?php the_post_thumbnail( 'full' ); ?>
+        </div>
+      </div>
 </div>
-  <div class="msgboxfoot">
-  </div>
 </div>
+
 <br>
 <?php endif; ?>
 
@@ -102,7 +105,6 @@ if (have_posts()) : while ( have_posts() ) : the_post();?>
 	</tbody>
 </table>
 <p style="text-align:left;font-size: 150%;border-bottom: dotted 3px gray;">歌唱メンバー</p>
-
 <div class="idollist">
 <?php 
 $taxonomy = 'idol';
@@ -128,7 +130,7 @@ echo "\n";
 ?>
 <?php $partinfo = get_post_meta($post->ID, 'partinfo', true);?>
 <?php if(!empty($partinfo)):?>
-<p>この曲には、CDのメンバー情報があります。くわしくは<a href="#CD">CD情報</a>で確認ください。</p>
+<p>この曲には、CDごとのメンバー情報があります。くわしくは<a href="#CD">CD情報</a>で確認ください。</p>
 <?php endif;?>
 
 </div>
@@ -233,28 +235,6 @@ echo "\n";
 </div>
 <br>
 
-<!-- CD情報 -->
-<div class="msgbox" id="CD">
-  <div class="msgboxtop">CD情報</div>
-  <div class="msgboxbody">
-
-<?php the_field('partinfo',$post->ID); //パート分け情報の出力
-?>
-<!-- メニューボタンのJS -->
-<script type="text/javascript"><!--
-function doToggleClassName(obj, onClassName, offClassName){obj.className = (obj.className != onClassName) ? onClassName : offClassName;}
-function getParentObj(obj){return obj.parentElement || obj.parentNode;}
-function doReplaceClassName(findClassName, replaceClassName, targetTagName){
-  var elements = document.getElementsByTagName(targetTagName || '*');
-  for (var i = 0; i < elements.length; i++) {
-    if (elements[i].className == findClassName)
-      elements[i].className = replaceClassName;
-  }
-}//--></script>
-<div class="vmenu_all_action" style="text-align: center;">
-<span id="button" onclick="doReplaceClassName('vmenu_off', 'vmenu_on')" style="display:inline-block;width:45%;">CD詳細情報をすべて表示</span>
-<span id="button" onclick="doReplaceClassName('vmenu_on',  'vmenu_off')" style="display:inline-block;width:45%;">CD詳細情報をすべて非表示</span>
-</div>
 <!-- CD情報用CSS（OSにより分岐） -->
 <?php if(wp_is_mobile()): ?>
 <style type="text/css">
@@ -271,8 +251,19 @@ function doReplaceClassName(findClassName, replaceClassName, targetTagName){
 <?php endif; ?>
 <!-- ここまでCD情報用CSS -->
 
+<!-- CD情報 -->
+<div class="msgbox" id="CD">
+  <div class="msgboxtop">CD情報</div>
+  <div class="msgboxbody">
+
+<!-- すべて操作ボタン -->
+<div class="vmenu_all_action" style="text-align: center;">
+<span id="button" onclick="doReplaceClassName('vmenu_off', 'vmenu_on')" style="display:inline-block;width:45%;">CD詳細情報をすべて表示</span>
+<span id="button" onclick="doReplaceClassName('vmenu_on',  'vmenu_off')" style="display:inline-block;width:45%;">CD詳細情報をすべて非表示</span>
+</div>
+
 <?php if(get_post_meta($post->ID, 'haishin', true)): ?>
-<!-- 配信情報 -->
+<!-- 配信がある場合の情報 -->
 <div class="vmenu_off">
 <div class="vmenuitem" onclick="doToggleClassName(getParentObj(this),'vmenu_on','vmenu_off')">
 <img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/ipod_icon.png" class="cdicon"><div class="cdname">iTunes等の配信サイトで配信あり</div></div>
@@ -308,7 +299,7 @@ $term_link = get_term_link( $term );
 				$idol_term = get_field('idol-thum', $term);
 				$idol_color = get_field('idol_color', $term);
         // 結果を出力
-        echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'">';
+        echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'"></a>';
 
 }
 
@@ -329,19 +320,8 @@ echo "\n";
 <div class="msgbox" id="live">
   <div class="msgboxtop">この曲が披露されたライブ・イベント</div>
   <div class="msgboxbody">
-<!-- OSにより分岐 タップとクリックの書き分け（特に意味はない） -->
-<?php if(wp_is_mobile()): ?>
-<!-- スマホ用 -->
 先頭に「★」がついているライブは、DVD・BD等の円盤メディアが発売されています。<br>
-披露された会場の確認と、円盤の価格確認や購入についてはライブ名をタップした先でできます。
-<?php endif; ?>
-<?php if(!wp_is_mobile()): ?>
-<!-- PC用 -->
-先頭に「★」がついているライブは、DVD・BD等の円盤メディアが発売されています。<br>
-披露された会場の確認と、円盤の価格確認や購入についてはライブ名をクリックした先でできます。
-
-<?php endif; ?>
-<!-- ここまで -->
+披露された会場の確認と、円盤の価格確認や購入についてはライブ名をのリンク先でできます。
 	  <table>
 	<tbody>
 
@@ -416,21 +396,17 @@ endif;
 <div class="col-md-3 col-md-offset-1 subSection">
 <?php if(!wp_is_mobile()): //PC版ではジャケット画像をサイドバーに表示します。
 ?>
-<div class="msgbox">
-  <div class="msgboxtop">ジャケット画像</div>
-  <div class="msgboxbody">
 <?php if(have_posts()): while(have_posts()): the_post(); ?>
     <?php if (has_post_thumbnail()) : ?>
+    <div class="case">
+      <div>
+        <div class="img">
         <?php the_post_thumbnail( 'full' ); ?>
-    <?php else : ?>
-        <img src="<?php bloginfo('template_url'); ?>/images/default.png" width="100%" alt="デフォルト画像" />
+        </div>
+      </div>
+    </div>
     <?php endif ; ?>
 <?php endwhile; endif; ?>
-</div>
-  <div class="msgboxfoot">
-  </div>
-</div>
-<br>
 <?php endif; ?>
 
 <?php get_sidebar(get_post_type()); ?>
