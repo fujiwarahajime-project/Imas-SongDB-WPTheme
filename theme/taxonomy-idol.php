@@ -34,13 +34,7 @@ $idol_color = get_field('idol_color',$term_idmenu.$term_id);//アイドルのイ
 <meta property="og:description" content="<?php echo $ryakusyou; ?>で<?php echo $CV;?>さん演じる<?php echo get_the_archive_title();?>の歌う曲の一覧ページです。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
 <meta property="og:image" content="<?php echo $upload_dir['baseurl'];?>/idol/<?php echo $idol_term;?>.png">
 
-<style type="text/css">.idol{height:134px;width:100%;border:solid 1px darkgray;border-radius:2px;font-family:"Rounded Mplus 1c";}/* アイドル欄の外枠、フォントの設定 */
-.idolicon{background:linear-gradient(lightgray,gray);float:left;padding:8px;width:132px;margin-bottom:0px;display:block;}/* アイドルアイコンに関すること */
-.idolname{font-size:5vm;margin:7px 5px;border-bottom:dotted 2px gray;font-weight: bold;}/* アイドルの名前に関すること */
-@media(min-width:520px){.idolname{font-size:150%;}}
-@media(min-width:620px){.idolname{font-size:200%;}}
-.moreinfo{margin:7px 7px;}/* MLPリンク */
-.info{margin-left:132px;}/* 画像の右側の文章のマージン */</style>
+<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/idol.css" type="text/css" />
 
 <header class="archive-header">
  <?php
