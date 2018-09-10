@@ -7,15 +7,16 @@
 .moreinfo{margin:7px 7px;}.info{margin-left:100px;}/* CVまわりのスタイル */</style>
 
 /* 開閉メニュー */
-.vmenuitem{cursor:pointer;}
 .vmenu_on, .vmenu_off{margin:2px 0px;}
 .vmenu_on .vmenuitem{
-	height:100px;
+	min-height:90px;
+	cursor:pointer;
 	border-right:1px solid #cccc77;
 	border-top:1px solid #cccc77; 
 	border-left:5px solid #cccc77;}
 .vmenu_off .vmenuitem{
-	height:90px;
+	min-height:90px;
+	cursor:pointer;
 	border:1px solid #77cccc;
 	border-left:5px solid #77cccc;}
 .vmenu_on {display:auto; margin:2px auto;}
