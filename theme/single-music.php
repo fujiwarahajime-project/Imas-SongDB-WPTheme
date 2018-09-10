@@ -10,6 +10,9 @@ global $MV_Tag;
 <?php get_template_part('module_pageTit'); ?>
 <?php get_template_part('module_panList'); ?>
 
+<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/song.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/css/no_git.css" type="text/css" />
+
 <!-- Metaデータ -->
 <meta name="description" content="<?php echo "$ryakusyou"; ?>曲「<?php the_title(); ?>」の曲情報です。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
 <meta name="twitter:card" content="summary" />
@@ -100,12 +103,6 @@ if (have_posts()) : while ( have_posts() ) : the_post();?>
 </table>
 <p style="text-align:left;font-size: 150%;border-bottom: dotted 3px gray;">歌唱メンバー</p>
 
-<style type="text/css">
-.idollist{display: flex;flex-wrap: wrap;}/* フレックスボックスにする */
-.idol{height:102px;width:50%;min-width: 336px;max-width:360px;border:solid 1px darkgray;border-radius:2px;font-family: "Rounded Mplus 1c";}/* アイテムの外枠、全体フォントに関する設定 */
-.idolicon{background:linear-gradient(lightgray,gray);float:left;padding:8px;width:100px;margin-bottom:0px;display:block;}/* アイコンに関する設定（バックグラウンドは、アイドルのテーマカラーを指定しなかったときのみ使用されます） */
-.idolname{font-size:20px;margin:7px 5px;border-bottom:dotted 2px gray;font-weight: bold;}/* アイドルの名前まわりのスタイル設定 */
-.moreinfo{margin:7px 7px;}.info{margin-left:100px;}/* CVまわりのスタイル */</style>
 <div class="idollist">
 <?php 
 $taxonomy = 'idol';
@@ -240,44 +237,6 @@ echo "\n";
 <div class="msgbox" id="CD">
   <div class="msgboxtop">CD情報</div>
   <div class="msgboxbody">
-<style type="text/css">
-.vmenuitem{cursor:pointer;}
-.vmenu_on, .vmenu_off{margin:2px 0px;}
-.vmenu_on .vmenuitem{
-	height:100px;
-	border-right:1px solid #cccc77;
-	border-top:1px solid #cccc77; 
-	border-left:5px solid #cccc77;}
-.vmenu_off .vmenuitem{
-	height:90px;
-	border:1px solid #77cccc;
-	border-left:5px solid #77cccc;}
-.vmenu_on {display:auto; margin:2px auto;}
-.vmenu_off .info_C{display:none;}
-.vmenu_all_action {cursor: pointer;}
-
-.cdinfo{
-  height:auto;
-}
-
-.cdicon{
-  background:linear-gradient(lightgray,gray);
-  float:left;
-	padding:8px;
-  width:88px;
-	margin-bottom:0px;
-	display: block;
-}
-
-.cdname{
-  margin-left:104px;
-  margin-top:7px;
-}
-
-.info_C {border-right:1px solid #cccc77;border-bottom:1px solid #cccc77; border-left:5px solid #cccc77;padding: 10px;}
-
-.idolicon_cd{padding:4px;width:85px;margin-bottom:0px;}
-</style>
 
 <?php the_field('partinfo',$post->ID); //パート分け情報の出力
 ?>
