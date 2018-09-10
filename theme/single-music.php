@@ -252,6 +252,9 @@ echo "\n";
   <div class="msgboxtop">CD情報</div>
   <div class="msgboxbody">
 
+<?php the_field('partinfo',$post->ID); //パート分け情報の出力
+?>
+
 <!-- すべて操作ボタン -->
 <div class="vmenu_all_action" style="text-align: center;">
 <span id="button" onclick="doReplaceClassName('vmenu_off', 'vmenu_on')" style="display:inline-block;width:45%;">CD詳細情報をすべて表示</span>
