@@ -5,12 +5,12 @@
     .idol {width:33%;}
   }
 
-@media screen and (min-width: 520px) and (max-width: 1200px) {
-    /*　横幅520px～1200px（タブレットやPCの半面表示など）は2列表示　*/
+@media screen and (min-width: 521px) and (max-width: 1200px) {
+    /*　横幅521px～1200px（タブレットやPCの半面表示など）は2列表示　*/
     .idol {width:50%;}
   }
 
- @media screen and (max-width: 499px) { 
+ @media screen and (max-width: 520px) { 
     /*　横幅520px以下（スマホなど）は1列表示　*/
     .idol {width:100%;}
   }
