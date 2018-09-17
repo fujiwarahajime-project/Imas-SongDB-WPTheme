@@ -16,6 +16,18 @@
   }
 
 
+/* ソロコレ用のアイドルの横幅を指定 */
+
+@media screen and (min-width:521px) {
+    /*　横幅521px以上（PCフル表示などの場合）は3列表示　*/
+    .idol {width:50%;}
+  }
+
+ @media screen and (max-width: 520px) { 
+    /*　横幅520px以下（スマホなど）は1列表示　*/
+    .idol {width:100%;}
+  }
+
 
 /* その他曲ページのアイドルアイコンまわり */
 .idollist{display: flex;flex-wrap: wrap;}/* フレックスボックスにする */
