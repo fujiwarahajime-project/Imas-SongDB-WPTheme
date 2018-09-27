@@ -90,6 +90,10 @@ echo $shop; // タームID
   </div>
 </div>
 <?php endif; ?>
+
+<?php get_template_part('share'); ?>
+
+
 </div>
 
 <div class="postList">

@@ -1,5 +1,7 @@
 <?php
 get_template_part('_sitehensu');
+$url_share=urlencode( get_the_permalink() );
+$title_share=urlencode(get_the_title()).'｜'.get_bloginfo('name');
 ?>
 
 <?php get_header(); ?>
@@ -320,7 +322,7 @@ echo "\n";
   <div class="msgboxtop">この曲が披露されたライブ・イベント</div>
   <div class="msgboxbody">
 先頭に「★」がついているライブは、DVD・BD等の円盤メディアが発売されています。<br>
-披露された会場の確認と、円盤の価格確認や購入についてはライブ名をのリンク先でできます。
+披露された会場の確認と、円盤の価格確認や購入についてはライブ名のリンク先でできます。
 	  <table>
 	<tbody>
 
@@ -352,7 +354,7 @@ echo "\n";
 <!--ここまで-->
 <br>
 <div class="msgbox">
-  <div class="msgboxtop">その他情報・共有</div>
+  <div class="msgboxtop">その他情報</div>
   <div class="msgboxbody">
 	<?php the_content();//ここがWPの本文とその前後に付随するプラグインの出力先になる。
 ?>
@@ -360,6 +362,9 @@ echo "\n";
   <div class="msgboxfoot">
   </div>
 </div>
+
+<?php get_template_part('share'); ?>
+
 	</div><!-- [ /.entry-body ] -->
 	<div class="entry-footer">
 	<?php

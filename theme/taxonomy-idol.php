@@ -70,6 +70,8 @@ $postType = lightning_get_post_type();
 do_action('lightning_loop_before'); ?>
 <div class="archive-meta">
 
+<?php get_template_part('share'); ?>
+
 </div>
 
 

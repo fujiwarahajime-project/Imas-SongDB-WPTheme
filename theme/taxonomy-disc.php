@@ -85,6 +85,9 @@ echo $shop; // 取得した購入情報を出力
   <div class="msgboxfoot">
   </div>
 </div>
+
+<?php get_template_part('share'); ?>
+
 </div>
 
 <div class="postList">
