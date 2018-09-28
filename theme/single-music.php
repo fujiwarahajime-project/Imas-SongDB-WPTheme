@@ -47,6 +47,9 @@ if (have_posts()) : while ( have_posts() ) : the_post();?>
 	<h1 class="entry-title"><ruby><rb><?php the_title(); ?></rb>
 <rp>（</rp><rt><?php the_field('Kana',$post->ID); ?></rt><rp>）</rp></ruby></h1>
 	</header>
+
+<?php get_template_part('share'); ?>
+
 	<div class="entry-body">
 <!-- カスタムフィールド -->
 
@@ -90,7 +93,6 @@ if (have_posts()) : while ( have_posts() ) : the_post();?>
 			<td>歌唱ユニット</td>
 			<td><?php echo get_the_term_list( $post->ID, unit, '', '、', ''); ?></td>
 		</tr>
-		</tr>
 		<tr>
 			<td>オリジナルアーティスト</td>
 			<td><?php the_field('orig-artist',$post->ID); ?></td>
@@ -117,9 +119,9 @@ $idol_color = get_field('idol_color',$term_idmenu.$term_id);//アイドルのテ
 $upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
 
 //出力
-echo '<div class="idol"><a href="'.$link.'"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';" title="'.$term->term_id.'">';
+echo '<div class="idol"><a href="'.$link.'"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';" title="'.$term->term_id.'"></a>';
 echo "\n";
-echo '<div class="info"><div class="idolname">'.esc_html($term->name).'</a></div>';
+echo '<div class="info"><div class="idolname"><a href="'.$link.'">'.esc_html($term->name).'</a></div>';
 echo "\n";
 echo '<div class="moreinfo">CV：'.$CV.'</div></div></div>';
 echo "\n";
@@ -146,10 +148,10 @@ echo "\n";
 ?>
 <!-- モバイル向けリンク集 -->
 <p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">Twitterでさがす</p>
-<a href="https://twitter.com/search?vertical=default&q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:100%;">話題のツイート</a>
-<a href="https://twitter.com/search?f=tweets&vertical=default&q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:100%;">リアルタイム検索</a>
-<a href="https://twitter.com/search?f=videos&vertical=default&q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">動画検索</a>
-<a href="https://twitter.com/search?f=images&vertical=default&q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">画像検索</a>
+<a href="https://twitter.com/search?vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:100%;">話題のツイート</a>
+<a href="https://twitter.com/search?f=tweets&amp;vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:100%;">リアルタイム検索</a>
+<a href="https://twitter.com/search?f=videos&amp;vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">動画検索</a>
+<a href="https://twitter.com/search?f=images&amp;vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">画像検索</a>
 
 <p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">ニコニコでさがす</p>
 <a href="http://www.nicovideo.jp/search/<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">ワード検索</a>
@@ -160,7 +162,7 @@ echo "\n";
 
 <p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">その他のサイトでさがす</p>
 <a href="https://www.google.co.jp/search?q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">Google検索</a>
-<a href="https://www.pixiv.net/search.php?s_mode=s_tc&word=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">Pixiv検索</a>
+<a href="https://www.pixiv.net/search.php?s_mode=s_tc&amp;word=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">Pixiv検索</a>
 <a href="https://www.youtube.com/results?search_query=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:100%;">Youtube検索</a>
 
 <p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">歌詞をみる</p>
@@ -177,10 +179,10 @@ echo "\n";
 <?php if(!wp_is_mobile()): ?>
 <!-- PC向けリンク集 -->
 <p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">Twitterでさがす</p>
-<a href="https://twitter.com/search?vertical=default&q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:23%;">話題のツイート</a>
-<a href="https://twitter.com/search?f=tweets&vertical=default&q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:23%;">リアルタイム検索</a>
-<a href="https://twitter.com/search?f=videos&vertical=default&q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:23%;">動画検索</a>
-<a href="https://twitter.com/search?f=images&vertical=default&q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:23%;">画像検索</a>
+<a href="https://twitter.com/search?vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:23%;">話題のツイート</a>
+<a href="https://twitter.com/search?f=tweets&amp;vertical=default&amp;&q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:23%;">リアルタイム検索</a>
+<a href="https://twitter.com/search?f=videos&amp;vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:23%;">動画検索</a>
+<a href="https://twitter.com/search?f=images&amp;vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:23%;">画像検索</a>
 
 <p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">ニコニコでさがす</p>
 <a href="http://www.nicovideo.jp/search/<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:18%;">ワード検索</a>
@@ -192,7 +194,7 @@ echo "\n";
 
 <p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">その他のサイトからさがす</p>
 <a href="https://www.google.co.jp/search?q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:30%;">Google検索</a>
-<a href="https://www.pixiv.net/search.php?s_mode=s_tc&word=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:30%;">Pixiv検索</a>
+<a href="https://www.pixiv.net/search.php?s_mode=s_tc&amp;word=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:30%;">Pixiv検索</a>
 <a href="https://www.youtube.com/results?search_query=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:30%;">Youtube検索</a>
 
 
@@ -339,7 +341,7 @@ $star = '';}else{
 $star = '★';}//星を出力する
 
 //出力
-echo '<tr><td>'.$star.'</td><td><a href="'.$link.'">'.esc_html($term->name).'</td></tr>';
+echo '<tr><td>'.$star.'</td><td><a href="'.$link.'">'.esc_html($term->name).'</a></td></tr>';
 echo "\n";
     }
 }
@@ -363,7 +365,6 @@ echo "\n";
   </div>
 </div>
 
-<?php get_template_part('share'); ?>
 
 	</div><!-- [ /.entry-body ] -->
 	<div class="entry-footer">
