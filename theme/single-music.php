@@ -282,6 +282,16 @@ $term_idmenu = $taxonomy.'_'; //「taxonomyname_ + termID」にする
 $link = get_term_link( $term, $taxonomy );//タームのリンクを取得
 $shop = get_field('shop',$term_idmenu.$term_id);//販売情報を取得
 
+//繰り返しフィールド（CDごとのパート情報）を変数にセット
+$cd_group = SCF::get( 'CD_group',$id );
+foreach ( $cd_group as $field_name => $field_value ) {
+
+$tax_id_temp = $field_value['cd_term'];
+$idol_temp =  $field_value['cd_mem'];
+
+${"cdidol_".$tax_id_temp."_".$id} = explode(',', $idol_temp);
+}
+
 //出力
 echo '<div class="vmenu_off">';
 echo '<div class="vmenuitem" onclick="doToggleClassName(getParentObj(this),\'vmenu_on\',\'vmenu_off\')"><img src="'.get_stylesheet_directory_uri().'/resources/cd_icon.png" class="cdicon"  title="'.$term->term_id.'"><div class="cdname">' . esc_html($term->name) . '</div></div>';
@@ -289,15 +299,18 @@ echo "\n";
 echo '<div class="info_C"><a href="'.$link.'" id="button" style="text-align:center;display:inline-block;width:100%;">このCDのすべての収録曲を見る</a>';//リンク
 echo "\n";
 
-foreach (${"cdidol_".$term_id} as $idol_name_roop) {
+$kiji_id = get_the_ID();
 
-// パラメータ 
+//アイドル画像出力ループ
+foreach (${"cdidol_".$term_id."_".$kiji_id} as $idol_name_roop) {
+
+//指定したアイドルのデータを引き出す
 $term = get_term_by('name',$idol_name_roop,'idol');
 
         // タームのURLを取得
 $term_link = get_term_link( $term );
         
-//場所を取得
+//必要なカスタムフィールドを取得
 				$cv = get_field('cv', $term);
 				$idol_term = get_field('idol-thum', $term);
 				$idol_color = get_field('idol_color', $term);
