@@ -44,8 +44,19 @@ if (have_posts()) : while ( have_posts() ) : the_post();?>
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header>
 	<?php get_template_part('module_loop_post_meta');?>
+
+<?php if (is_object_in_term($post->ID, 'musictype','rearrange')): //リアレンジ曲の場合、ルビを表示しない
+?>
+
+<span class="ruby"><?php the_field('Kana',$post->ID); ?></span>
+<h1 class="entry-title"><?php the_title(); ?></h1>
+
+<?php else: //リアレンジ曲以外の処理
+?>
 	<h1 class="entry-title"><ruby><rb><?php the_title(); ?></rb>
 <rp>（</rp><rt><?php the_field('Kana',$post->ID); ?></rt><rp>）</rp></ruby></h1>
+<?php endif; ?>
+
 	</header>
 
 <?php get_template_part('share'); ?>
