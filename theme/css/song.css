@@ -81,3 +81,38 @@ display:inline;
 .solocolle .idol{
 display:inline-block;
 }
+
+/* リンク周りのCSS */
+.link_label{font-size:1.5em;}
+.tab_area{display:flex;justify-content:space-evenly;text-align:center;vertical-align:middle;}
+.tab_area_long{display:flex;flex-wrap: wrap;justify-content:space-evenly;text-align:center;vertical-align:middle;}
+
+.btn_item_long{width:30%;display:inline-block;}
+.btn_item_long2{width:30%;display:inline-block;}
+
+
+@media screen and (min-width:1200px) {
+    .btn_item_long {width:18%;}
+    .btn_item_long2 {width:22%;}
+
+  }
+@media screen and (min-width: 990px) and (max-width: 1199px) {
+    .btn_item_long2 {width:21%;}
+
+  }
+@media screen and (max-width:990px) {
+    .btn_item_long2 {width:40%;}
+
+  }
+
+.btn_item_5{width:100%;}
+.btn_item_5 #button{margin:0px;}
+.btn_item_in{width:100%;display:inline-block;}
+.under_line{border-bottom: medium solid thistle;}
+.tab_panel{display:none;width:100%;border-bottom: medium solid thistle;border-left: medium solid thistle;border-right: medium solid thistle;}
+.tab_title{text-align: left;font-size: 150%;border-bottom: dotted 3px gray;}
+input[type="radio"]{display:none;}
+#tabtw:checked ~ .tab_area .tabtw_label{background:linear-gradient(#99187d,#eb4cc6);color:white;box-shadow:0px 1px 0px black;}
+#tabtw:checked ~ .panel_area #paneltw{display:block;}
+#tabni:checked ~ .tab_area .tabni_label{background:linear-gradient(#99187d,#eb4cc6);color:white;box-shadow:0px 1px 0px black;}
+#tabni:checked ~ .panel_area #panelni{display:block;}

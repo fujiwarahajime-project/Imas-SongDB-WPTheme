@@ -155,71 +155,62 @@ echo "\n";
   <div class="msgboxtop">リンク集</div>
 
   <div class="msgboxbody" style="text-align: center;">
-<?php if(wp_is_mobile()): //デザイン分岐のための記述
-?>
-<!-- モバイル向けリンク集 -->
-<p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">Twitterでさがす</p>
-<a href="https://twitter.com/search?vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:100%;">話題のツイート</a>
-<a href="https://twitter.com/search?f=tweets&amp;vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:100%;">リアルタイム検索</a>
-<a href="https://twitter.com/search?f=videos&amp;vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">動画検索</a>
-<a href="https://twitter.com/search?f=images&amp;vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">画像検索</a>
 
-<p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">ニコニコでさがす</p>
-<a href="http://www.nicovideo.jp/search/<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">ワード検索</a>
-<a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">タグ検索</a>
-<a href="http://dic.nicovideo.jp/a/<?php the_field('NicoTag',$post->ID); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">大百科</a>
-<a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?> <?php echo "$MV_Tag"; ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">MV検索</a>
-<a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?> アイマスRemix" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:100%;">Remix検索</a>
+<!-- リンク集 -->
 
-<p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">その他のサイトでさがす</p>
-<a href="https://www.google.co.jp/search?q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">Google検索</a>
-<a href="https://www.pixiv.net/search.php?s_mode=s_tc&amp;word=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:45%;">Pixiv検索</a>
-<a href="https://www.youtube.com/results?search_query=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:100%;">Youtube検索</a>
+<div class="tab_wrap">
+<input id="tabni" type="radio" name="tab_btn" checked>
+<input id="tabtw" type="radio" name="tab_btn">
 
-<p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">歌詞をみる</p>
-<?php $ctm = get_post_meta($post->ID, 'kasi', true);?>
-<?php if(!empty($ctm)):?>
-<p><a href="<?php the_field('kasi',$post->ID); ?>" rel="nofollow" id="button">歌詞サイトでFULL歌詞を見る</a></p>
-<?php endif;?>
-<?php if(empty($ctm)):?>
-<p>この曲はFULL歌詞リンクに対応していません。<br>必要であればボタンからGoogle検索を行ってください<br>
-<a href="https://www.google.co.jp/search?q=<?php wp_title( '' ); ?> 歌詞" rel="nofollow" id="button">Google検索で歌詞を検索する</a></p>
-<?php endif;?>
-
-<?php endif; ?>
-<?php if(!wp_is_mobile()): ?>
-<!-- PC向けリンク集 -->
-<p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">Twitterでさがす</p>
-<a href="https://twitter.com/search?vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:23%;">話題のツイート</a>
-<a href="https://twitter.com/search?f=tweets&amp;vertical=default&amp;&q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:23%;">リアルタイム検索</a>
-<a href="https://twitter.com/search?f=videos&amp;vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:23%;">動画検索</a>
-<a href="https://twitter.com/search?f=images&amp;vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:23%;">画像検索</a>
-
-<p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">ニコニコでさがす</p>
-<a href="http://www.nicovideo.jp/search/<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:18%;">ワード検索</a>
-<a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:18%;">タグ検索</a>
-<a href="http://dic.nicovideo.jp/a/<?php the_field('NicoTag',$post->ID); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:18%;">大百科</a>
-
-<a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?> アイマスRemix" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:18%;">Remix検索</a>
-<a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?> <?php echo "$MV_Tag"; ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:18%;">MV検索</a>
-
-<p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">その他のサイトからさがす</p>
-<a href="https://www.google.co.jp/search?q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:30%;">Google検索</a>
-<a href="https://www.pixiv.net/search.php?s_mode=s_tc&amp;word=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:30%;">Pixiv検索</a>
-<a href="https://www.youtube.com/results?search_query=<?php wp_title( '' ); ?>" rel="nofollow" id="button" style="text-align:center;display:inline-block;width:30%;">Youtube検索</a>
+<div class="tab_area link_label">
+<span class="btn_item_5" style="border-top: medium solid thistle;border-left: medium solid thistle;padding:2px 0px 2px 2px;"><label class="tabni_label btn_item_in" for="tabni" id="button" style="border-radius:10px 0px 0px 15px;margin:0px;"><img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/nico_logo.png" width="25px"></label></span>
+<span class="btn_item_5" style="border-top: medium solid thistle;border-right: medium solid thistle;padding:2px 2px 2px 0px;"><label class="tabtw_label btn_item_in" for="tabtw" id="button" style="border-radius:0px 15px 15px 0px;margin:0px;"><i class="fab fa-twitter"></i></label></span>
+<span class="btn_item_5 under_line"><a href="https://www.google.co.jp/search?q=<?php wp_title( '' ); ?>" rel="nofollow"  id="button" class="btn_item_in"><i class="fab fa-google"></i></a></span>
+<span class="btn_item_5 under_line"><a href="https://www.pixiv.net/search.php?s_mode=s_tc&amp;word=<?php wp_title( '' ); ?>" rel="nofollow"  id="button" class="btn_item_in"><img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/pixiv_logo.jpg" width="25px"></a></span>
+<span class="btn_item_5 under_line"><a href="https://www.youtube.com/results?search_query=<?php wp_title( '' ); ?>" rel="nofollow" id="button" class="btn_item_in"><i class="fab fa-youtube"></i></a></span>
+</div>
 
 
-<p style="text-align: left;font-size: 150%;border-bottom: dotted 3px gray;">歌詞をみる</p>
+<div class="panel_area">
+<div id="panelni" class="tab_panel">
+<!-- niconicoのタブの中身 -->
+<p class="tab_title">niconicoでさがす</p>
+<div class="tab_area_long">
+<a href="http://www.nicovideo.jp/search/<?php wp_title( '' ); ?>" rel="nofollow" id="button" class="btn_item_long">ワード</a>
+<a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?>" rel="nofollow" id="button" class="btn_item_long">タグ</a>
+<a href="http://dic.nicovideo.jp/a/<?php the_field('NicoTag',$post->ID); ?>" rel="nofollow" id="button" class="btn_item_long">大百科</a>
+<a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?> アイマスRemix" rel="nofollow" id="button" class="btn_item_long">Remix</a>
+<a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?> <?php echo "$MV_Tag"; ?>" rel="nofollow" id="button" class="btn_item_long">MV</a>
+</div>
+</div>
+
+<div id="paneltw" class="tab_panel">
+<!-- Twitterのタブの中身 -->
+<p class="tab_title">Twitterでさがす</p>
+<div class="tab_area_long">
+<a href="https://twitter.com/search?vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" class="btn_item_long2">人気</a>
+<a href="https://twitter.com/search?f=tweets&amp;vertical=default&amp;&q=<?php wp_title( '' ); ?>" rel="nofollow" id="button"class="btn_item_long2">リアルタイム</a>
+<a href="https://twitter.com/search?f=videos&amp;vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button"class="btn_item_long2">動画</a>
+<a href="https://twitter.com/search?f=images&amp;vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" class="btn_item_long2">画像</a>
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+
+<p class="tab_title">歌詞をみる</p>
 <?php $kasi_umu = get_post_meta($post->ID, 'kasi', true);?>
 <?php if(!empty($kasi_umu)):?>
 <p><a href="<?php the_field('kasi',$post->ID); ?>" rel="nofollow" id="button">歌詞サイトでFULL歌詞を見る</a></p>
 <?php endif;?>
 <?php if(empty($kasi_umu)):?>
-<p>この曲は歌詞サイトへのリンクが入力されていないため、リンクに対応していません。<br>必要であれば下のボタンからGoogle検索を行ってください<br>
+<p>この曲は現時点でリンクに対応していません。<br>検索すると見つかるかもです。<br>
 <a href="https://www.google.co.jp/search?q=<?php wp_title( '' ); ?> 歌詞" rel="nofollow" id="button">Google検索で歌詞を検索する</a></p>
 <?php endif;?>
 
-<?php endif; ?>
 
   </div>
   <div class="msgboxfoot">
@@ -360,6 +351,8 @@ $term_id = $term->term_id;//タームIDを取得
 $term_idmenu = $taxonomy.'_'; //「taxonomyname_ + termID」にする
 $link = get_term_link( $term, $taxonomy );//タームのリンクを取得
 $live_bd = get_field('shop',$term_idmenu.$term_id);
+$live_bd = get_field('place',$term_idmenu.$term_id);
+
 if(empty($live_bd)) {//もしライブBDが発売されているのなら
 $star = '';}else{
 $star = '★';}//星を出力する
