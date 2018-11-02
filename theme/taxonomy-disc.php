@@ -1,5 +1,5 @@
 <?php
-get_template_part('_sitehensu');
+get_template_part('sitehensu/godo');
 
 ?>
 
@@ -7,7 +7,6 @@ get_template_part('_sitehensu');
 
 <?php get_template_part('module_pageTit'); ?>
 <?php get_template_part('module_panList'); ?>
-
 
 <div class="section siteContent">
 <div class="container">
@@ -36,6 +35,8 @@ get_template_part('_sitehensu');
 <!-- PC用CSS -->
 <style type="text/css">
 .cdname{font-size:20px;}
+.idolicon_cd{padding:4px;width:70px;margin-bottom:0px;}
+
 </style>
 <?php endif; ?>
 <!-- ここまでCD情報用CSS -->
@@ -102,13 +103,13 @@ echo $shop; // 取得した購入情報を出力
   <?php elseif (file_exists(get_stylesheet_directory( ).'/module_loop_'.$postType['slug'].'.php') && $postType != 'post' ): ?>
 
     <?php while ( have_posts() ) : the_post(); ?>
-    <?php get_template_part('module_loop_'.$postType['slug']); ?>
+    <?php get_template_part('parts/tax/module_loop_music_disc'); ?>
     <?php endwhile; ?>
 
   <?php else: ?>
 
     <?php while ( have_posts() ) : the_post();?>
-    <?php get_template_part('module_loop_post_music'); ?>
+    <?php get_template_part('parts/tax/module_loop_music_disc'); ?>
     <?php endwhile;?>
 
   <?php endif; // loop() ?>

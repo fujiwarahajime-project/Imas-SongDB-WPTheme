@@ -1,4 +1,4 @@
-﻿.idol{height:134px;width:100%;border:solid 1px darkgray;border-radius:2px;font-family:"Rounded Mplus 1c";}/* アイドル欄の外枠、フォントの設定 */
+﻿.idol{overflow:auto;height:auto;width:100%;border:solid 1px darkgray;border-radius:2px;font-family:"Rounded Mplus 1c";}/* アイドル欄の外枠、フォントの設定 */
 .idolicon{background:linear-gradient(lightgray,gray);float:left;padding:8px;width:132px;margin-bottom:0px;display:block;}/* アイドルアイコンに関すること */
 .idolname{font-size:5vm;margin:7px 5px;border-bottom:dotted 2px gray;font-weight: bold;}/* アイドルの名前に関すること */
 @media(min-width:520px){.idolname{font-size:150%;}}

@@ -1,12 +1,16 @@
 <?php
-get_template_part('_sitehensu');
+get_template_part('sitehensu/kyotsu');
+$taxonomy = get_query_var( 'taxonomy' );
+$tax_info = get_taxonomy($taxonomy);
+$pageTitle = $tax_info->label;
+
 ?>
+
 
 <?php get_header(); ?>
 
 <?php get_template_part('module_pageTit'); ?>
 <?php get_template_part('module_panList'); ?>
-
 
 <div class="section siteContent">
 <div class="container">
@@ -14,41 +18,16 @@ get_template_part('_sitehensu');
 
 <div class="col-md-8 mainSection" id="main" role="main">
 
-<?php
-$term_id = get_queried_object_id(); // タームIDの取得
-$term_idmenu = $taxonomy.'_'; //「taxonomyname_ + termID」の取得
-$idol_term = get_field('idol-thum',$term_idmenu.$term_id);//アイドル固有IDの引き出し
-$CV = get_field('cv',$term_idmenu.$term_id);//CVの引き出し
-$upload_dir = wp_upload_dir();//アップロードファイルのディレクトリパスを取得
-$CVKana = get_field('CVKana',$term_idmenu.$term_id);//CVのふりがなの引き出し
-$Kana = get_field('Kana',$term_idmenu.$term_id);//アイドル名のふりがなの引き出し
-$idol_color = get_field('idol_color',$term_idmenu.$term_id);//アイドルのイメージカラーの引き出し（値が未入力の場合はCSSのidoliconから引き出します。）
-
-?>
-<!-- OGP -->
-<meta name="description" content="<?php echo $ryakusyou; ?>で<?php echo $CV;?>さん演じる<?php echo get_the_archive_title();?>の歌う曲の一覧ページです。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@<?php echo $site_twitter; ?>" />
-<meta name="twitter:creator" content="@<?php echo $creator_twitter; ?>" />
-<meta property="og:title" content="<?php echo get_the_archive_title();?>（CV.<?php echo $CV;?>）の歌う楽曲｜<?php bloginfo('name'); ?>">
-<meta property="og:description" content="<?php echo $ryakusyou; ?>で<?php echo $CV;?>さん演じる<?php echo get_the_archive_title();?>の歌う曲の一覧ページです。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
-<meta property="og:image" content="<?php echo $upload_dir['baseurl'];?>/idol/<?php echo $idol_term;?>.png">
-
-<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/idol.css" type="text/css" />
-
-<header class="archive-header">
  <?php
 /*-------------------------------------------*/
 /*  Archive title
 /*-------------------------------------------*/
 $page_for_posts = lightning_get_page_for_posts();
-
-
 // Use post top page（ Archive title wrap to div ）
 if ( $page_for_posts['post_top_use'] || get_post_type() != 'post' ) {
   if ( is_year() || is_month() || is_day() || is_tag() || is_author() || is_tax() || is_category() ) {
       $archiveTitle = get_the_archive_title();
-      $archiveTitle_html = '<div class="idol"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';"><div class="info"><div class="idolname"><ruby>'.$archiveTitle.'<rt>'.$Kana.'</rt></ruby>(CV.<ruby>'.$CV.'<rt>'.$CVKana.'</rt></ruby>)</div><div class="moreinfo"><a href="'.$idolinfo_URL.''.$idol_term.'" id="button">'.$idolsyosai_bun.'</a></div></div></div>';
+      $archiveTitle_html = '<header class="archive-header"><h1>'. $archiveTitle .'</h1></header>';
       echo apply_filters( 'lightning_mainSection_archiveTitle' , $archiveTitle_html );
   }
 }
@@ -62,18 +41,14 @@ if ( $page_for_posts['post_top_use'] || get_post_type() != 'post' ) {
     if ( ! empty( $category_description ) && $page == 0 ) {
       $archiveDescription_html = '<div class="archive-meta">' . $category_description . '</div>';
       echo apply_filters( 'lightning_mainSection_archiveDescription' , $archiveDescription_html );
+get_template_part('parts/tax/post-type_change');
+
     }
   }
 
 $postType = lightning_get_post_type();
 
 do_action('lightning_loop_before'); ?>
-<div class="archive-meta">
-
-<?php get_template_part('share'); ?>
-
-</div>
-
 
 <div class="postList">
 

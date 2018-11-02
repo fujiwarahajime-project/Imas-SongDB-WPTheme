@@ -61,109 +61,6 @@
         "description": ""
     },
     {
-        "key": "group_5b9fdc3054b51",
-        "title": "アイドルターム用",
-        "fields": [
-            {
-                "key": "field_599eca5567818",
-                "label": "アイドルサムネイル、CG-Portal",
-                "name": "idol-thum",
-                "type": "text",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "default_value": "",
-                "placeholder": "",
-                "prepend": "",
-                "append": "",
-                "formatting": "html",
-                "maxlength": ""
-            },
-            {
-                "key": "field_5ae1cc8ba0bf0",
-                "label": "CV",
-                "name": "cv",
-                "type": "text",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "default_value": "",
-                "placeholder": "",
-                "prepend": "",
-                "append": "",
-                "formatting": "html",
-                "maxlength": ""
-            },
-            {
-                "key": "field_59bb799c043a3",
-                "label": "よみがな",
-                "name": "Kana",
-                "type": "text",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "default_value": "",
-                "placeholder": "",
-                "prepend": "",
-                "append": "",
-                "formatting": "html",
-                "maxlength": ""
-            },
-            {
-                "key": "field_59bb79ca043a4",
-                "label": "CVよみがな",
-                "name": "CVKana",
-                "type": "text",
-                "instructions": "",
-                "required": 0,
-                "conditional_logic": 0,
-                "wrapper": {
-                    "width": "",
-                    "class": "",
-                    "id": ""
-                },
-                "default_value": "",
-                "placeholder": "",
-                "prepend": "",
-                "append": "",
-                "formatting": "html",
-                "maxlength": ""
-            }
-        ],
-        "location": [
-            [
-                {
-                    "param": "taxonomy",
-                    "operator": "==",
-                    "value": "idol"
-                }
-            ]
-        ],
-        "menu_order": 0,
-        "position": "acf_after_title",
-        "style": "seamless",
-        "label_placement": "top",
-        "instruction_placement": "label",
-        "hide_on_screen": [],
-        "active": 1,
-        "description": ""
-    },
-    {
         "key": "group_5b9fdc306371e",
         "title": "ライブターム用",
         "fields": [
@@ -413,6 +310,34 @@
                     "operator": "==",
                     "value": "music"
                 }
+            ],
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "music_ml"
+                }
+            ],
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "music_shiny"
+                }
+            ],
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "music_as"
+                }
+            ],
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "music_godo"
+                }
             ]
         ],
         "menu_order": 0,
@@ -420,7 +345,7 @@
         "style": "seamless",
         "label_placement": "top",
         "instruction_placement": "label",
-        "hide_on_screen": [],
+        "hide_on_screen": "",
         "active": 1,
         "description": ""
     }

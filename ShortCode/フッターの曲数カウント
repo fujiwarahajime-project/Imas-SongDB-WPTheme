@@ -1,3 +1,0 @@
-﻿$count_custom = wp_count_posts('music');
-$custom_posts = $count_custom->publish;
-echo '現在の掲載曲数は'.$custom_posts.'曲です。';

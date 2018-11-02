@@ -1,35 +1,4 @@
-<?php
-get_template_part('_sitehensu');
-$url_share=urlencode( get_the_permalink() );
-$title_share=urlencode(get_the_title()).'｜'.get_bloginfo('name');
-?>
-
-<?php get_header(); ?>
-<?php get_template_part('module_pageTit'); ?>
-<?php get_template_part('module_panList'); ?>
-
-<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/song.css" type="text/css" />
-<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/no_git.css" type="text/css" />
-<script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/resources/cd_accordion.js"></script>
-
-<!-- Metaデータ -->
-<meta name="description" content="<?php echo "$ryakusyou"; ?>曲「<?php the_title(); ?>」の曲情報です。歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
-<meta name="twitter:card" content="summary" />
-<meta name="twitter:site" content="@<?php echo "$site_twitter"; ?>" />
-<meta name="twitter:creator" content="@<?php echo "$creator_twitter"; ?>" />
-<meta property="og:title" content="「<?php the_title(); ?>」｜<?php bloginfo('name'); ?>">
-<meta property="og:description" content="<?php echo "$ryakusyou"; ?>曲「<?php the_title(); ?>」の歌詞サイト、ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
-<meta property="og:image" content="<?php if ( has_post_thumbnail() ) {
-	$image_id = get_post_thumbnail_id ();
-	$image_url = wp_get_attachment_image_src ($image_id, true);
-	echo $image_url[0];
-} else {
-	echo get_bloginfo( 'template_directory' ) . '/images/thumbnail.png';
-} ?>
-">
-
-
-<div class="section siteContent">
+﻿<div class="section siteContent">
 <div class="container">
 <div class="row">
 
@@ -45,16 +14,16 @@ if (have_posts()) : while ( have_posts() ) : the_post();?>
 	<header>
 	<?php get_template_part('module_loop_post_meta');?>
 
-<?php if (is_object_in_term($post->ID, 'musictype','rearrange')): //リアレンジ曲の場合、ルビを表示しない
+<?php if (is_object_in_term($post->ID, 'musictype','rearrange')): //リアレンジ曲の場合、Rubyタグを使わない
 ?>
 
-<span class="ruby"><?php the_field('Kana',$post->ID); ?></span>
-<h1 class="entry-title"><?php the_title(); ?></h1>
+<span class="ruby"><?php echo get_post_meta($post->ID,'Kana',true); ?></span>
+<h1><span class="entry-title"><?php the_title(); ?></span></h1>
 
 <?php else: //リアレンジ曲以外の処理
 ?>
 	<h1 class="entry-title"><ruby><rb><?php the_title(); ?></rb>
-<rp>（</rp><rt><?php the_field('Kana',$post->ID); ?></rt><rp>）</rp></ruby></h1>
+<rp>（</rp><rt><?php echo get_post_meta($post->ID,'Kana',true); ?></rt><rp>）</rp></ruby></h1>
 <?php endif; ?>
 
 	</header>
@@ -77,6 +46,8 @@ if (have_posts()) : while ( have_posts() ) : the_post();?>
 </div>
 
 <br>
+<?php get_template_part('parts/music_page/ad'); ?>
+
 <?php endif; ?>
 
 <div class="msgbox">
@@ -86,7 +57,7 @@ if (have_posts()) : while ( have_posts() ) : the_post();?>
 	<tbody>
 		<tr>
 			<td>ニコ動タグ</td>
-			<td><a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?>" rel="nofollow" id="button" style="display:block;padding:0px 15px;text-align:center;"><span style="line-height: 0px;"><?php the_field('NicoTag',$post->ID); ?></span></a></td>
+			<td><a href="http://www.nicovideo.jp/tag/<?php echo get_post_meta($post->ID,'NicoTag',true); ?>" rel="nofollow" id="button" style="display:block;padding:0px 15px;text-align:center;"><span style="line-height: 0px;"><?php echo get_post_meta($post->ID,'NicoTag',true);; ?></span></a></td>
 		</tr>
 		<tr>
 			<td>作詞</td>
@@ -101,50 +72,72 @@ if (have_posts()) : while ( have_posts() ) : the_post();?>
 			<td><?php echo get_the_term_list( $post->ID, arrange, '', '、', ''); ?></td>
 		</tr>
 		<tr>
-			<td>歌唱ユニット</td>
-			<td><?php echo get_the_term_list( $post->ID, unit, '', '、', ''); ?></td>
+			<td>ユニット</td>
+			<td><?php if(is_singular( 'music_shiny' )){
+//シャイニーカラーズ出力用タグ
+$taxonomy = 'idol_sc';
+$terms = wp_get_object_terms($post->ID, $taxonomy);
+if ($terms) {
+foreach ( $terms as $term ) {
+$term_id = $term->term_id;//タームID取得
+$link = get_term_link( $term, $taxonomy );//タームのリンクを取得
+
+if($term->parent == 0){ //子タクソノミーがある（ユニット）のみ出力
+echo '<div><a href="'.$link.'">'.esc_html($term->name).'</a></div>';
+    }}}
+} else { //シンデレラガールズ出力タグ
+echo get_the_term_list( $post->ID, unit, '', '<br>', '');
+}?></td>
 		</tr>
 		<tr>
-			<td>オリジナルアーティスト</td>
-			<td><?php the_field('orig-artist',$post->ID); ?></td>
+			<td>オリジナル</td>
+			<td><?php echo get_post_meta($post->ID,'orig-artist',true); ?></td>
 		</tr>
 		<tr>
 			<td>関連</td>
-			<td><?php echo get_the_term_list( $post->ID, music, '', '<br>', ''); ?></td>
+			<td><?php echo get_the_term_list( $post->ID, music, '', '<br>', ''); ?><?php echo get_the_term_list( $post->ID, music_ml, '', '<br>', ''); ?></td>
 		</tr>
 
 	</tbody>
 </table>
-<p style="text-align:left;font-size: 150%;border-bottom: dotted 3px gray;">歌唱メンバー</p>
-<div class="idollist">
-<?php 
-$taxonomy = 'idol';
-if ($terms = get_the_terms($post->ID, $taxonomy)) {
-foreach ( $terms as $term ) {
-$term_id = $term->term_id;//タームID取得
-$term_idmenu = $taxonomy.'_'; //「taxonomyname_ 」の取得
-$link = get_term_link( $term, $taxonomy );//タームのリンクを取得
-$CV = get_field('cv',$term_idmenu.$term_id);//声優の名前を取得
-$idol_term = get_field('idol-thum',$term_idmenu.$term_id);//アイドル固有ID（画像のファイル名）を取得
-$idol_color = get_field('idol_color',$term_idmenu.$term_id);//アイドルのテーマカラーを取得
-$upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
 
-//出力
-echo '<div class="idol"><a href="'.$link.'"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';" title="'.$term->term_id.'"></a>';
-echo "\n";
-echo '<div class="info"><div class="idolname"><a href="'.$link.'">'.esc_html($term->name).'</a></div>';
-echo "\n";
-echo '<div class="moreinfo">CV：'.$CV.'</div></div></div>';
-echo "\n";
-    }
+</div>
+  <div class="msgboxfoot">
+  </div>
+</div>
+<br>
+
+<div class="msgbox" id="member">
+  <div class="msgboxtop">メンバー情報</div>
+<div class="msgboxbody">
+<?php
+if(is_singular( 'music' )){ //シンデレラガールズの場合
+get_template_part('parts/music_page/member/cin');
+get_template_part('parts/music_page/member/765');
+get_template_part('parts/music_page/member/shiny');
+} elseif(is_singular( 'music_shiny' )){ //シャイニーカラーズの場合
+get_template_part('parts/music_page/member/shiny');
+} else{ //ミリオンライブ、合同、765ASの場合
+get_template_part('parts/music_page/member/765');
+get_template_part('parts/music_page/member/cin');
+get_template_part('parts/music_page/member/shiny');
 }
 ?>
-<?php $partinfo = get_post_meta($post->ID, 'partinfo', true);?>
-<?php if(!empty($partinfo)):?>
+
+
+<?php
+//繰り返しフィールド（CDごとのパート情報）を変数にセット
+$cd_group = SCF::get( 'CD_group',$id );
+foreach ( $cd_group as $field_name => $field_value ) {
+
+$tax_id_temp = $field_value['cd_term'];
+$idol_temp =  $field_value['cd_mem'];
+${"cdidol_".$tax_id_temp."_".$id} = explode(',', $idol_temp);
+}
+if(!empty($idol_temp)):?>
 <p>この曲には、CDごとのメンバー情報があります。くわしくは<a href="#CD">CD情報</a>で確認ください。</p>
 <?php endif;?>
 
-</div>
 </div>
   <div class="msgboxfoot">
   </div>
@@ -165,9 +158,9 @@ echo "\n";
 <div class="tab_area link_label">
 <span class="btn_item_5" style="border-top: medium solid thistle;border-left: medium solid thistle;padding:2px 0px 2px 2px;"><label class="tabni_label btn_item_in" for="tabni" id="button" style="border-radius:10px 0px 0px 15px;margin:0px;"><img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/nico_logo.png" width="25px"></label></span>
 <span class="btn_item_5" style="border-top: medium solid thistle;border-right: medium solid thistle;padding:2px 2px 2px 0px;"><label class="tabtw_label btn_item_in" for="tabtw" id="button" style="border-radius:0px 15px 15px 0px;margin:0px;"><i class="fab fa-twitter"></i></label></span>
-<span class="btn_item_5 under_line"><a href="https://www.google.co.jp/search?q=<?php wp_title( '' ); ?>" rel="nofollow"  id="button" class="btn_item_in"><i class="fab fa-google"></i></a></span>
-<span class="btn_item_5 under_line"><a href="https://www.pixiv.net/search.php?s_mode=s_tc&amp;word=<?php wp_title( '' ); ?>" rel="nofollow"  id="button" class="btn_item_in"><img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/pixiv_logo.jpg" width="25px"></a></span>
-<span class="btn_item_5 under_line"><a href="https://www.youtube.com/results?search_query=<?php wp_title( '' ); ?>" rel="nofollow" id="button" class="btn_item_in"><i class="fab fa-youtube"></i></a></span>
+<span class="btn_item_5 under_line"><a href="https://www.google.co.jp/search?q=<?php the_title(); ?>" rel="nofollow"  id="button" class="btn_item_in"><i class="fab fa-google"></i></a></span>
+<span class="btn_item_5 under_line"><a href="https://www.pixiv.net/search.php?s_mode=s_tc&amp;word=<?php the_title(); ?>" rel="nofollow"  id="button" class="btn_item_in"><img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/pixiv_logo.jpg" width="25px"></a></span>
+<span class="btn_item_5 under_line"><a href="https://www.youtube.com/results?search_query=<?php the_title(); ?>" rel="nofollow" id="button" class="btn_item_in"><i class="fab fa-youtube"></i></a></span>
 </div>
 
 
@@ -176,11 +169,22 @@ echo "\n";
 <!-- niconicoのタブの中身 -->
 <p class="tab_title">niconicoでさがす</p>
 <div class="tab_area_long">
-<a href="http://www.nicovideo.jp/search/<?php wp_title( '' ); ?>" rel="nofollow" id="button" class="btn_item_long">ワード</a>
-<a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?>" rel="nofollow" id="button" class="btn_item_long">タグ</a>
-<a href="http://dic.nicovideo.jp/a/<?php the_field('NicoTag',$post->ID); ?>" rel="nofollow" id="button" class="btn_item_long">大百科</a>
-<a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?> アイマスRemix" rel="nofollow" id="button" class="btn_item_long">Remix</a>
-<a href="http://www.nicovideo.jp/tag/<?php the_field('NicoTag',$post->ID); ?> <?php echo "$MV_Tag"; ?>" rel="nofollow" id="button" class="btn_item_long">MV</a>
+<?php
+$NicoTag = get_post_meta($post->ID,'NicoTag',true);
+if(is_singular( 'music_shiny' ) or is_singular( 'music_godo' )): //シャイニーカラーズまたは合同曲の場合
+?>
+<a href="http://www.nicovideo.jp/search/<?php the_title(); ?>" rel="nofollow" id="button" class="btn_item_long2">ワード</a>
+<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long2">タグ</a>
+<a href="http://dic.nicovideo.jp/a/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long2">大百科</a>
+<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?> アイマスRemix" rel="nofollow" id="button" class="btn_item_long2">Remix</a>
+<?php else //シンデレラガールズやミリオンライブの場合
+: ?>
+<a href="http://www.nicovideo.jp/search/<?php the_title(); ?>" rel="nofollow" id="button" class="btn_item_long">ワード</a>
+<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long">タグ</a>
+<a href="http://dic.nicovideo.jp/a/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long">大百科</a>
+<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?> アイマスRemix" rel="nofollow" id="button" class="btn_item_long">Remix</a>
+<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?> <?php echo "$MV_Tag"; ?>" rel="nofollow" id="button" class="btn_item_long">MV</a>
+<?php endif; ?>
 </div>
 </div>
 
@@ -188,10 +192,10 @@ echo "\n";
 <!-- Twitterのタブの中身 -->
 <p class="tab_title">Twitterでさがす</p>
 <div class="tab_area_long">
-<a href="https://twitter.com/search?vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" class="btn_item_long2">人気</a>
-<a href="https://twitter.com/search?f=tweets&amp;vertical=default&amp;&q=<?php wp_title( '' ); ?>" rel="nofollow" id="button"class="btn_item_long2">リアルタイム</a>
-<a href="https://twitter.com/search?f=videos&amp;vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button"class="btn_item_long2">動画</a>
-<a href="https://twitter.com/search?f=images&amp;vertical=default&amp;q=<?php wp_title( '' ); ?>" rel="nofollow" id="button" class="btn_item_long2">画像</a>
+<a href="https://twitter.com/search?vertical=default&amp;q=&quot;<?php the_title(); ?>&quot;" rel="nofollow" id="button" class="btn_item_long2">人気</a>
+<a href="https://twitter.com/search?f=tweets&amp;vertical=default&amp;&q=&quot;<?php the_title(); ?>&quot;" rel="nofollow" id="button"class="btn_item_long2">リアルタイム</a>
+<a href="https://twitter.com/search?f=videos&amp;vertical=default&amp;q=&quot;<?php the_title(); ?>&quot;" rel="nofollow" id="button"class="btn_item_long2">動画</a>
+<a href="https://twitter.com/search?f=images&amp;vertical=default&amp;q=&quot;<?php the_title(); ?>&quot;" rel="nofollow" id="button" class="btn_item_long2">画像</a>
 </div>
 </div>
 
@@ -204,11 +208,11 @@ echo "\n";
 <p class="tab_title">歌詞をみる</p>
 <?php $kasi_umu = get_post_meta($post->ID, 'kasi', true);?>
 <?php if(!empty($kasi_umu)):?>
-<p><a href="<?php the_field('kasi',$post->ID); ?>" rel="nofollow" id="button">歌詞サイトでFULL歌詞を見る</a></p>
+<p><a href="<?php get_post_meta($post->ID, 'kasi', true); ?>" rel="nofollow" id="button">歌詞サイトでFULL歌詞を見る</a></p>
 <?php endif;?>
 <?php if(empty($kasi_umu)):?>
 <p>この曲は現時点でリンクに対応していません。<br>検索すると見つかるかもです。<br>
-<a href="https://www.google.co.jp/search?q=<?php wp_title( '' ); ?> 歌詞" rel="nofollow" id="button">Google検索で歌詞を検索する</a></p>
+<a href="https://www.google.co.jp/search?q=<?php the_title(); ?> 歌詞" rel="nofollow" id="button">Google検索で歌詞を検索する</a></p>
 <?php endif;?>
 
 
@@ -225,11 +229,12 @@ echo "\n";
 ?>
 <?php if(!empty($movie))://動画がある場合は動画を表示
 ?>
-<?php the_field('movie',$post->ID); ?>
+<?php echo apply_filters('the_content',$movie); ?>
 <?php endif;?>
 <?php if(empty($movie))://動画がない場合場合の記述　この場合は配信の埋め込みを取得。
 ?>
-<p>この曲に動画はありません。</p><?php the_field('haishin',$post->ID); ?>
+<p>この曲に動画はありません。</p>
+<?php echo apply_filters('the_content',get_post_meta($post->ID, 'haishin', true)); ?>
 <?php endif;?>
   </div>
   <div class="msgboxfoot">
@@ -258,13 +263,13 @@ echo "\n";
   <div class="msgboxtop">CD情報</div>
   <div class="msgboxbody">
 
-<?php the_field('partinfo',$post->ID); //パート分け情報の出力
+<?php echo apply_filters('the_content',get_post_meta($post->ID, 'partinfo', true)); //パート分け情報の出力
 ?>
 
 <!-- すべて操作ボタン -->
 <div class="vmenu_all_action" style="text-align: center;">
-<span id="button" onclick="doReplaceClassName('vmenu_off', 'vmenu_on')" style="display:inline-block;width:45%;">CD詳細情報をすべて表示</span>
-<span id="button" onclick="doReplaceClassName('vmenu_on',  'vmenu_off')" style="display:inline-block;width:45%;">CD詳細情報をすべて非表示</span>
+<span id="button" onclick="doReplaceClassName('vmenu_off', 'vmenu_on')" style="display:inline-block;width:45%;">詳細を全て表示</span>
+<span id="button" onclick="doReplaceClassName('vmenu_on',  'vmenu_off')" style="display:inline-block;width:45%;">詳細を全て非表示</span>
 </div>
 
 <?php if(get_post_meta($post->ID, 'haishin', true)): ?>
@@ -272,7 +277,7 @@ echo "\n";
 <div class="vmenu_off">
 <div class="vmenuitem" onclick="doToggleClassName(getParentObj(this),'vmenu_on','vmenu_off')">
 <img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/ipod_icon.png" class="cdicon"><div class="cdname">iTunes等の配信サイトで配信あり</div></div>
-<div class="info_C"><?php the_field('haishin',$post->ID); ?></div></div><br>
+<div class="info_C"><?php echo apply_filters('the_content',get_post_meta($post->ID, 'haishin', true)); ?></div></div><br>
 <?php endif; ?>
 
 <?php 
@@ -284,15 +289,6 @@ $term_idmenu = $taxonomy.'_'; //「taxonomyname_ + termID」にする
 $link = get_term_link( $term, $taxonomy );//タームのリンクを取得
 $shop = get_field('shop',$term_idmenu.$term_id);//販売情報を取得
 
-//繰り返しフィールド（CDごとのパート情報）を変数にセット
-$cd_group = SCF::get( 'CD_group',$id );
-foreach ( $cd_group as $field_name => $field_value ) {
-
-$tax_id_temp = $field_value['cd_term'];
-$idol_temp =  $field_value['cd_mem'];
-
-${"cdidol_".$tax_id_temp."_".$id} = explode(',', $idol_temp);
-}
 
 //出力
 echo '<div class="vmenu_off">';
@@ -302,12 +298,22 @@ echo '<div class="info_C"><a href="'.$link.'" id="button" style="text-align:cent
 echo "\n";
 
 $kiji_id = get_the_ID();
+$upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
 
 //アイドル画像出力ループ
 foreach (${"cdidol_".$term_id."_".$kiji_id} as $idol_name_roop) {
 
-//指定したアイドルのデータを引き出す
-$term = get_term_by('name',$idol_name_roop,'idol');
+if(get_term_by('name',$idol_name_roop,'idol_cg')){ //シンデレラガールズにいるか検索
+$term = get_term_by('name',$idol_name_roop,'idol_cg');
+$thum_dir = 'cinderella';
+} elseif (get_term_by('name',$idol_name_roop,'idol_765')){ //ミリオンライブにいるか検索
+$term = get_term_by('name',$idol_name_roop,'idol_765');
+$thum_dir = 'millionlive';
+} elseif (get_term_by('name',$idol_name_roop,'idol_283')){ //シャイニーカラーズにいるか検索
+$term = get_term_by('name',$idol_name_roop,'idol_283');
+$thum_dir = 'shinycolors';
+} else {
+}
 
         // タームのURLを取得
 $term_link = get_term_link( $term );
@@ -317,7 +323,7 @@ $term_link = get_term_link( $term );
 				$idol_term = get_field('idol-thum', $term);
 				$idol_color = get_field('idol_color', $term);
         // 結果を出力
-        echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'"></a>';
+        echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$thum_dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'"></a>';
 
 }
 
@@ -338,7 +344,7 @@ echo "\n";
 <div class="msgbox" id="live">
   <div class="msgboxtop">この曲が披露されたライブ・イベント</div>
   <div class="msgboxbody">
-先頭に「★」がついているライブは、DVD・BD等の円盤メディアが発売されています。<br>
+先頭に「<i class="fas fa-compact-disc"></i>」がついているライブは、DVD・BD等の円盤メディアが発売されています。<br>
 披露された会場の確認と、円盤の価格確認や購入についてはライブ名のリンク先でできます。
 	  <table>
 	<tbody>
@@ -351,14 +357,15 @@ $term_id = $term->term_id;//タームIDを取得
 $term_idmenu = $taxonomy.'_'; //「taxonomyname_ + termID」にする
 $link = get_term_link( $term, $taxonomy );//タームのリンクを取得
 $live_bd = get_field('shop',$term_idmenu.$term_id);
-$live_bd = get_field('place',$term_idmenu.$term_id);
+$place = get_field('place',$term_idmenu.$term_id);
 
 if(empty($live_bd)) {//もしライブBDが発売されているのなら
-$star = '';}else{
-$star = '★';}//星を出力する
+$star = '';//一旦空にしないと前のループを引きずるので必要
+} else {
+$star = '<i class="fas fa-compact-disc"></i>';}//ディスクアイコンを出力する
 
 //出力
-echo '<tr><td>'.$star.'</td><td><a href="'.$link.'">'.esc_html($term->name).'</a></td></tr>';
+echo '<tr><td>'.$star.'</td><td><a href="'.$link.'" title="'.$place.'">'.esc_html($term->name).'</a></td></tr>';
 echo "\n";
     }
 }
@@ -377,6 +384,7 @@ echo "\n";
   <div class="msgboxbody">
 	<?php the_content();//ここがWPの本文とその前後に付随するプラグインの出力先になる。
 ?>
+<?php related_posts(); ?>
   </div>
   <div class="msgboxfoot">
   </div>

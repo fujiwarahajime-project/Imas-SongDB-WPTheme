@@ -1,0 +1,249 @@
+﻿function cptui_register_my_cpts() {
+
+	/**
+	 * Post Type: ミリオンライブ曲.
+	 */
+
+	$labels = array(
+		"name" => __( "ミリオンライブ曲", "lightning-child" ),
+		"singular_name" => __( "ミリオンライブ曲", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "ミリオンライブ曲", "lightning-child" ),
+		"labels" => $labels,
+		"description" => "",
+		"public" => true,
+		"publicly_queryable" => true,
+		"show_ui" => true,
+		"delete_with_user" => false,
+		"show_in_rest" => true,
+		"rest_base" => "",
+		"rest_controller_class" => "WP_REST_Posts_Controller",
+		"has_archive" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"exclude_from_search" => false,
+		"capability_type" => "post",
+		"map_meta_cap" => true,
+		"hierarchical" => false,
+		"rewrite" => array( "slug" => "music/ml", "with_front" => true ),
+		"query_var" => true,
+		"menu_icon" => "dashicons-format-audio",
+		"supports" => array( "title", "editor", "thumbnail", "custom-fields", "comments" ),
+		"yarpp_support" => true,
+	);
+
+	register_post_type( "music_ml", $args );
+
+	/**
+	 * Post Type: シャイニーカラーズ曲.
+	 */
+
+	$labels = array(
+		"name" => __( "シャイニーカラーズ曲", "lightning-child" ),
+		"singular_name" => __( "シャイニーカラーズ曲", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "シャイニーカラーズ曲", "lightning-child" ),
+		"labels" => $labels,
+		"description" => "",
+		"public" => true,
+		"publicly_queryable" => true,
+		"show_ui" => true,
+		"delete_with_user" => false,
+		"show_in_rest" => false,
+		"rest_base" => "",
+		"rest_controller_class" => "WP_REST_Posts_Controller",
+		"has_archive" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"exclude_from_search" => false,
+		"capability_type" => "post",
+		"map_meta_cap" => true,
+		"hierarchical" => false,
+		"rewrite" => array( "slug" => "music/sc", "with_front" => true ),
+		"query_var" => true,
+		"menu_icon" => "dashicons-format-audio",
+		"supports" => array( "title", "editor", "thumbnail", "custom-fields", "comments" ),
+		"yarpp_support" => true,
+	);
+
+	register_post_type( "music_shiny", $args );
+
+	/**
+	 * Post Type: 765AS曲.
+	 */
+
+	$labels = array(
+		"name" => __( "765AS曲", "lightning-child" ),
+		"singular_name" => __( "765AS曲", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "765AS曲", "lightning-child" ),
+		"labels" => $labels,
+		"description" => "",
+		"public" => true,
+		"publicly_queryable" => true,
+		"show_ui" => true,
+		"delete_with_user" => false,
+		"show_in_rest" => true,
+		"rest_base" => "",
+		"rest_controller_class" => "WP_REST_Posts_Controller",
+		"has_archive" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"exclude_from_search" => false,
+		"capability_type" => "post",
+		"map_meta_cap" => true,
+		"hierarchical" => false,
+		"rewrite" => array( "slug" => "music/as", "with_front" => true ),
+		"query_var" => true,
+		"menu_icon" => "dashicons-format-audio",
+		"supports" => array( "title", "editor", "thumbnail" ),
+		"taxonomies" => array( "musictype", "lyrics", "arrange", "composer", "disc", "music", "unit", "live", "idol_765", "idol_cg" ),
+		"yarpp_support" => true,
+	);
+
+	register_post_type( "music_as", $args );
+
+	/**
+	 * Post Type: 合同曲.
+	 */
+
+	$labels = array(
+		"name" => __( "合同曲", "lightning-child" ),
+		"singular_name" => __( "合同曲", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "合同曲", "lightning-child" ),
+		"labels" => $labels,
+		"description" => "",
+		"public" => true,
+		"publicly_queryable" => true,
+		"show_ui" => true,
+		"delete_with_user" => false,
+		"show_in_rest" => true,
+		"rest_base" => "",
+		"rest_controller_class" => "WP_REST_Posts_Controller",
+		"has_archive" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"exclude_from_search" => false,
+		"capability_type" => "post",
+		"map_meta_cap" => true,
+		"hierarchical" => false,
+		"rewrite" => array( "slug" => "music/joint", "with_front" => true ),
+		"query_var" => true,
+		"menu_icon" => "dashicons-format-audio",
+		"supports" => array( "title", "editor", "thumbnail" ),
+		"taxonomies" => array( "musictype", "lyrics", "arrange", "composer", "disc", "unit", "live", "idol_765", "idol_cg", "idol_sc" ),
+		"yarpp_support" => true,
+	);
+
+	register_post_type( "music_godo", $args );
+
+	/**
+	 * Post Type: シンデレラガールズ曲.
+	 */
+
+	$labels = array(
+		"name" => __( "シンデレラガールズ曲", "lightning-child" ),
+		"singular_name" => __( "シンデレラガールズ曲", "lightning-child" ),
+		"menu_name" => __( "シンデレラガールズ曲", "lightning-child" ),
+		"all_items" => __( "すべての曲", "lightning-child" ),
+		"add_new" => __( "新規追加", "lightning-child" ),
+		"add_new_item" => __( "新規曲を追加", "lightning-child" ),
+		"edit_item" => __( "曲の編集", "lightning-child" ),
+		"new_item" => __( "新しい曲", "lightning-child" ),
+		"view_item" => __( "曲を表示", "lightning-child" ),
+		"view_items" => __( "曲を表示", "lightning-child" ),
+		"search_items" => __( "曲を検索", "lightning-child" ),
+		"not_found" => __( "曲が見つかりません", "lightning-child" ),
+		"not_found_in_trash" => __( "ゴミ箱内に曲はありません", "lightning-child" ),
+		"featured_image" => __( "曲のアイキャッチ", "lightning-child" ),
+		"set_featured_image" => __( "曲のアイキャッチを設定", "lightning-child" ),
+		"remove_featured_image" => __( "曲のアイキャッチを削除", "lightning-child" ),
+		"use_featured_image" => __( "曲のアイキャッチを使用", "lightning-child" ),
+		"archives" => __( "曲アーカイブ", "lightning-child" ),
+		"insert_into_item" => __( "曲に挿入", "lightning-child" ),
+		"uploaded_to_this_item" => __( "曲へのアップロード", "lightning-child" ),
+		"filter_items_list" => __( "曲一覧を絞り込む", "lightning-child" ),
+		"items_list_navigation" => __( "曲リストナビゲーション", "lightning-child" ),
+		"items_list" => __( "曲一覧", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "シンデレラガールズ曲", "lightning-child" ),
+		"labels" => $labels,
+		"description" => "曲のページを作ります。",
+		"public" => true,
+		"publicly_queryable" => true,
+		"show_ui" => true,
+		"delete_with_user" => false,
+		"show_in_rest" => true,
+		"rest_base" => "",
+		"rest_controller_class" => "WP_REST_Posts_Controller",
+		"has_archive" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"exclude_from_search" => false,
+		"capability_type" => "post",
+		"map_meta_cap" => true,
+		"hierarchical" => true,
+		"rewrite" => array( "slug" => "music/cg", "with_front" => true ),
+		"query_var" => true,
+		"menu_icon" => "dashicons-format-audio",
+		"supports" => array( "title", "editor", "thumbnail", "custom-fields", "comments" ),
+		"taxonomies" => array( "musictype", "lyrics", "arrange", "composer", "disc", "music", "unit", "live", "idol_765", "idol_cg" ),
+		"yarpp_support" => true,
+	);
+
+	register_post_type( "music_cg", $args );
+}
+
+add_action( 'init', 'cptui_register_my_cpts' );
+
+function cptui_register_my_cpts_music_ml() {
+
+	/**
+	 * Post Type: ミリオンライブ曲.
+	 */
+
+	$labels = array(
+		"name" => __( "ミリオンライブ曲", "lightning-child" ),
+		"singular_name" => __( "ミリオンライブ曲", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "ミリオンライブ曲", "lightning-child" ),
+		"labels" => $labels,
+		"description" => "",
+		"public" => true,
+		"publicly_queryable" => true,
+		"show_ui" => true,
+		"delete_with_user" => false,
+		"show_in_rest" => true,
+		"rest_base" => "",
+		"rest_controller_class" => "WP_REST_Posts_Controller",
+		"has_archive" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"exclude_from_search" => false,
+		"capability_type" => "post",
+		"map_meta_cap" => true,
+		"hierarchical" => false,
+		"rewrite" => array( "slug" => "music/ml", "with_front" => true ),
+		"query_var" => true,
+		"menu_icon" => "dashicons-format-audio",
+		"supports" => array( "title", "editor", "thumbnail", "custom-fields", "comments" ),
+		"yarpp_support" => true,
+	);
+
+	register_post_type( "music_ml", $args );
+}
+
+add_action( 'init', 'cptui_register_my_cpts_music_ml' );

@@ -1,0 +1,1 @@
+﻿本番環境ではtable_sorterのJSや、JQueryなどを入れています。

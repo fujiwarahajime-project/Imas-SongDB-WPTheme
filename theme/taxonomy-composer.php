@@ -1,10 +1,8 @@
 <?php
-get_template_part('sitehensu/godo');
-
-$term_id = get_queried_object_id(); // タームIDの取得
-$term_idmenu = $taxonomy.'_'; //「taxonomyname_ + termID」を取得
-$place = get_field('place',$term_idmenu.$term_id);//場所の出力
-$address =  get_field('address',$term_idmenu.$term_id);
+get_template_part('sitehensu/kyotsu');
+$taxonomy = get_query_var( 'taxonomy' );
+$tax_info = get_taxonomy($taxonomy);
+$pageTitle = $tax_info->label;
 
 ?>
 
@@ -18,15 +16,15 @@ $address =  get_field('address',$term_idmenu.$term_id);
 <div class="row">
 
 <div class="col-md-8 mainSection" id="main" role="main">
-
 <!-- OGP -->
-<meta name="description" content="<?php echo $place; ?>で開催のライブ「<?php echo get_the_archive_title();?>」の曲情報です。">
+<meta name="description" content="<?php echo get_the_archive_title();?>さんの<?php echo $pageTitle;?>された<?php echo $ryakusyou; ?>楽曲の情報です。">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@<?php echo $site_twitter; ?>" />
 <meta name="twitter:creator" content="@<?php echo $creator_twitter; ?>" />
-<meta property="og:title" content="「<?php echo get_the_archive_title();?>」｜<?php bloginfo('name'); ?>">
-<meta property="og:description" content="<?php echo $place; ?>で開催のライブ「<?php echo get_the_archive_title();?>」の曲情報です。">
-<meta property="og:image" content="<?php echo get_stylesheet_directory_uri();?>/resources/mic_icon.png">
+<meta property="og:title" content="<?php echo get_the_archive_title();?>｜<?php bloginfo('name'); ?>">
+<meta property="og:description" content="<?php echo get_the_archive_title();?>さんの<?php echo $pageTitle;?>された<?php echo $ryakusyou; ?>楽曲の情報です。">
+<meta property="og:image" content="<?php echo get_stylesheet_directory_uri();?>/resources/note_icon.png">
+
 
 <!-- CD情報用CSS（OSにより分岐） -->
 <?php if(wp_is_mobile()): ?>
@@ -40,11 +38,13 @@ $address =  get_field('address',$term_idmenu.$term_id);
 <!-- PC用CSS -->
 <style type="text/css">
 .cdname{font-size:20px;}
+.idolicon_cd{padding:4px;width:70px;margin-bottom:0px;}
+
 </style>
 <?php endif; ?>
 <!-- ここまでCD情報用CSS -->
 <header class="archive-header">
-<div class="cdinfo" style="height:auto;">
+<div class="cdinfo" style="height:104px;">
  <?php
 /*-------------------------------------------*/
 /*  Archive title
@@ -54,8 +54,7 @@ $page_for_posts = lightning_get_page_for_posts();
 if ( $page_for_posts['post_top_use'] || get_post_type() != 'post' ) {
   if ( is_year() || is_month() || is_day() || is_tag() || is_author() || is_tax() || is_category() ) {
       $archiveTitle = get_the_archive_title();
-
-      $archiveTitle_html = '<img src="'.get_stylesheet_directory_uri().'/resources/mic_icon.png" class="cdicon"><div class="cdname"><p style="font-weight: bold;border-bottom: dotted 3px gray;margin: 0.3em 0px;">'. $archiveTitle .'</p>開催場所：'.$place.'<br><span Style="font-size: small;">住所：'.$address.'</span><br></div></div></header>';
+      $archiveTitle_html = '<img src="'.get_stylesheet_directory_uri().'/resources/note_icon.png" class="cdicon"><div class="cdname" style="font-weight: bold;">'.$pageTitle.'：'. $archiveTitle .'</div></div></header>';
       echo apply_filters( 'lightning_mainSection_archiveTitle' , $archiveTitle_html );
   }
 }
@@ -76,28 +75,12 @@ $postType = lightning_get_post_type();
 
 do_action('lightning_loop_before'); ?>
 <!-- CD購入情報の表示 -->
-<div class="archive-meta">
-<?php if ( !is_paged() ) : // 1ページ目のみに表示 ?>
-<div class="msgbox">
-  <div class="msgboxtop">このライブの映像ディスクを購入する</div>
-  <div class="msgboxbody">
-<?php
-$shop = get_field('shop',$term_idmenu.$term_id);//attachmentIDが出力される
-echo $shop; // タームID
-  ?>
-</div>
-  <div class="msgboxfoot">
-  </div>
-</div>
-<?php endif; ?>
+<?php get_template_part('parts/tax/staff_link'); ?>
 
 <?php get_template_part('share'); ?>
 
 
-</div>
-
 <div class="postList">
-
 <?php if (have_posts()) : ?>
 
   <?php if( apply_filters( 'is_lightning_extend_loop' , false ) ): ?>
