@@ -208,7 +208,7 @@ if(is_singular( 'music_shiny' ) or is_singular( 'music_godo' )): //シャイニ�
 <p class="tab_title">歌詞をみる</p>
 <?php $kasi_umu = get_post_meta($post->ID, 'kasi', true);?>
 <?php if(!empty($kasi_umu)):?>
-<p><a href="<?php get_post_meta($post->ID, 'kasi', true); ?>" rel="nofollow" id="button">歌詞サイトでFULL歌詞を見る</a></p>
+<p><a href="<?php echo get_post_meta($post->ID, 'kasi', true); ?>" rel="nofollow" id="button">歌詞サイトでFULL歌詞を見る</a></p>
 <?php endif;?>
 <?php if(empty($kasi_umu)):?>
 <p>この曲は現時点でリンクに対応していません。<br>検索すると見つかるかもです。<br>
