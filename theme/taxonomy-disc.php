@@ -28,6 +28,7 @@ get_template_part('sitehensu/godo');
 <style type="text/css">
 <!-- スマホ用CSS -->
 .cdname{font-size:15px;}
+.idolicon_cd{padding:4px;width:60px;margin-bottom:0px;}
 </style>
 <?php endif; ?>
 

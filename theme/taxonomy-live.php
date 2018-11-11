@@ -89,11 +89,87 @@ echo $shop; // タームID
   <div class="msgboxfoot">
   </div>
 </div>
+
+<!-- セットリスト -->
+
+<?php if(wp_is_mobile()): ?>
+<style type="text/css">
+<!-- スマホ用CSS -->
+.cdname{font-size:15px;}
+.idolicon_cd{padding:4px;width:60px;margin-bottom:0px;}
+</style>
 <?php endif; ?>
 
+<?php if(!wp_is_mobile()): ?>
+<!-- PC用CSS -->
+<style type="text/css">
+.cdname{font-size:20px;}
+.idolicon_cd{padding:4px;width:70px;margin-bottom:0px;}
+</style>
+<?php endif; ?>
+<?php if(count(SCF::get_term_meta( $term_id, $taxonomy, 'setlist' )) >= 2): ?>
+<table><tbody>
+<tr><th>曲名</th><th>アイドル</th></tr>
+<?php
+$setlist = SCF::get_term_meta( $term_id, $taxonomy, 'setlist' );
+foreach ($setlist as $fields ) {
+echo "<tr>";
+  //曲名を表示
+  echo '<td style="padding:0px">';
+  foreach ($fields['setlist_song'] as $songname) {
+    echo '<a href="'.get_permalink($songname).'">'.get_post($songname)->post_title.'</a>';
+  }
+  echo $fields['setlist_song2'];
+  echo '</td><td style="padding:0px">';
+  
+  $idol_temp = $fields['setlist_idol'];
+  $upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
+  if($fields['setlist_idol']){
+  $idol_list = explode(',', $idol_temp);
+    foreach ($idol_list as $idol_name_roop) {
+    // シンデレラガールズ有無判定 
+    $term_cin = get_term_by('name',$idol_name_roop,'idol_cg');
+    if( $term_cin ){
+    $term = $term_cin;
+    $dir = 'cinderella';
+    }
+    
+    //ミリオンライブ有無判定
+    $term_ml = get_term_by('name',$idol_name_roop,'idol_765');
+    if( $term_ml ){
+    $term = $term_ml;
+    $dir = 'millionlive';
+    }
+    
+    //シャイニーカラーズ有無判定
+    $term_shiny = get_term_by('name',$idol_name_roop,'idol_shiny');
+    if( $term_shiny ){
+    $term = $term_shiny;
+    $dir = 'shinycolors';
+    }
+    
+            // タームのURLを取得
+    $term_link = get_term_link( $term );
+            
+    //場所を取得
+            $cv = get_field('cv', $term);
+            $idol_term = get_field('idol-thum', $term);
+            $idol_color = get_field('idol_color', $term);
+            // 結果を出力
+            echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
+    }
+  }
+ 
+echo $fields['setlist_idol_hosoku'];
+echo "</td></tr>";
+echo PHP_EOL;
+}
+?>
+</tbody></table>
+<?php endif; ?>
+
+<?php endif; ?>
 <?php get_template_part('share'); ?>
-
-
 </div>
 
 <div class="postList">
