@@ -38,10 +38,6 @@ $args = array(
 $terms = get_terms( $taxonomy , $args );
 
 if ( count( $terms ) != 0 ) {
-//最初のTable処理
-echo '<style type="text/css">.idol{float:left;height:102px;width:375px;max-width: 100%;border:solid 1px darkgray;border-radius:2px;background:white;font-family: "Rounded Mplus 1c";}';
-echo '.idolicon{background:linear-gradient(lightgray,gray);float:left;padding:8px;width:100px;margin-bottom:0px;display:block;}';
-echo '.idolname{font-size:20px;margin:7px 5px;border-bottom:dotted 2px gray;font-weight: bold;}.moreinfo{margin:7px 7px;}.info{margin-left:100px;}.cv{float: left;}.count{text-align: right;}</style>';
     // タームのリスト $terms を $term に格納してループ
     foreach ( $terms as $term ) {
     
@@ -69,7 +65,7 @@ if($taxonomy == 'idol_sc') {//シャイニーカラーズの分岐
 	echo '<div class="moreinfo"><p class="cv">CV：<ruby>'.$cv.'<rt>'.$CVKana.'</rt></ruby></p><p class="count">'.$count.'</p></div></div>';
         echo '</div>';
         } else {
-	echo '<h2>'; //親ターム
+	echo '<h2 style="margin-bottom:0px;">'; //親ターム
 	echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/unit/'.$idol_term.'.png" style="height:40px;margin-right:10px;background:'.$idol_color.';">'.$term->name.'</a></h2>';
 }
 
