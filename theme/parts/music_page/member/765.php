@@ -23,3 +23,12 @@ echo "\n";
 echo "</div>";
 }
 ?>
+
+<?php //色出力用タグ
+$count_765 = count($terms);
+if($count_765 == 1 and empty(get_the_term_list($post->ID,'idol_cg')) and empty(get_the_term_list($post->ID,'idol_sc'))){
+    echo '<meta name="theme-color" content="'.$idol_color.'">';
+} else {
+    echo '<meta name="theme-color" content="#7272b4">';
+}
+?>

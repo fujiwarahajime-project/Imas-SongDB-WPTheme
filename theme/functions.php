@@ -69,7 +69,9 @@ function add_wp_head_custom(){ ?>
 <!--カスタムフォント-->
 <link href="https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css" rel="stylesheet" />
 <?php
-if(!is_tax( 'idol_765' )){ //ミリオンライブ以外の場合、サイトのメインカラーを出力する
+if(!is_tax( 'idol_765' ) and !is_singular('music_cg') and !is_singular('music_ml') and !is_singular('music_shiny') and !is_singular('music_as') and !is_singular('music_godo')){ 
+	//ミリオンライブ、singleページ以外の場合、サイトのメインカラーを出力する
+    //テーマカラー変更の場合、765のアイドルリストのところにも書いてあるから注意が必要
 echo '<meta name="theme-color" content="#7272b4">';
 }
 ?>
