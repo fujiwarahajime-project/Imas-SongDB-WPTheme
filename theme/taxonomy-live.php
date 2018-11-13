@@ -127,26 +127,23 @@ echo "<tr>";
   if($fields['setlist_idol']){
   $idol_list = explode(',', $idol_temp);
     foreach ($idol_list as $idol_name_roop) {
-    // シンデレラガールズ有無判定 
-    $term_cin = get_term_by('name',$idol_name_roop,'idol_cg');
-    if( $term_cin ){
-    $term = $term_cin;
-    $dir = 'cinderella';
-    }
-    
-    //ミリオンライブ有無判定
-    $term_ml = get_term_by('name',$idol_name_roop,'idol_765');
-    if( $term_ml ){
-    $term = $term_ml;
-    $dir = 'millionlive';
-    }
-    
-    //シャイニーカラーズ有無判定
-    $term_shiny = get_term_by('name',$idol_name_roop,'idol_shiny');
-    if( $term_shiny ){
-    $term = $term_shiny;
-    $dir = 'shinycolors';
-    }
+      $term_cin = get_term_by('name',$idol_name_roop,'idol_cg');
+      $term_ml = get_term_by('name',$idol_name_roop,'idol_765');
+      $term_shiny = get_term_by('name',$idol_name_roop,'idol_shiny');
+      
+      if( $term_cin ){
+        // シンデレラガールズ有無判定 
+      $term = $term_cin;
+      $dir = 'cinderella';
+      }elseif( $term_ml ){
+        //ミリオンライブ有無判定
+      $term = $term_ml;
+      $dir = 'millionlive';
+      }elseif( $term_shiny ){
+        //シャイニーカラーズ有無判定
+      $term = $term_shiny;
+      $dir = 'shinycolors';
+      }
     
             // タームのURLを取得
     $term_link = get_term_link( $term );

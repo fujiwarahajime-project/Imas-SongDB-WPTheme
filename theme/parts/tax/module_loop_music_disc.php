@@ -33,23 +33,21 @@ ${"cdidol_".$tax_id_temp."_".$id} = explode(',', $idol_temp);
 
 foreach (${"cdidol_".$term_id."_".$id} as $idol_name_roop) {
 
-// シンデレラガールズ有無判定 
+
 $term_cin = get_term_by('name',$idol_name_roop,'idol_cg');
+$term_ml = get_term_by('name',$idol_name_roop,'idol_765');
+$term_shiny = get_term_by('name',$idol_name_roop,'idol_shiny');
+
 if( $term_cin ){
+	// シンデレラガールズ有無判定 
 $term = $term_cin;
 $dir = 'cinderella';
-}
-
-//ミリオンライブ有無判定
-$term_ml = get_term_by('name',$idol_name_roop,'idol_765');
-if( $term_ml ){
+}elseif( $term_ml ){
+	//ミリオンライブ有無判定
 $term = $term_ml;
 $dir = 'millionlive';
-}
-
-//シャイニーカラーズ有無判定
-$term_shiny = get_term_by('name',$idol_name_roop,'idol_shiny');
-if( $term_shiny ){
+}elseif( $term_shiny ){
+	//シャイニーカラーズ有無判定
 $term = $term_shiny;
 $dir = 'shinycolors';
 }
