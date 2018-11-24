@@ -18,9 +18,9 @@ $title_share=urlencode(get_the_title()).'｜'.get_bloginfo('name');
 <?php get_template_part('module_pageTit'); ?>
 <?php get_template_part('module_panList'); ?>
 
-<link rel="stylesheet" href="<?php echo $css_dir ?>/css/song.css" type="text/css" />
-<link rel="stylesheet" href="<?php echo $css_dir ?>/css/no_git.css" type="text/css" />
-<script type="text/javascript" src="<?php echo $css_dir ?>/resources/cd_accordion.js"></script>
+<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/song.css" type="text/css" />
+<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/no_git.css" type="text/css" />
+<script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/resources/cd_accordion.js"></script>
 <?php if(!empty($css_pass)):?>
 <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/box/<?php echo $css_pass; ?>.css" type="text/css" />
 <?php endif; ?>
