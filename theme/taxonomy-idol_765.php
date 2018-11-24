@@ -64,6 +64,9 @@ echo '<meta name="theme-color" content="'.$idol_color.'">';
 
 <header class="archive-header">
  <?php
+
+
+
 /*-------------------------------------------*/
 /*  Archive title
 /*-------------------------------------------*/
@@ -75,15 +78,28 @@ if ( $page_for_posts['post_top_use'] || get_post_type() != 'post' ) {
   if ( is_year() || is_month() || is_day() || is_tag() || is_author() || is_tax() || is_category() ) {
       $archiveTitle = get_the_archive_title();
 
-if(!is_tax( 'idol_sc' )){
+if(!is_tax( 'idol_sc' )){//アイドルプロフィールURL生成
 $idol_profile = '<a href="'.$idolinfo_URL.''.$idol_term.'" id="button">'.$idolsyosai_bun.'</a>';
 }
+
+//蒼天画廊さん用処理
+if(is_tax("idol_765","emilystewart")){//エミリー
+  $azure_tag  = "エミリースチュアート";
+  }elseif(is_tax("idol_765","rocohanda")){//ロコ
+    $azure_tag  = "伴田路子";
+  }elseif(is_tax('idol_sc') or is_tax('idol_765')){//ミリオン、シャニマス
+    $azure_tag  = $archiveTitle;
+  }
+
+  if(!empty($azure_tag)){
+    $idol_illust = '<a href="https://azure-gallery.net/?query=imas%3A'.$azure_tag.'" id="button">イラスト検索</a>';
+  }
 
 if(is_tax( 'idol_sc' ) and $child_temp->parent == 0){ //子タクソノミーがある（ユニットページの）場合の出力
       $archiveTitle_html = '<div class="idol"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_pic_pass.'/unit/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';"><div class="info"><div class="idolname">'.$archiveTitle.'</div><div class="moreinfo"><!-- 将来的にユニットページができた場合はここに入力 --></div></div></div>';
 }
 else{ //子タクソノミーがない（個別アイドルページの）場合の出力
-      $archiveTitle_html = '<div class="idol"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_pic_pass.'/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';"><div class="info"><div class="idolname"><ruby>'.$archiveTitle.'<rt>'.$Kana.'</rt></ruby>(CV.<ruby>'.$CV.'<rt>'.$CVKana.'</rt></ruby>)</div><div class="moreinfo">'.$idol_profile.'</div></div></div>';
+      $archiveTitle_html = '<div class="idol"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_pic_pass.'/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';"><div class="info"><div class="idolname"><ruby>'.$archiveTitle.'<rt>'.$Kana.'</rt></ruby>(CV.<ruby>'.$CV.'<rt>'.$CVKana.'</rt></ruby>)</div><div class="moreinfo">'.$idol_profile.''.$idol_illust.'</div></div></div>';
 }
 
       echo apply_filters( 'lightning_mainSection_archiveTitle' , $archiveTitle_html );
