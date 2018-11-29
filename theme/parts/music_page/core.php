@@ -277,7 +277,37 @@ if(is_singular( 'music_shiny' ) or is_singular( 'music_godo' )): //シャイニ�
 <div class="vmenu_off">
 <div class="vmenuitem" onclick="doToggleClassName(getParentObj(this),'vmenu_on','vmenu_off')">
 <img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/ipod_icon.png" class="cdicon"><div class="cdname">iTunes等の配信サイトで配信あり</div></div>
-<div class="info_C"><?php echo apply_filters('the_content',get_post_meta($post->ID, 'haishin', true)); ?></div></div><br>
+<div class="info_C">
+<?php $kiji_id = get_the_ID();
+$upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
+
+//アイドル画像出力ループ
+foreach (${"cdidol_h_".$kiji_id} as $idol_name_roop) {
+
+if(get_term_by('name',$idol_name_roop,'idol_cg')){ //シンデレラガールズにいるか検索
+$term = get_term_by('name',$idol_name_roop,'idol_cg');
+$thum_dir = 'cinderella';
+} elseif (get_term_by('name',$idol_name_roop,'idol_765')){ //ミリオンライブにいるか検索
+$term = get_term_by('name',$idol_name_roop,'idol_765');
+$thum_dir = 'millionlive';
+} elseif (get_term_by('name',$idol_name_roop,'idol_283')){ //シャイニーカラーズにいるか検索
+$term = get_term_by('name',$idol_name_roop,'idol_283');
+$thum_dir = 'shinycolors';
+} else {
+}
+        // タームのURLを取得
+$term_link = get_term_link( $term );
+        
+//必要なカスタムフィールドを取得
+				$cv = get_field('cv', $term);
+				$idol_term = get_field('idol-thum', $term);
+				$idol_color = get_field('idol_color', $term);
+        // 結果を出力
+        echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$thum_dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'"></a>';
+
+}
+?>
+<?php echo apply_filters('the_content',get_post_meta($post->ID, 'haishin', true)); ?></div></div><br>
 <?php endif; ?>
 
 <?php 
@@ -296,9 +326,6 @@ echo '<div class="vmenuitem" onclick="doToggleClassName(getParentObj(this),\'vme
 echo "\n";
 echo '<div class="info_C"><a href="'.$link.'" id="button" style="text-align:center;display:inline-block;width:100%;">このCDのすべての収録曲を見る</a>';//リンク
 echo "\n";
-
-$kiji_id = get_the_ID();
-$upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
 
 //アイドル画像出力ループ
 foreach (${"cdidol_".$term_id."_".$kiji_id} as $idol_name_roop) {
