@@ -1,4 +1,19 @@
-﻿<div class="section siteContent">
+﻿<?php //MVのタグを指定
+if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
+	$MV_Tag = 'デレステMV';
+	} elseif(is_singular( 'music_ml' )){ //ミリオンライブの場合
+	$MV_Tag = 'ミリシタMV';
+	} elseif(is_singular( 'music_shiny' )){ //シャイニーカラーズの場合
+	$MV_Tag = '';
+	} elseif(is_singular( 'music_as' )){ //ASの場合
+	$MV_Tag = 'ミリシタMV';
+	} elseif(is_singular( 'music_godo' )){ //合同の場合
+	$MV_Tag = '';
+	}
+	
+?>
+
+<div class="section siteContent">
 <div class="container">
 <div class="row">
 
