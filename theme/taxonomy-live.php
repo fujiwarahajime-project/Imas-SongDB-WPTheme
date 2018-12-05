@@ -107,7 +107,9 @@ echo $shop; // タームID
 .idolicon_cd{padding:4px;width:70px;margin-bottom:0px;}
 </style>
 <?php endif; ?>
-<?php if(count(SCF::get_term_meta( $term_id, $taxonomy, 'setlist' )) >= 2): ?>
+<?php $setlist_hantei = count(SCF::get_term_meta( $term_id, $taxonomy, 'setlist' )) >= 2;
+  $upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
+if($setlist_hantei): ?>
 <table><tbody>
 <tr><th>曲名</th><th>アイドル</th></tr>
 <?php
@@ -123,7 +125,7 @@ echo "<tr>";
   echo '</td><td style="padding:0px">';
   
   $idol_temp = $fields['setlist_idol'];
-  $upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
+
   if($fields['setlist_idol']){
   $idol_list = explode(',', $idol_temp);
     foreach ($idol_list as $idol_name_roop) {
@@ -171,7 +173,7 @@ echo PHP_EOL;
 
 <div class="postList">
 
-<?php if (have_posts()) : ?>
+<?php if (have_posts() and !$setlist_hantei) : ?>
 
   <?php if( apply_filters( 'is_lightning_extend_loop' , false ) ): ?>
 
