@@ -79,6 +79,8 @@ echo '<meta name="theme-color" content="#7272b4">';
 <!--ボックスの基礎CSS-->
 <link href="<?php echo get_stylesheet_directory_uri(); ?>/css/box/main_box.css" rel="stylesheet" />
 
+<!--検索タグ-->
+<link rel="search" type="application/opensearchdescription+xml" title="ふじわらはじめ" href="<?php echo site_url(); ?>/search/search_main.xml">
 <!--Gアナリティクス アウトバウンド-->
 <script>// <![CDATA[
 var trackOutboundLink = function(url) {
@@ -100,7 +102,7 @@ function add_wp_footer_custom(){?>
 <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/resources/Gana_outbound_foot.js"></script>
 
 <?php }
-// add_action( 'wp_footer', 'add_wp_footer_custom', 1 );
+add_action( 'wp_footer', 'add_wp_footer_custom', 1 );
 
 // Handle the post_type parameter given in get_terms function
 function hoge_terms_clauses($clauses, $taxonomy, $args) {
