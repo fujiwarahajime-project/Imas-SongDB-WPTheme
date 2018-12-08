@@ -116,3 +116,30 @@ input[type="radio"]{display:none;}
 #tabtw:checked ~ .panel_area #paneltw{display:block;}
 #tabni:checked ~ .tab_area .tabni_label{background:linear-gradient(#99187d,#eb4cc6);color:white;box-shadow:0px 1px 0px black;}
 #tabni:checked ~ .panel_area #panelni{display:block;}
+
+
+/* 
+ツールチップ関係
+ツールチップを普段は非表示
+ */
+div.livelist .setlist {
+  display: none;
+}
+
+/* マウスオーバーしたとき */
+div.livelist:hover {
+  position: relative;
+}
+
+/* マウスオーバーしたときにツールチップをブロック要素にする */
+div.livelist:hover .setlist {
+  display: block;
+  position: absolute;
+  top: calc(100% + 5px); /*下から5px離したところに表示します*/
+  color: white; /*文字色は白に*/
+  background-color: #7272b4; /*ツールチップの背景色*/
+  max-width: 100%; /*親要素からはみ出さないように*/
+  padding: 5px;
+  border-radius:3px;
+  z-index:100;
+}
