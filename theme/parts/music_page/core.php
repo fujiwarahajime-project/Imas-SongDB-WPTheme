@@ -126,7 +126,7 @@ echo get_the_term_list( $post->ID, unit, '', '<br>', '');
   <div class="msgboxtop">メンバー情報</div>
 <div class="msgboxbody">
 <?php
-if(is_singular( 'music' )){ //シンデレラガールズの場合
+if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 get_template_part('parts/music_page/member/cin');
 get_template_part('parts/music_page/member/765');
 get_template_part('parts/music_page/member/shiny');
