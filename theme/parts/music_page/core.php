@@ -364,8 +364,9 @@ $term_link = get_term_link( $term );
 				$cv = get_field('cv', $term);
 				$idol_term = get_field('idol-thum', $term);
 				$idol_color = get_field('idol_color', $term);
-        // 結果を出力
-        echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$thum_dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'"></a>';
+		// 結果を出力
+		
+        echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl']."/idol/".$thum_dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'"></a>';
 
 }
 
@@ -405,12 +406,14 @@ $place = get_field('place',$term_idmenu.$term_id);
 $setlist = SCF::get_term_meta( $term_id, $taxonomy, 'setlist' );
 foreach ($setlist as $fields ) {
 	foreach ($fields['setlist_song'] as $songname) {
-		if($songname == $kiji_id){ //入力されている記事のIDと、この曲の記事IDが一緒の場合のみ変数格納を行う
-		${"liveidol_".$term_id."_".$kiji_id} = $fields['setlist_idol']; //アイドルの一覧
-		${"livehosoku_".$term_id."_".$kiji_id} = $fields['setlist_idol_hosoku']; //補足のテキスト
+		if($songname == get_the_ID()){ //入力されている記事のIDと、この曲の記事IDが一緒の場合のみ変数格納を行う
+		${"liveidol_".$term_id."_".get_the_ID()} = $fields['setlist_idol']; //アイドルの一覧
+		${"livehosoku_".$term_id."_".get_the_ID()} = $fields['setlist_idol_hosoku']; //補足のテキスト
 		}
 	  }
 }
+
+$media_dir = wp_upload_dir()[baseurl];
 
 //BDの有無を変数にしまうところ
 if(empty($live_bd)) {//ライブBD情報が入力されていない場合
@@ -432,10 +435,10 @@ echo '<td><div class="livelist"><a href="'.$link.'">'.esc_html($term->name).'</a
 	echo $place;
 	echo "</div>\n";
 
-
-if(${"liveidol_".$term_id."_".$kiji_id}){
-	$idol_list = explode(',', ${"liveidol_".$term_id."_".$kiji_id});
-	  foreach ($idol_list as $idol_name_roop) {
+if(!empty(${"liveidol_".$term_id."_".get_the_ID()})){
+	$setlistidol_list = explode(',', ${"liveidol_".$term_id."_".get_the_ID()});
+	
+	  foreach ($setlistidol_list as $idol_name_roop) {
 		$term_cin = get_term_by('name',$idol_name_roop,'idol_cg');
 		$term_ml = get_term_by('name',$idol_name_roop,'idol_765');
 		$term_shiny = get_term_by('name',$idol_name_roop,'idol_shiny');
@@ -462,13 +465,14 @@ if(${"liveidol_".$term_id."_".$kiji_id}){
 			  $idol_term = get_field('idol-thum', $term);
 			  $idol_color = get_field('idol_color', $term);
 			  // 結果を出力
-			  echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
+
+			  echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$media_dir.'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
 			  echo "\n";
 
 	  }
-	}
-	
-	echo '<div>'.${"livehosoku_".$term_id."_".$kiji_id}.'</div>';
+}
+		
+	echo '<div>'.${"livehosoku_".$term_id."_".get_the_ID()}.'</div>';
 	echo "</div>";
 
 		echo '</div></td></tr>';
@@ -479,6 +483,34 @@ if(${"liveidol_".$term_id."_".$kiji_id}){
 
 </tbody>
 </table>
+
+<style type="text/css">
+
+/* ツールチップを普段は非表示 */
+div.livelist .setlist {
+    display: none;
+}
+ 
+/* マウスオーバーしたとき */
+div.livelist:hover {
+    position: relative;
+}
+ 
+/* マウスオーバーしたときにツールチップをブロック要素にする */
+div.livelist:hover .setlist {
+    display: block;
+    position: absolute;
+    top: calc(100% + 5px); /*下から5px離したところに表示します*/
+    color: white; /*文字色は白に*/
+    background-color: #7272b4; /*ツールチップの背景色*/
+    max-width: 100%; /*親要素からはみ出さないように*/
+    padding: 5px;
+    border-radius:3px;
+    z-index:100;
+}
+</style>
+
+
   </div>
   <div class="msgboxfoot">
   </div>
