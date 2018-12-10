@@ -111,15 +111,6 @@ echo $shop; // タームID
   $upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
 if($setlist_hantei): ?>
 
-<?php
-query_posts( array(
-  'post_type' => 'live', //カスタム投稿名を指定
-  'taxonomy' => 'color',     //タクソノミー名を指定
-  'term' => 'red',           //タームのスラッグを指定
-  'posts_per_page' => 5      ///表示件数（-1で全ての記事を表示）
-));
-?>
-
 <table><tbody>
 <tr><th>曲名</th><th>アイドル</th></tr>
 <?php
