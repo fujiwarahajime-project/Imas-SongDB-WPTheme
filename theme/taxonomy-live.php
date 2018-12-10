@@ -110,6 +110,16 @@ echo $shop; // タームID
 <?php $setlist_hantei = count(SCF::get_term_meta( $term_id, $taxonomy, 'setlist' )) >= 2;
   $upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
 if($setlist_hantei): ?>
+
+<?php
+query_posts( array(
+  'post_type' => 'live', //カスタム投稿名を指定
+  'taxonomy' => 'color',     //タクソノミー名を指定
+  'term' => 'red',           //タームのスラッグを指定
+  'posts_per_page' => 5      ///表示件数（-1で全ての記事を表示）
+));
+?>
+
 <table><tbody>
 <tr><th>曲名</th><th>アイドル</th></tr>
 <?php
@@ -119,9 +129,18 @@ echo "<tr>";
   //曲名を表示
   echo '<td style="padding:0px">';
   foreach ($fields['setlist_song'] as $songname) {
-    echo '<a href="'.get_permalink($songname).'">'.get_post($songname)->post_title.'</a>';
+     //ターム判定
+    if(is_admin_bar_showing()){//WPの管理用ツールバーが表示されているときのみ表示
+     $term_search = wp_get_object_terms($songname,'live', array('fields' => 'ids'));
+     $term_search_result = in_array($term_id,$term_search,true); //記事に紐付けられているターム一覧と表示中のタームが一致しているものがあるか比較
+     if(empty($term_search_result)){ //一致しているものがなかった場合、米印を表示する
+     echo '<span style="color:red;">★</span>';
+     }
+    }
+  echo '<a href="'.get_permalink($songname).'">'.get_post($songname)->post_title.'</a>';
   }
   echo $fields['setlist_song2'];
+  //ここまで曲名処理
   echo '</td><td style="padding:0px">';
   
   $idol_temp = $fields['setlist_idol'];
