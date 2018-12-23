@@ -409,6 +409,7 @@ foreach ($setlist as $fields ) {
 		if($songname == get_the_ID()){ //入力されている記事のIDと、この曲の記事IDが一緒の場合のみ変数格納を行う
 		${"liveidol_".$term_id."_".get_the_ID()} = $fields['setlist_idol']; //アイドルの一覧
 		${"livehosoku_".$term_id."_".get_the_ID()} = $fields['setlist_idol_hosoku']; //補足のテキスト
+		${"liveunit_".$term_id."_".get_the_ID()} = $fields['unit'];
 		}
 	  }
 }
@@ -437,7 +438,7 @@ echo '<td><div class="livelist"><a href="'.$link.'">'.esc_html($term->name).'</a
 
 if(!empty(${"liveidol_".$term_id."_".get_the_ID()})){
 	$setlistidol_list = explode(',', ${"liveidol_".$term_id."_".get_the_ID()});
-	
+	echo "<div>";
 	  foreach ($setlistidol_list as $idol_name_roop) {
 		$term_cin = get_term_by('name',$idol_name_roop,'idol_cg');
 		$term_ml = get_term_by('name',$idol_name_roop,'idol_765');
@@ -455,8 +456,11 @@ if(!empty(${"liveidol_".$term_id."_".get_the_ID()})){
 		  //シャイニーカラーズ有無判定
 		$term = $term_shiny;
 		$dir = 'shinycolors';
+		}else{
+			$term = "";
+			$dir = "";
 		}
-	  
+	
 			  // タームのURLを取得
 	  $term_link = get_term_link( $term );
 			  
@@ -470,7 +474,55 @@ if(!empty(${"liveidol_".$term_id."_".get_the_ID()})){
 			  echo "\n";
 
 	  }
+	  echo "</div>";
 }
+if(!empty(${"liveunit_".$term_id."_".get_the_ID()})){
+    $unit_list = explode(',', ${"liveunit_".$term_id."_".get_the_ID()});
+
+foreach ($unit_list as $unit_temp) {
+    $unit_term = get_term_by('name',$unit_temp,'unit');
+    $unit_link = get_term_link( $unit_term );
+    $unit_member = get_field('member', $unit_term);
+
+    //ここからユニットメンバーの出力
+    $idol_list = explode(',', $unit_member);
+    foreach ($idol_list as $idol_name_roop) {
+      $term_cin = get_term_by('name',$idol_name_roop,'idol_cg');
+      $term_ml = get_term_by('name',$idol_name_roop,'idol_765');
+      $term_shiny = get_term_by('name',$idol_name_roop,'idol_shiny');
+
+      if( $term_cin ){
+        // シンデレラガールズ有無判定 
+      $term = $term_cin;
+      $dir = 'cinderella';
+      }elseif( $term_ml ){
+        //ミリオンライブ有無判定
+      $term = $term_ml;
+      $dir = 'millionlive';
+      }elseif( $term_shiny ){
+        //シャイニーカラーズ有無判定
+      $term = $term_shiny;
+      $dir = 'shinycolors';
+      }
+	
+	  if(!$term){
+            // タームのURLを取得
+    $term_link = get_term_link( $term );
+            
+    //場所を取得
+            $cv = get_field('cv', $term);
+            $idol_term = get_field('idol-thum', $term);
+            $idol_color = get_field('idol_color', $term);
+            // 結果を出力
+			echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
+			echo '<div>（<a href="' .$unit_link. '">'.$unit_temp.'</a>）</div>';
+
+    }else{
+		echo '<div><a href="' .$unit_link. '">'.$unit_temp.'</a></div>';
+
+	}}
+    //ここまでユニットメンバーの出力
+  }}
 		
 	echo '<div>'.${"livehosoku_".$term_id."_".get_the_ID()}.'</div>';
 	echo "</div>";
@@ -483,33 +535,6 @@ if(!empty(${"liveidol_".$term_id."_".get_the_ID()})){
 
 </tbody>
 </table>
-
-<style type="text/css">
-
-/* ツールチップを普段は非表示 */
-div.livelist .setlist {
-    display: none;
-}
- 
-/* マウスオーバーしたとき */
-div.livelist:hover {
-    position: relative;
-}
- 
-/* マウスオーバーしたときにツールチップをブロック要素にする */
-div.livelist:hover .setlist {
-    display: block;
-    position: absolute;
-    top: calc(100% + 5px); /*下から5px離したところに表示します*/
-    color: white; /*文字色は白に*/
-    background-color: #7272b4; /*ツールチップの背景色*/
-    max-width: 100%; /*親要素からはみ出さないように*/
-    padding: 5px;
-    border-radius:3px;
-    z-index:100;
-}
-</style>
-
 
   </div>
   <div class="msgboxfoot">
