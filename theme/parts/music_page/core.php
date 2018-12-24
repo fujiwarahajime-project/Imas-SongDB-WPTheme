@@ -10,7 +10,9 @@ if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 	} elseif(is_singular( 'music_godo' )){ //合同の場合
 	$MV_Tag = '';
 	}
-	
+	$kiji_id = get_the_ID();
+    $upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
+
 ?>
 
 <div class="section siteContent">
@@ -293,9 +295,7 @@ if(is_singular( 'music_shiny' ) or is_singular( 'music_godo' )): //シャイニ�
 <div class="vmenuitem" onclick="doToggleClassName(getParentObj(this),'vmenu_on','vmenu_off')">
 <img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/ipod_icon.png" class="cdicon"><div class="cdname">iTunes等の配信サイトで配信あり</div></div>
 <div class="info_C">
-<?php $kiji_id = get_the_ID();
-$upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
-
+<?php 
 //アイドル画像出力ループ
 foreach (${"cdidol_h_".$kiji_id} as $idol_name_roop) {
 
