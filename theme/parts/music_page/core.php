@@ -485,7 +485,12 @@ foreach ($unit_list as $unit_temp) {
     $unit_member = get_field('member', $unit_term);
 
     //ここからユニットメンバーの出力
-    $idol_list = explode(',', $unit_member);
+	$idol_list = explode(',', $unit_member);
+	
+	if(!empty($unit_member)){
+		echo "<div>";
+	}
+
     foreach ($idol_list as $idol_name_roop) {
       $term_cin = get_term_by('name',$idol_name_roop,'idol_cg');
       $term_ml = get_term_by('name',$idol_name_roop,'idol_765');
@@ -505,7 +510,7 @@ foreach ($unit_list as $unit_temp) {
       $dir = 'shinycolors';
       }
 	
-	  if(!$term){
+	  if($term_cin or $term_ml or $term_shiny){
             // タームのURLを取得
     $term_link = get_term_link( $term );
             
@@ -515,14 +520,17 @@ foreach ($unit_list as $unit_temp) {
             $idol_color = get_field('idol_color', $term);
             // 結果を出力
 			echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
-			echo '<div>（<a href="' .$unit_link. '">'.$unit_temp.'</a>）</div>';
+    }
 
-    }else{
-		echo '<div><a href="' .$unit_link. '">'.$unit_temp.'</a></div>';
+}
+	//ここまでユニットメンバーの出力
+	if(empty($unit_member)){
+	echo '<div><a href="' .$unit_link. '">'.$unit_temp.'</a></div>';
+	}else{
+	echo '（<a href="' .$unit_link. '">'.$unit_temp.'</a>）</div>';
+	}
 
-	}}
-    //ここまでユニットメンバーの出力
-  }}
+}}
 		
 	echo '<div>'.${"livehosoku_".$term_id."_".get_the_ID()}.'</div>';
 	echo "</div>";
