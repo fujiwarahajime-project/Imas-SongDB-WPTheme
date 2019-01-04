@@ -480,7 +480,8 @@ if(!empty(${"liveunit_".$term_id."_".get_the_ID()})){
     $unit_list = explode(',', ${"liveunit_".$term_id."_".get_the_ID()});
 
 foreach ($unit_list as $unit_temp) {
-    $unit_term = get_term_by('name',$unit_temp,'unit');
+	$unit_term = get_term_by('name',$unit_temp,'unit');
+	if($unit_term){
     $unit_link = get_term_link( $unit_term );
     $unit_member = get_field('member', $unit_term);
 
@@ -525,10 +526,13 @@ foreach ($unit_list as $unit_temp) {
 }
 	//ここまでユニットメンバーの出力
 	if(empty($unit_member)){
-	echo '<div><a href="' .$unit_link. '">'.$unit_temp.'</a></div>';
+		echo '<div><a href="' .$unit_link. '">'.$unit_temp.'</a></div>';
 	}else{
 	echo '（<a href="' .$unit_link. '">'.$unit_temp.'</a>）</div>';
 	}
+}else{
+    echo '（'.$unit_temp.'）';
+  }
 
 }}
 		
