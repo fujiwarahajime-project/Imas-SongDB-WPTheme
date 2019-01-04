@@ -135,14 +135,63 @@ echo "<tr>";
   echo '</td><td style="padding:0px">';
   
   $idol_temp = $fields['setlist_idol'];
-
   if($fields['setlist_idol']){
   $idol_list = explode(',', $idol_temp);
     foreach ($idol_list as $idol_name_roop) {
+
+      $unit_term = get_term_by('name',$idol_name_roop,'unit');
       $term_cin = get_term_by('name',$idol_name_roop,'idol_cg');
       $term_ml = get_term_by('name',$idol_name_roop,'idol_765');
       $term_shiny = get_term_by('name',$idol_name_roop,'idol_shiny');
-      
+
+
+      //ユニットの場合の処理
+      if($unit_term){
+        echo "<div>";
+        $unit_link = get_term_link( $unit_term );
+        $unit_member = get_field('member', $unit_term);
+    
+        //ここからユニットメンバーの出力
+        $idol_list = explode(',', $unit_member);
+        foreach ($idol_list as $unit_idol) {
+          if(!empty($unit_idol)){
+          $term_cin = get_term_by('name',$unit_idol,'idol_cg');
+          $term_ml = get_term_by('name',$unit_idol,'idol_765');
+          $term_shiny = get_term_by('name',$unit_idol,'idol_shiny');
+    
+          if( $term_cin ){
+            // シンデレラガールズ有無判定 
+          $term = $term_cin;
+          $dir = 'cinderella';
+          }elseif( $term_ml ){
+            //ミリオンライブ有無判定
+          $term = $term_ml;
+          $dir = 'millionlive';
+          }elseif( $term_shiny ){
+            //シャイニーカラーズ有無判定
+          $term = $term_shiny;
+          $dir = 'shinycolors';
+          }
+        
+                // タームのURLを取得
+        $term_link = get_term_link( $term );
+                
+        //カスタムフィールドの取得
+                $cv = get_field('cv', $term);
+                $idol_term = get_field('idol-thum', $term);
+                $idol_color = get_field('idol_color', $term);
+                // 結果を出力
+                echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
+        }}
+        //ここまでユニットメンバーの出力
+        echo '（<a href="' .$unit_link. '">'.$idol_name_roop.'</a>）</div>';
+    
+      }elseif($term_cin or $term_ml or $term_shiny){
+
+
+
+      //アイドルの場合の処理
+
       if( $term_cin ){
         // シンデレラガールズ有無判定 
       $term = $term_cin;
@@ -166,8 +215,13 @@ echo "<tr>";
             $idol_color = get_field('idol_color', $term);
             // 結果を出力
             echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
+    }else{
+      //ユニットでもアイドル名でもない場合はそのまま出力
+      echo "<div>".$idol_name_roop."</div>";
     }
   }
+  }
+
  
 echo $fields['setlist_idol_hosoku'];
 echo "</td></tr>";
