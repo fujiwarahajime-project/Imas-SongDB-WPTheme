@@ -1,4 +1,7 @@
-﻿<!-- CD情報用CSS（OSにより分岐） -->
+﻿<?php $upload_dir = wp_upload_dir(); ?>
+
+
+<!-- CD情報用CSS（OSにより分岐） -->
 <?php if(wp_is_mobile()): ?>
 <style type="text/css">
 <!-- スマホ用CSS -->
