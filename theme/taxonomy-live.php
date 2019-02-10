@@ -77,7 +77,11 @@ $postType = lightning_get_post_type();
 do_action('lightning_loop_before'); ?>
 <!-- CD購入情報の表示 -->
 <div class="archive-meta">
+
+<?php get_template_part('share'); ?>
+
 <?php if ( !is_paged() ) : // 1ページ目のみに表示 ?>
+  <?php if ( !empty(get_field('shop',$term_idmenu.$term_id)) ) : // 1ページ目のみに表示 ?>
 <div class="msgbox">
   <div class="msgboxtop">このライブの映像ディスクを購入する</div>
   <div class="msgboxbody">
@@ -89,6 +93,7 @@ echo $shop; // タームID
   <div class="msgboxfoot">
   </div>
 </div>
+  <?php endif;?>
 
 <!-- セットリスト -->
 
@@ -142,7 +147,7 @@ echo "<tr>";
       $unit_term = get_term_by('name',$idol_name_roop,'unit');
       $term_cin = get_term_by('name',$idol_name_roop,'idol_cg');
       $term_ml = get_term_by('name',$idol_name_roop,'idol_765');
-      $term_shiny = get_term_by('name',$idol_name_roop,'idol_shiny');
+      $term_shiny = get_term_by('name',$idol_name_roop,'idol_sc');
 
 
       //ユニットの場合の処理
@@ -157,7 +162,7 @@ echo "<tr>";
           if(!empty($unit_idol)){
           $term_cin = get_term_by('name',$unit_idol,'idol_cg');
           $term_ml = get_term_by('name',$unit_idol,'idol_765');
-          $term_shiny = get_term_by('name',$unit_idol,'idol_shiny');
+          $term_shiny = get_term_by('name',$unit_idol,'idol_sc');
     
           if( $term_cin ){
             // シンデレラガールズ有無判定 
@@ -232,7 +237,6 @@ echo PHP_EOL;
 <?php endif; ?>
 
 <?php endif; ?>
-<?php get_template_part('share'); ?>
 </div>
 
 <div class="postList">
