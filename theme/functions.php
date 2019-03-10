@@ -129,3 +129,84 @@ function hoge_terms_clauses($clauses, $taxonomy, $args) {
 }
 add_filter('terms_clauses', 'hoge_terms_clauses', 10, 3);
 
+//アイドルアイコン用
+function idolicon($name,$listtype){
+	$upload_dir = wp_upload_dir();
+		if(!empty($name)){
+		if( get_term_by('name',$name,'idol_cg') ){
+		  // シンデレラガールズ有無判定 
+		$term = get_term_by('name',$name,'idol_cg');
+		$dir = 'cinderella';
+		}elseif( get_term_by('name',$name,'idol_765') ){
+		  //ミリオンライブ有無判定
+		$term = get_term_by('name',$name,'idol_765');
+		$dir = 'millionlive';
+		}elseif( get_term_by('name',$name,'idol_sc') ){
+		  //シャイニーカラーズ有無判定
+		$term = get_term_by('name',$name,'idol_sc');
+		$dir = 'shinycolors';
+		}
+	  
+			  // タームのURLを取得
+	  $term_link = get_term_link( $term );
+		
+		$live_temp = $term->name;
+
+	  //カスタムフィールドの取得
+			  $cv = get_field('cv', $term);
+			  $idol_term = get_field('idol-thum', $term);
+			  $idol_color = get_field('idol_color', $term);
+			  // 結果を出力
+			  if($listtype == "live"){
+			  echo '	<a href="' . esc_url( $term_link ) . '">';
+			  echo PHP_EOL;
+			  echo '		<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
+			  }else{
+				echo '	<a href="' . esc_url( $term_link ) . '">';
+				echo PHP_EOL;
+				echo '		<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"></a>';
+			  }
+			  echo PHP_EOL;
+			}
+	  return $live_temp;
+}
+
+
+
+//通常利用用
+function idollist($idol_name_roop,$listtype){
+
+	$term_cin = get_term_by('name',$idol_name_roop,'idol_cg');
+	$term_ml = get_term_by('name',$idol_name_roop,'idol_765');
+	$term_shiny = get_term_by('name',$idol_name_roop,'idol_sc');
+
+	if(get_term_by('name',$idol_name_roop,'unit')){
+		$unit_term = get_term_by('name',$idol_name_roop,'unit');
+	//ユニットの場合の処理
+	echo "<div>";
+	$unit_link = get_term_link( $unit_term );
+	$unit_member = get_field('member', $unit_term);
+
+	//ここからユニットメンバーの出力
+	$idol_list = explode(',', $unit_member);
+	foreach ($idol_list as $unit_idol) {
+
+		$live_member[] =  idolicon($unit_idol,$listtype);
+}
+	  //ここまでユニットメンバーの出力
+	  echo '（<a href="' .$unit_link. '">'.$idol_name_roop.'</a>）</div>';
+	  echo PHP_EOL;
+
+
+}elseif(get_term_by('name',$idol_name_roop,'idol_cg') or get_term_by('name',$idol_name_roop,'idol_765') or get_term_by('name',$idol_name_roop,'idol_sc')){
+	$live_member[] = idolicon($idol_name_roop,$listtype);
+
+}else{
+		//ユニットでもアイドル名でもない場合はそのまま出力
+		echo "<div>".$idol_name_roop."</div>";
+		echo PHP_EOL;
+
+}
+return $live_member;
+
+}

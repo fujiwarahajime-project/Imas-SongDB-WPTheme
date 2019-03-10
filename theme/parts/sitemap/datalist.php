@@ -58,7 +58,6 @@ $("#tablesort").tablesorter();
 <div class="item music_as">765AS曲</div>
 <div class="item music_godo">合同曲</div>
 </div>
-
 <table id="tablesort" class="tablesorter">
 <thead>
 <tr>
@@ -78,7 +77,6 @@ $("#tablesort").tablesorter();
 
 <tbody>
 
-<!-- シンデレラガールズ -->
 <?php
 $paged = (int) get_query_var('paged');
 $args = array(
@@ -91,8 +89,7 @@ $args = array(
 );
 $the_query = new WP_Query($args);
 if ( $the_query->have_posts() ) :
-	while ( $the_query->have_posts() ) : $the_query->the_post();
-?>
+	while ( $the_query->have_posts() ) : $the_query->the_post(); ?>
 <tr class="<?php echo get_post_type( $id ); ?>">
 <td><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></td>
 <td><?php echo get_the_term_list( $post->ID, lyrics, '', '<br>', ''); ?></td>

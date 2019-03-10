@@ -28,7 +28,7 @@ $args = array(
     'pad_counts' => true,
   
     // 投稿記事がないタームも取得
-    'hide_empty' => false,
+    'hide_empty' => true,
    //並び順
 'orderby' => $orderby,
 'order' => DESC,

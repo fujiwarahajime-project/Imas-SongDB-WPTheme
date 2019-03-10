@@ -57,92 +57,7 @@ if(!empty(${"liveidol_".$term_id."_".get_the_ID()})){
 	echo "<div>";
 	if($setlistidol_list){
 		foreach ($setlistidol_list as $idol_name_roop) {
-
-			$unit_term = get_term_by('name',$idol_name_roop,'unit');
-			$term_cin = get_term_by('name',$idol_name_roop,'idol_cg');
-			$term_ml = get_term_by('name',$idol_name_roop,'idol_765');
-			$term_shiny = get_term_by('name',$idol_name_roop,'idol_sc');
-	  
-	  
-			//ユニットの場合の処理
-			if($unit_term){
-				$live_unit[] = $unit_term;
-			  echo "<div>";
-			  $unit_link = get_term_link( $unit_term );
-			  $unit_member = get_field('member', $unit_term);
-		  
-			  //ここからユニットメンバーの出力
-			  $idol_list = explode(',', $unit_member);
-			  foreach ($idol_list as $unit_idol) {
-				if(!empty($unit_idol)){
-				$term_cin = get_term_by('name',$unit_idol,'idol_cg');
-				$term_ml = get_term_by('name',$unit_idol,'idol_765');
-				$term_shiny = get_term_by('name',$unit_idol,'idol_sc');
-		  
-				if( $term_cin ){
-				  // シンデレラガールズ有無判定 
-				$term = $term_cin;
-				$dir = 'cinderella';
-				}elseif( $term_ml ){
-				  //ミリオンライブ有無判定
-				$term = $term_ml;
-				$dir = 'millionlive';
-				}elseif( $term_shiny ){
-				  //シャイニーカラーズ有無判定
-				$term = $term_shiny;
-				$dir = 'shinycolors';
-				}
-			  
-					  // タームのURLを取得
-			  $term_link = get_term_link( $term );
-				
-				$live_member[] = $term;
-
-			  //カスタムフィールドの取得
-					  $cv = get_field('cv', $term);
-					  $idol_term = get_field('idol-thum', $term);
-					  $idol_color = get_field('idol_color', $term);
-					  // 結果を出力
-					  echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
-			  }}
-			  //ここまでユニットメンバーの出力
-			  echo '（<a href="' .$unit_link. '">'.$idol_name_roop.'</a>）</div>';
-		  
-			}elseif($term_cin or $term_ml or $term_shiny){
-	  
-	  
-	  
-			//アイドルの場合の処理
-	  
-			if( $term_cin ){
-			  // シンデレラガールズ有無判定 
-			$term = $term_cin;
-			$dir = 'cinderella';
-			}elseif( $term_ml ){
-			  //ミリオンライブ有無判定
-			$term = $term_ml;
-			$dir = 'millionlive';
-			}elseif( $term_shiny ){
-			  //シャイニーカラーズ有無判定
-			$term = $term_shiny;
-			$dir = 'shinycolors';
-			}
-		  
-				  // タームのURLを取得
-			$term_link = get_term_link( $term );
-			
-			$live_member[] = $term;
-				  
-		  //場所を取得
-				  $cv = get_field('cv', $term);
-				  $idol_term = get_field('idol-thum', $term);
-				  $idol_color = get_field('idol_color', $term);
-				  // 結果を出力
-				  echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
-		  }else{
-			//ユニットでもアイドル名でもない場合はそのまま出力
-			echo "<div>".$idol_name_roop."</div>";
-		  }
+			$live_member[] = idollist($idol_name_roop,"live");
 		}
 	  
 	}
@@ -159,23 +74,19 @@ echo '</div></td></tr>';
 
 <?php
 if(!empty($live_member)){
-	$live_member_out = array_unique($live_member, SORT_REGULAR);
 	echo '<div class="tab_title">ライブで今まで歌ったことのあるメンバー</div>';
 	echo "<div>セットリストとメンバー情報が表示できるライブからのみ取得しています。<br>現在のところ順不同で表示します。</div>";
-		foreach ($live_member_out as $idol) {
-		if($idol->taxonomy == "idol_cg"){
-			$dir = 'cinderella';
-		}elseif($idol->taxonomy == "idol_765"){
-			$dir = 'millionlive';
-		}elseif($idol->taxonomy == "idol_sc"){
-			$dir = 'shinycolors';
+	foreach ($live_member as $live_member){
+	foreach ($live_member as $idol) {
+		$idol_out[] = $idol;
+				}}
+
+				foreach (array_unique($idol_out, SORT_REGULAR) as $idol){
+			idolicon($idol,"live");
 		}
-		$cv = get_field('cv', $idol);
-		$idol_term = get_field('idol-thum', $idol);
-		$idol_color = get_field('idol_color', $idol);
-		// 結果を出力
-		echo '<a href="' . esc_url( get_term_link( $idol ) ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$cv.'('.$idol->name.'役)" alt="'.$cv.'('.$idol->name.'役)"></a>';
-	}}
+	
+
+	}
 
 //	if(!empty($live_unit)){
 //		$live_unit_out = array_unique($live_unit, SORT_REGULAR);

@@ -23,8 +23,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	display:inline-block;
 	width: 20px;
 	height:20px;
-	background-image:url(https://tsubasa.pro/favicon/index.png);
-	background-size:contain;
+	/*background-image:url(https://tsubasa.pro/favicon/index.png);
+	background-size:contain;*/
 	vertical-align:middle;
 }
 .msgboxbody{

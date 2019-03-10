@@ -10,6 +10,7 @@ $("#tablesort").tablesorter();
 </script>
 
 <p>行の先頭に「<i class="fas fa-compact-disc"></i>」がついているライブについては、ライブのDVD・BDが発売されています。<br>
+「<i class="fas fa-list-ul"></i>」がついているライブは、詳細なセットリストを掲載しています。<br>
 詳しい情報につきましてはイベント名をクリック・タップした先で確認できます。</p>
 
 <table id="tablesort" class="tablesorter"><thead>
@@ -34,7 +35,6 @@ if ( count( $terms ) != 0 ) {
      
     // タームのリスト $terms を $term に格納してループ
     foreach ( $terms as $term ) {
-    
         // タームのURLを取得
         $term = sanitize_term( $term, $taxonomy );
         $term_link = get_term_link( $term, $taxonomy );
@@ -43,15 +43,20 @@ if ( count( $terms ) != 0 ) {
         }
 				$place = get_field('place', $term);
 				$live_bd = get_field('shop', $term);
+                $setlist_hantei = count(SCF::get_term_meta( $term, $taxonomy, 'setlist' )) >= 2; //セットリスト判定
 
             echo '<tr>';
 
-if(empty($live_bd)) {//もしライブBDが発売されているのなら
-$star = '';}else{
-$star = '<i class="fas fa-compact-disc"></i>';}//CDマークを出力する
-        // 結果を出力
-        echo '<td>'.$star.'</td>';
-        echo '<td><a href="' . esc_url( $term_link ) . '">' .$term->name. '</a></td>';
+    echo '<td>';
+
+if(!empty($live_bd)) {//もしライブBDが発売されているのなら
+echo '<i class="fas fa-compact-disc"></i>';}//CDマークを出力する
+
+if($setlist_hantei) {//もしセットリストが登録されているなら
+    echo '<i class="fas fa-list-ul"></i>';}//リストのマークを出力する
+    
+    echo '</td>';
+        echo '<td><a href="' . esc_url( $term_link ) . '">' .str_ireplace("THE IDOLM@STER ","", $term->name). '</a></td>';
         echo '<td>'.$place.'</td>';
         echo '<td>'.$term->count.'</td>';
         echo '</tr>';

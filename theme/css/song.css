@@ -1,56 +1,86 @@
 ﻿
 /* アイドルごとの横幅を指定 */
 @media screen and (min-width:1201px) {
-    /*　横幅1201px以上（PCフル表示などの場合）は3列表示　*/
-    .idol {width:33%;}
-    .solocolle .idol {width:50%;}
+  /*　横幅1201px以上（PCフル表示などの場合）は3列表示　*/
+  .idol {width:33%;}
+  .solocolle .idol {width:50%;}
 
-  }
+}
 
 
 
 @media screen and (min-width: 521px) and (max-width: 1200px) {
-    /*　横幅521px～1200px（タブレットやPCの半面表示など）は2列表示　*/
-    .idol {width:50%;}
+  /*　横幅521px～1200px（タブレットやPCの半面表示など）は2列表示　*/
+  .idol {width:50%;}
 
-  }
+}
 
- @media screen and (max-width: 520px) { 
-    /*　横幅520px以下（スマホなど）は1列表示　*/
-    .idol {width:100%;}
-  }
+@media screen and (max-width: 520px) { 
+  /*　横幅520px以下（スマホなど）は1列表示　*/
+  .idol {width:100%;}
+}
 
 @media screen and (min-width: 521px) and (max-width: 600px) {
-    /*　横幅521px～1200px（タブレットやPCの半面表示など）は2列表示　*/
-    .solocolle .idol {width:100%;}
+  /*　横幅521px～1200px（タブレットやPCの半面表示など）は2列表示　*/
+  .solocolle .idol {width:100%;}
 
-  }
+}
 
 
 
 /* その他曲ページのアイドルアイコンまわり */
-.idollist{display: flex;flex-wrap: wrap;}/* フレックスボックスにする */
-.idol{height:102px;border:solid 1px darkgray;border-radius:2px;font-family: "Rounded Mplus 1c";}/* アイテムの外枠、全体フォントに関する設定 */
-.idolicon{background:linear-gradient(lightgray,gray);float:left;padding:8px;width:100px;margin-bottom:0px;display:block;}/* アイコンに関する設定（バックグラウンドは、アイドルのテーマカラーを指定しなかったときのみ使用されます） */
-.idolname{font-size:20px;margin:7px 5px;border-bottom:dotted 2px gray;font-weight: bold;}/* アイドルの名前まわりのスタイル設定 */
-.moreinfo{margin:7px 7px;}.info{margin-left:100px;}/* CVまわりのスタイル */</style>
+.idollist{/* フレックスボックスにする */
+  display: flex;
+  flex-wrap: wrap;
+}
+.idol{/* アイテムの外枠、全体フォントに関する設定 */
+  height:102px;
+  border:solid 1px darkgray;
+  border-radius:2px;
+}
+.idolicon{/* アイコンに関する設定（バックグラウンドは、アイドルのテーマカラーを指定しなかったときのみ使用されます） */
+  background:linear-gradient(lightgray,gray);
+  float:left;
+  padding:8px;
+  width:100px;
+  margin-bottom:0px;
+  display:block;
+}
+.idolname{/* アイドルの名前まわりのスタイル設定 */
+  font-size:20px;
+  margin:7px 5px;
+  border-bottom:dotted 2px gray;
+  font-weight: bold;}
+.moreinfo{
+  margin:7px 7px;
+}
+.info{
+  margin-left:100px;
+}/* CVまわりのスタイル */</style>
 
 /* 開閉メニュー */
 .vmenu_on, .vmenu_off{margin:2px 0px;}
 .vmenu_on .vmenuitem{
-	min-height:90px;
-	cursor:pointer;
-	border-right:1px solid #cccc77;
-	border-top:1px solid #cccc77; 
-	border-left:5px solid #cccc77;}
+  min-height:90px;
+  cursor:pointer;
+  border-right:1px solid #cccc77;
+  border-top:1px solid #cccc77; 
+  border-left:5px solid #cccc77;}
 .vmenu_off .vmenuitem{
-	min-height:90px;
-	cursor:pointer;
-	border:1px solid #77cccc;
-	border-left:5px solid #77cccc;}
-.vmenu_on {display:auto; margin:2px auto;}
-.vmenu_off .info_C{display:none;}
-.vmenu_all_action {cursor: pointer;}
+  min-height:90px;
+  cursor:pointer;
+  border:1px solid #77cccc;
+  border-left:5px solid #77cccc;}
+.vmenu_on {
+  display:auto;
+  margin:2px auto;
+}
+.vmenu_off .info_C{
+  display:none;
+}
+.vmenu_all_action {
+  cursor: pointer;
+}
 
 /* CDアイコンまわり */
 .cdinfo{
@@ -60,26 +90,27 @@
 .cdicon{
   background:linear-gradient(lightgray,gray);
   float:left;
-	padding:8px;
+  padding:8px;
   width:88px;
-	margin-bottom:0px;
-	display: block;
+  margin-bottom:0px;
+  display: block;
 }
 
 .cdname{
   margin-left:104px;
   margin-top:7px;
 }
-.info_C {border-right:1px solid #cccc77;border-bottom:1px solid #cccc77; border-left:5px solid #cccc77;padding: 10px;}
-
-.idolicon_cd{padding:4px;width:85px;margin-bottom:0px;}
-
-/* ソロコレ用処理 */
-.solocolle{
-display:inline;
+.info_C {
+  border-right:1px solid #cccc77;
+  border-bottom:1px solid #cccc77;
+  border-left:5px solid #cccc77;
+  padding: 10px;
 }
-.solocolle .idol{
-display:inline-block;
+
+.idolicon_cd{
+  padding:4px;
+  width:85px;
+  margin-bottom:0px;
 }
 
 /* リンク周りのCSS */
@@ -92,18 +123,18 @@ display:inline-block;
 
 
 @media screen and (min-width:1200px) {
-    .btn_item_long {width:18%;}
-    .btn_item_long2 {width:22%;}
+  .btn_item_long {width:18%;}
+  .btn_item_long2 {width:22%;}
 
-  }
+}
 @media screen and (min-width: 990px) and (max-width: 1199px) {
-    .btn_item_long2 {width:21%;}
+  .btn_item_long2 {width:21%;}
 
-  }
+}
 @media screen and (max-width:990px) {
-    .btn_item_long2 {width:40%;}
+  .btn_item_long2 {width:40%;}
 
-  }
+}
 
 .btn_item_5{width:100%;}
 .btn_item_5 #button{margin:0px;}
@@ -121,25 +152,40 @@ input[type="radio"]{display:none;}
 /* 
 ツールチップ関係
 ツールチップを普段は非表示
- */
+*/
 div.livelist .setlist {
-  display: none;
+display: none;
 }
 
 /* マウスオーバーしたとき */
 div.livelist:hover {
-  position: relative;
+position: relative;
 }
 
 /* マウスオーバーしたときにツールチップをブロック要素にする */
 div.livelist:hover .setlist {
-  display: block;
-  position: absolute;
-  top: calc(100% + 5px); /*下から5px離したところに表示します*/
-  color: white; /*文字色は白に*/
-  background-color: #7272b4; /*ツールチップの背景色*/
-  max-width: 100%; /*親要素からはみ出さないように*/
-  padding: 5px;
-  border-radius:3px;
-  z-index:100;
+display: block;
+position: absolute;
+top: calc(100% + 5px); /*下から5px離したところに表示します*/
+color: white; /*文字色は白に*/
+background-color: #7272b4; /*ツールチップの背景色*/
+max-width: 100%; /*親要素からはみ出さないように*/
+padding: 5px;
+border-radius:3px;
+z-index:100;
+}
+
+/*アイドルアイコンへのソロ表示*/
+.solo{
+	float:left;
+	position:absolute;
+	top:0;
+	left:2px;
+	color:white;
+}
+.fuchidori{
+	text-shadow: 1px 1px 0 #000,
+               -1px 1px 0 #000,
+               1px -1px 0 #000,
+               -1px -1px 0 #000;
 }

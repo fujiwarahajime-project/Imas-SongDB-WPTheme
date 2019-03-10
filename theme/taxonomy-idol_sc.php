@@ -85,17 +85,17 @@ $idol_profile = '<a href="'.$idolinfo_URL.''.$idol_term.'" id="button">'.$idolsy
 }
 
 //蒼天画廊さん用処理
-if(is_tax("idol_765","emilystewart")){//エミリー
-  $azure_tag  = "エミリースチュアート";
-  }elseif(is_tax("idol_765","rocohanda")){//ロコ
-    $azure_tag  = "伴田路子";
-  }elseif(is_tax('idol_sc') or is_tax('idol_765')){//ミリオン、シャニマス
-    $azure_tag  = $archiveTitle;
-  }
+//if(is_tax("idol_765","emilystewart")){//エミリー
+//  $azure_tag  = "エミリースチュアート";
+//  }elseif(is_tax("idol_765","rocohanda")){//ロコ
+//    $azure_tag  = "伴田路子";
+//  }elseif(is_tax('idol_sc') or is_tax('idol_765')){//ミリオン、シャニマス
+//    $azure_tag  = $archiveTitle;
+//  }
 
-  if(!empty($azure_tag)){
-    $idol_illust = '<a href="https://azure-gallery.net/?query=imas%3A'.$azure_tag.'" id="button">イラスト検索</a>';
-  }
+//  if(!empty($azure_tag)){
+//    $idol_illust = '<a href="https://azure-gallery.net/?query=imas%3A'.$azure_tag.'" id="button">イラスト検索</a>';
+//  }
 
 if(is_tax( 'idol_sc' ) and $child_temp->parent == 0){ //子タクソノミーがある（ユニットページの）場合の出力
       $archiveTitle_html = '<div class="idol"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_pic_pass.'/unit/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';"><div class="info"><div class="idolname">'.$archiveTitle.'</div><div class="moreinfo"><!-- 将来的にユニットページができた場合はここに入力 --></div></div></div>';

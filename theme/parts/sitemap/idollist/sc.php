@@ -4,6 +4,10 @@
 .info{margin-left:100px;}
 .cv{float: left;}
 .count{text-align: right;}</style>
+
+<p>このページからユニット名を開いたときに出てくる一覧ページは、ユニット名義の歌唱ではなくユニットメンバーの誰かが参加している楽曲の一覧になります。<br>
+ユニット名義で出ている曲については<a href="https://fujiwarahaji.me/sitemap/unit">ユニットページ</a>からユニット名を探してください</p>
+
 <?php
 // カスタム分類名
 $taxonomy = 'idol_sc';

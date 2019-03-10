@@ -89,21 +89,22 @@ if (have_posts()) : while ( have_posts() ) : the_post();?>
 		</tr>
 		<tr>
 			<td>ユニット</td>
-			<td><?php if(is_singular( 'music_shiny' )){
+			<td><?php
+//if(is_singular( 'music_shiny' )){
 //シャイニーカラーズ出力用タグ
-$taxonomy = 'idol_sc';
-$terms = wp_get_object_terms($post->ID, $taxonomy);
-if ($terms) {
-foreach ( $terms as $term ) {
-$term_id = $term->term_id;//タームID取得
-$link = get_term_link( $term, $taxonomy );//タームのリンクを取得
+//$taxonomy = 'idol_sc';
+//$terms = wp_get_object_terms($post->ID, $taxonomy);
+//if ($terms) {
+//foreach ( $terms as $term ) {
+//$term_id = $term->term_id;//タームID取得
+//$link = get_term_link( $term, $taxonomy );//タームのリンクを取得
 
-if($term->parent == 0){ //子タクソノミーがある（ユニット）のみ出力
-echo '<div><a href="'.$link.'">'.esc_html($term->name).'</a></div>';
-    }}}
-} else { //シンデレラガールズ出力タグ
+//if($term->parent == 0){ //子タクソノミーがある（ユニット）のみ出力
+//echo '<div><a href="'.$link.'">'.esc_html($term->name).'</a></div>';
+//    }}}
+//} else { //シンデレラガールズ出力タグ
 echo get_the_term_list( $post->ID, unit, '', '<br>', '');
-}?></td>
+//}?></td>
 		</tr>
 		<tr>
 			<td>オリジナル</td>
@@ -111,7 +112,7 @@ echo get_the_term_list( $post->ID, unit, '', '<br>', '');
 		</tr>
 		<tr>
 			<td>関連</td>
-			<td><?php echo get_the_term_list( $post->ID, music, '', '<br>', ''); ?><?php echo get_the_term_list( $post->ID, music_ml, '', '<br>', ''); ?></td>
+			<td><?php echo get_the_term_list( $post->ID, music, '', '<br>', ''); ?></td>
 		</tr>
 
 	</tbody>
@@ -126,6 +127,19 @@ echo get_the_term_list( $post->ID, unit, '', '<br>', '');
   <div class="msgboxtop">メンバー情報</div>
 <div class="msgboxbody">
 <?php
+//繰り返しフィールド（CDごとのパート情報）を変数にセット
+$cd_group = SCF::get( 'CD_group',$id );
+foreach ( $cd_group as $field_name => $field_value ) {
+
+$tax_id_temp = $field_value['cd_term'];
+$idol_temp =  $field_value['cd_mem'];
+//CDソロ判定用の配列をつくる
+$solo_temp[] = $idol_temp;
+set_query_var('solo_temp',$solo_temp);
+//CD表示用の配列をつくる
+${"cdidol_".$tax_id_temp."_".$id} = explode(',', $idol_temp);
+}
+
 //アイドル表示の順番を指定
 if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 get_template_part('parts/music_page/member/cin');
@@ -142,16 +156,7 @@ get_template_part('parts/music_page/member/shiny');
 }
 ?>
 
-
 <?php
-//繰り返しフィールド（CDごとのパート情報）を変数にセット
-$cd_group = SCF::get( 'CD_group',$id );
-foreach ( $cd_group as $field_name => $field_value ) {
-
-$tax_id_temp = $field_value['cd_term'];
-$idol_temp =  $field_value['cd_mem'];
-${"cdidol_".$tax_id_temp."_".$id} = explode(',', $idol_temp);
-}
 if(!empty($idol_temp)):?>
 <p>この曲には、CDごとのメンバー情報があります。くわしくは<a href="#CD">CD情報</a>で確認ください。</p>
 <?php endif;?>
@@ -259,8 +264,8 @@ if(is_singular( 'music_shiny' ) or is_singular( 'music_godo' )): //シャイニ�
 
 <!-- CD情報用CSS（OSにより分岐） -->
 <?php if(wp_is_mobile()): ?>
-<style type="text/css">
 <!-- スマホ用CSS -->
+<style type="text/css">
 .cdname{font-size:15px;}
 </style>
 <?php endif; ?>
@@ -296,28 +301,7 @@ if(is_singular( 'music_shiny' ) or is_singular( 'music_godo' )): //シャイニ�
 <?php 
 //アイドル画像出力ループ
 foreach (${"cdidol_h_".$kiji_id} as $idol_name_roop) {
-
-if(get_term_by('name',$idol_name_roop,'idol_cg')){ //シンデレラガールズにいるか検索
-$term = get_term_by('name',$idol_name_roop,'idol_cg');
-$thum_dir = 'cinderella';
-} elseif (get_term_by('name',$idol_name_roop,'idol_765')){ //ミリオンライブにいるか検索
-$term = get_term_by('name',$idol_name_roop,'idol_765');
-$thum_dir = 'millionlive';
-} elseif (get_term_by('name',$idol_name_roop,'idol_283')){ //シャイニーカラーズにいるか検索
-$term = get_term_by('name',$idol_name_roop,'idol_283');
-$thum_dir = 'shinycolors';
-} else {
-}
-        // タームのURLを取得
-$term_link = get_term_link( $term );
-        
-//必要なカスタムフィールドを取得
-				$cv = get_field('cv', $term);
-				$idol_term = get_field('idol-thum', $term);
-				$idol_color = get_field('idol_color', $term);
-        // 結果を出力
-        echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$thum_dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'"></a>';
-
+	idollist($idol_name_roop,"CD");
 }
 ?>
 <?php echo apply_filters('the_content',get_post_meta($post->ID, 'haishin', true)); ?></div></div><br>
@@ -342,30 +326,7 @@ echo "\n";
 
 //アイドル画像出力ループ
 foreach (${"cdidol_".$term_id."_".$kiji_id} as $idol_name_roop) {
-
-if(get_term_by('name',$idol_name_roop,'idol_cg')){ //シンデレラガールズにいるか検索
-$term = get_term_by('name',$idol_name_roop,'idol_cg');
-$thum_dir = 'cinderella';
-} elseif (get_term_by('name',$idol_name_roop,'idol_765')){ //ミリオンライブにいるか検索
-$term = get_term_by('name',$idol_name_roop,'idol_765');
-$thum_dir = 'millionlive';
-} elseif (get_term_by('name',$idol_name_roop,'idol_283')){ //シャイニーカラーズにいるか検索
-$term = get_term_by('name',$idol_name_roop,'idol_283');
-$thum_dir = 'shinycolors';
-} else {
-}
-
-        // タームのURLを取得
-$term_link = get_term_link( $term );
-        
-//必要なカスタムフィールドを取得
-				$cv = get_field('cv', $term);
-				$idol_term = get_field('idol-thum', $term);
-				$idol_color = get_field('idol_color', $term);
-		// 結果を出力
-		
-        echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl']."/idol/".$thum_dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'"></a>';
-
+	idollist($idol_name_roop,"CD");
 }
 
 echo $shop;
