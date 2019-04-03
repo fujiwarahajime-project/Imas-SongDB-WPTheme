@@ -12,8 +12,8 @@
 	<div class="media-body">
 
 		<?php
-if(is_tax( 'idol_765' )){
-get_template_part('parts/tax/module_loop_music_765idol_meta');
+if(is_tax( 'idol_765' ) or is_tax( 'idol_cg' ) or is_tax( 'idol_sc' )){
+get_template_part('parts/tax/module_loop_idol_meta');
 }else{
 get_template_part('module_loop_post_meta');
 }

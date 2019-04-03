@@ -3,7 +3,14 @@
 .idolname{font-size:20px;margin:7px 5px;border-bottom:dotted 2px gray;font-weight: bold;}.moreinfo{margin:7px 7px;}
 .info{margin-left:100px;}
 .cv{float: left;}
-.count{text-align: right;}</style>
+.count{text-align: right;}
+.entry-body h2{
+    margin:10px 0 0px;
+}
+.unitpic{
+    height:40px;
+    margin-right:10px
+}</style>
 
 <p>このページからユニット名を開いたときに出てくる一覧ページは、ユニット名義の歌唱ではなくユニットメンバーの誰かが参加している楽曲の一覧になります。<br>
 ユニット名義で出ている曲については<a href="https://fujiwarahaji.me/sitemap/unit">ユニットページ</a>からユニット名を探してください</p>
@@ -63,25 +70,53 @@ if ( count( $terms ) != 0 ) {
 if($taxonomy == 'idol_sc') {//シャイニーカラーズの分岐
 
         if( $term->parent != 0 ) { //親タームと子タームの分岐
-	echo '<div class="idol">'; //子ターム
-	echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';">';
-        echo '<div class="info"><p class="idolname"><ruby>'.$term->name.'<rt>'.$Kana.'</rt></ruby></a></p>';
-	echo '<div class="moreinfo"><p class="cv">CV：<ruby>'.$cv.'<rt>'.$CVKana.'</rt></ruby></p><p class="count">'.$count.'</p></div></div>';
+        echo '<div class="idol">'; //子ターム
+        echo PHP_EOL;
+        echo '  <a href="' . esc_url( $term_link ) . '">';
+        echo PHP_EOL;
+        echo '  <img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';">';
+        echo PHP_EOL;
+        echo '  <div class="info"><p class="idolname"><ruby>'.$term->name.'<rt>'.$Kana.'</rt></ruby></a></p>';
+        echo PHP_EOL;
+        echo '  <div class="moreinfo"><p class="cv">CV：<ruby>'.$cv.'<rt>'.$CVKana.'</rt></ruby></p>';
+        echo PHP_EOL;
+        echo '  <p class="count">'.$count.'</p></div></div>';
+        echo PHP_EOL;
         echo '</div>';
+        echo PHP_EOL;
+
         } else {
-	echo '<h2 style="margin-bottom:0px;">'; //親ターム
-	echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/unit/'.$idol_term.'.png" style="height:40px;margin-right:10px;background:'.$idol_color.';">'.$term->name.'</a></h2>';
+        echo '<h2 style="border-top-color:'.$idol_color.';">'; //親ターム
+        echo PHP_EOL;
+        echo '  <a href="' . esc_url( $term_link ) . '">';
+        echo PHP_EOL;
+        echo '  <img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/unit/'.$idol_term.'.png" class="unitpic";">'.$term->name.'</a>';
+        echo PHP_EOL;
+        echo ' </h2>';
+        echo PHP_EOL;
+
 }
 
 } else { //シャイニーカラーズ以外の通常出力
 
-	echo '<div class="idol">';
-	echo '<a href="' . esc_url( $term_link ) . '"><img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';">';
-        echo '<div class="info"><p class="idolname"><ruby>'.$term->name.'<rt>'.$Kana.'</rt></ruby></a></p>';
-	echo '<div class="moreinfo"><p class="cv">CV：<ruby>'.$cv.'<rt>'.$CVKana.'</rt></ruby></p><p class="count">'.$count.'</p></div></div>';
+        echo '<div class="idol">'; //子ターム
+        echo PHP_EOL;
+        echo '  <a href="' . esc_url( $term_link ) . '">';
+        echo PHP_EOL;
+        echo '  <img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';">';
+        echo PHP_EOL;
+        echo '  <div class="info"><p class="idolname"><ruby>'.$term->name.'<rt>'.$Kana.'</rt></ruby></a></p>';
+        echo PHP_EOL;
+        echo '  <div class="moreinfo"><p class="cv">CV：<ruby>'.$cv.'<rt>'.$CVKana.'</rt></ruby></p>';
+        echo PHP_EOL;
+        echo '  <p class="count">'.$count.'</p></div></div>';
+        echo PHP_EOL;
         echo '</div>';
+        echo PHP_EOL;
+
 
 }
+
 //最後の処理
 }}
 ?>

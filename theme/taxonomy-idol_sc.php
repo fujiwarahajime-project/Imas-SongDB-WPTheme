@@ -80,7 +80,14 @@ if ( $page_for_posts['post_top_use'] || get_post_type() != 'post' ) {
   if ( is_year() || is_month() || is_day() || is_tag() || is_author() || is_tax() || is_category() ) {
       $archiveTitle = get_the_archive_title();
 
-if(!is_tax( 'idol_sc' )){//アイドルプロフィールURL生成
+if(is_tax( 'idol_sc' ) and $child_temp->parent == 0){
+  //シャニマスのユニットページの場合
+  $idol_profile = '<a href="'.$unitinfo_URL.''.$idol_term.'" id="button">'.$unitsyosai_bun.'</a>';
+  if(get_term_by('name',$archiveTitle,'unit')){
+  $unitterm_url = esc_url(get_term_link(get_term_by('name',$archiveTitle,'unit')));
+}
+
+}else{//アイドルプロフィールURL生成
 $idol_profile = '<a href="'.$idolinfo_URL.''.$idol_term.'" id="button">'.$idolsyosai_bun.'</a>';
 }
 
@@ -98,7 +105,7 @@ $idol_profile = '<a href="'.$idolinfo_URL.''.$idol_term.'" id="button">'.$idolsy
 //  }
 
 if(is_tax( 'idol_sc' ) and $child_temp->parent == 0){ //子タクソノミーがある（ユニットページの）場合の出力
-      $archiveTitle_html = '<div class="idol"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_pic_pass.'/unit/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';"><div class="info"><div class="idolname">'.$archiveTitle.'</div><div class="moreinfo"><!-- 将来的にユニットページができた場合はここに入力 --></div></div></div>';
+      $archiveTitle_html = '<div class="idol"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_pic_pass.'/unit/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';"><div class="info"><div class="idolname">'.$archiveTitle.'</div><div class="moreinfo">'.$idol_profile.'</div></div></div>';
 }
 else{ //子タクソノミーがない（個別アイドルページの）場合の出力
       $archiveTitle_html = '<div class="idol"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_pic_pass.'/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';"><div class="info"><div class="idolname"><ruby>'.$archiveTitle.'<rt>'.$Kana.'</rt></ruby>(CV.<ruby>'.$CV.'<rt>'.$CVKana.'</rt></ruby>)</div><div class="moreinfo">'.$idol_profile.''.$idol_illust.'</div></div></div>';
@@ -118,6 +125,11 @@ else{ //子タクソノミーがない（個別アイドルページの）場合
       $archiveDescription_html = '<div class="archive-meta">' . $category_description . '</div>';
       echo apply_filters( 'lightning_mainSection_archiveDescription' , $archiveDescription_html );
     }
+    if(is_tax( 'idol_sc' ) and $child_temp->parent == 0){
+    echo "<h4>おしらせ</h4>\n";
+    echo "こちらのページは、ユニット名義の歌唱ではなくユニットメンバーの誰かが参加している楽曲の一覧になります。<br>\n";
+    echo 'ユニット名義で出ている曲については<a href="'.$unitterm_url.'">ユニットページ</a>から探してください。';
+    echo "\n";}
   }
 
 $postType = lightning_get_post_type();

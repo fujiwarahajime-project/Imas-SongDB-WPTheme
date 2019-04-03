@@ -57,7 +57,14 @@ if(!empty(${"liveidol_".$term_id."_".get_the_ID()})){
 	echo "<div>";
 	if($setlistidol_list){
 		foreach ($setlistidol_list as $idol_name_roop) {
-			$live_member[] = idollist($idol_name_roop,"live");
+			if($idol_name_roop == "全員"){
+				foreach(explode(',',get_field('member',$term_idmenu.$term_id)) as  $idol_name_roop){
+					$live_member[] = idollist($idol_name_roop,"live");
+				}
+
+			}else{
+				$live_member[] = idollist($idol_name_roop,"live");
+			}
 		}
 	  
 	}

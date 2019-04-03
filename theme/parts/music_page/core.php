@@ -1,4 +1,20 @@
-﻿<?php //MVのタグを指定
+﻿<style>
+.solo{
+	float:left;
+	position:absolute;
+	top:0;
+	left:2px;
+	color:white;
+}
+.fuchidori{
+	text-shadow: 1px 1px 0 #000,
+               -1px 1px 0 #000,
+               1px -1px 0 #000,
+               -1px -1px 0 #000;
+}</style>
+
+
+<?php //MVのタグを指定
 if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 	$MV_Tag = 'デレステMV';
 	} elseif(is_singular( 'music_ml' )){ //ミリオンライブの場合
@@ -133,11 +149,14 @@ foreach ( $cd_group as $field_name => $field_value ) {
 
 $tax_id_temp = $field_value['cd_term'];
 $idol_temp =  $field_value['cd_mem'];
+foreach ( explode(',', $field_value['cd_solo']) as $idol_solo ) {
+	$solo_temp[] = $idol_solo;
+}
 //CDソロ判定用の配列をつくる
 $solo_temp[] = $idol_temp;
 set_query_var('solo_temp',$solo_temp);
 //CD表示用の配列をつくる
-${"cdidol_".$tax_id_temp."_".$id} = explode(',', $idol_temp);
+${"cdidol_".$tax_id_temp."_".$id} = array_unique(array_merge( explode(',', $idol_temp) , explode(',', $field_value['cd_solo']) ));
 }
 
 //アイドル表示の順番を指定

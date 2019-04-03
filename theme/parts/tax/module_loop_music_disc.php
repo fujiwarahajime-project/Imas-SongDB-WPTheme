@@ -17,7 +17,6 @@
 <?php if(!wp_is_mobile()): ?>
 
 <?php
-$upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
 $term_id = get_queried_object_id();//タームIDを取得
 $cd_group = SCF::get( 'CD_group',$id );
 foreach ( $cd_group as $field_name => $field_value ) {
@@ -27,7 +26,10 @@ foreach ( $cd_group as $field_name => $field_value ) {
 
 	global ${"cdidol_".$tax_id_temp."_".$id};
 
-	${"cdidol_".$tax_id_temp."_".$id} = explode(',', $idol_temp);
+	${"cdidol_".$tax_id_temp."_".$id} = array_unique(array_merge( explode(',', $idol_temp) , explode(',', $field_value['cd_solo']) ));
+	if($term_id == $tax_id_temp){
+		continue;
+	}
 
 }
 

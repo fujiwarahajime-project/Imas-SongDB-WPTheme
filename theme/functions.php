@@ -67,7 +67,7 @@ module_loop_★ポストタイプ名★.php
 function add_wp_head_custom(){ ?>
 <!-- head内に書きたいコード -->
 <!--カスタムフォント-->
-<link href="https://fonts.googleapis.com/earlyaccess/roundedmplus1c.css" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css?family=Kosugi|Noto+Sans" rel="stylesheet">
 <?php
 if(!is_tax( 'idol_765' ) and !is_singular('music_cg') and !is_singular('music_ml') and !is_singular('music_shiny') and !is_singular('music_as') and !is_singular('music_godo')){ 
 	//ミリオンライブ、singleページ以外の場合、サイトのメインカラーを出力する
@@ -77,7 +77,7 @@ echo '<meta name="theme-color" content="#7272b4">';
 ?>
 
 <!--ボックスの基礎CSS-->
-<link href="<?php echo get_stylesheet_directory_uri(); ?>/css/box/main_box.css" rel="stylesheet" />
+<link href="<?php echo get_stylesheet_directory_uri(); ?>/css/allpage.css" rel="stylesheet" />
 
 <!--検索タグ-->
 <link rel="search" type="application/opensearchdescription+xml" title="ふじわらはじめ" href="<?php echo site_url(); ?>/search/search_main.xml">
@@ -157,16 +157,15 @@ function idolicon($name,$listtype){
 			  $idol_term = get_field('idol-thum', $term);
 			  $idol_color = get_field('idol_color', $term);
 			  // 結果を出力
+			  echo '<a href="' . esc_url( $term_link ) . '" class="idolicon_link">';
+			  //echo PHP_EOL;
+
 			  if($listtype == "live"){
-			  echo '	<a href="' . esc_url( $term_link ) . '">';
-			  echo PHP_EOL;
-			  echo '		<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
+			  echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
 			  }else{
-				echo '	<a href="' . esc_url( $term_link ) . '">';
-				echo PHP_EOL;
-				echo '		<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"></a>';
+				echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"></a>';
 			  }
-			  echo PHP_EOL;
+			  //echo PHP_EOL;
 			}
 	  return $live_temp;
 }

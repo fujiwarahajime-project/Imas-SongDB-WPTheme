@@ -14,15 +14,15 @@ $idol_color = get_field('idol_color',$term_idmenu.$term_id);//アイドルのテ
 $solo_temp = get_query_var('solo_temp');
 
 if(!($term->parent == 0)){ //子タクソノミーがない（アイドル）のみ出力
-    echo '<div class="idol"><a href="'.$link.'"><div class="idolicon" style="background:'.$idol_color.';position: relative;"><img src="'.$upload_dir['baseurl'].'/idol/shinycolors/'.$idol_term.'.png"" title="'.$term->term_id.'">';
+    echo '<div class="idol"><a href="'.$link.'"><div class="idolicon" style="background:'.$idol_color.';position: relative;"><img src="'.$upload_dir['baseurl'].'/idol/shinycolors/'.$idol_term.'.png" title="'.$term->term_id.'">';
     if(in_array($term->name, $solo_temp)){
     echo '<p class="fuchidori solo" title="ソロあり">S</p>';
     }
-    echo '</div>';
+    echo '</div></a>';
     echo "\n";
-    echo '<div class="info"><div class="idolname"><a href="'.$link.'">'.esc_html($term->name).'</a></div>';
+    echo '  <div class="info"><div class="idolname"><a href="'.$link.'">'.esc_html($term->name).'</a></div>';
     echo "\n";
-    echo '<div class="moreinfo">CV：'.$CV.'</div></div></div>';
+    echo '  <div class="moreinfo">CV：'.$CV.'</div></div></div>';
     echo "\n";
         }}
 echo "</div>";
