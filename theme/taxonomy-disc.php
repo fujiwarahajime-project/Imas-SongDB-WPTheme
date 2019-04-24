@@ -7,6 +7,7 @@ get_template_part('sitehensu/godo');
 
 <?php get_template_part('module_pageTit'); ?>
 <?php get_template_part('module_panList'); ?>
+<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/disc.css" type="text/css" />
 
 <div class="section siteContent">
 <div class="container">

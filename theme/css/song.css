@@ -141,7 +141,6 @@
 .btn_item_in{width:100%;display:inline-block;}
 .under_line{border-bottom: medium solid thistle;}
 .tab_panel{display:none;width:100%;border-bottom: medium solid thistle;border-left: medium solid thistle;border-right: medium solid thistle;}
-.tab_title{text-align: left;font-size: 150%;border-bottom: dotted 3px gray;}
 input[type="radio"]{display:none;}
 #tabtw:checked ~ .tab_area .tabtw_label{background:linear-gradient(#99187d,#eb4cc6);color:white;box-shadow:0px 1px 0px black;}
 #tabtw:checked ~ .panel_area #paneltw{display:block;}

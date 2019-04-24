@@ -66,6 +66,19 @@ module_loop_★ポストタイプ名★.php
 /*-------------------------------------------*/
 function add_wp_head_custom(){ ?>
 <!-- head内に書きたいコード -->
+
+<!--
+  ココのコメントアウトはサイトの内容とは関係のない管理人の私心です。
+  総選挙の時期ですので、こんなところからですが少しだけ応援してみようと思います。
+
+  ┌―┐
+  │藤│  令和はじめのシンデレラガールに
+  │原│    はじめちゃんがなっている夢を見ました。
+  │肇│      実現のためによければ投票よろしくお願いします。
+  └―┘ 
+-->
+
+
 <!--カスタムフォント-->
 <link href="https://fonts.googleapis.com/css?family=Kosugi|Noto+Sans" rel="stylesheet">
 <?php
@@ -162,6 +175,8 @@ function idolicon($name,$listtype){
 
 			  if($listtype == "live"){
 			  echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
+			  }elseif($listtype == "cdsolo"){
+				echo '<div class="idol"><img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"></a><p class="fuchidori solo" title="ソロ">S</p></div>';
 			  }else{
 				echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"></a>';
 			  }
@@ -209,3 +224,18 @@ function idollist($idol_name_roop,$listtype){
 return $live_member;
 
 }
+
+//IME用
+
+// 自動形成しない
+//remove_filter('the_content', 'wpautop');
+// wptexturizeによる文字列変換をしない
+//remove_filter('the_content', 'wptexturize');
+remove_filter('the_title'  , 'wptexturize');
+//remove_filter('the_excerpt', 'wptexturize');
+//remove_filter('comment_text', 'wptexturize');
+// convert_charsによる文字列変換をしない
+//remove_filter('the_content', 'convert_chars');
+remove_filter('the_title'  , 'convert_chars');
+//remove_filter('the_excerpt', 'convert_chars');
+//remove_filter('comment_text', 'convert_chars');

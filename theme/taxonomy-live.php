@@ -81,19 +81,36 @@ do_action('lightning_loop_before'); ?>
 <?php get_template_part('share'); ?>
 
 <?php if ( !is_paged() ) : // 1ページ目のみに表示 ?>
+  
+  
   <?php if ( !empty(get_field('shop',$term_idmenu.$term_id)) ) : // Amazon情報が登録されている場合にのみ表示 ?>
 <div class="msgbox">
   <div class="msgboxtop">このライブの映像ディスクを購入する</div>
   <div class="msgboxbody">
 <?php
-$shop = get_field('shop',$term_idmenu.$term_id);//attachmentIDが出力される
-echo $shop; // タームID
+echo get_field('shop',$term_idmenu.$term_id);//出力
   ?>
 </div>
   <div class="msgboxfoot">
   </div>
 </div>
   <?php endif;?>
+
+
+  <?php if ( !empty(get_field('movie',$term_idmenu.$term_id)) ) : // Amazon情報が登録されている場合にのみ表示 ?>
+<div class="msgbox">
+  <div class="msgboxtop">TV・生放送放送情報</div>
+  <div class="msgboxbody">
+<?php
+echo get_field('movie',$term_idmenu.$term_id);//出力
+  ?>
+</div>
+  <div class="msgboxfoot">
+  </div>
+</div>
+  <?php endif;?>
+
+
 
 <!-- メンバー情報の表示 -->
 <?php get_template_part('parts/tax/unit_member'); ?>

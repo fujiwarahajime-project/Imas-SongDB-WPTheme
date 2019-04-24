@@ -1,12 +1,8 @@
 ﻿/*
-Copyright (c) 2018 by miyacorata (https://codepen.io/miyano/pen/MpRjEB)
-
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+CGSS-MessageWindow(https://codepen.io/miyano/pen/MpRjEB)
+Code copyright miyacorata 
+Code released under the MIT license
+https://opensource.org/licenses/mit-license.php
 */
 .msgboxtop{
   background:linear-gradient(#fde98b,#c6b46b);
@@ -25,7 +21,6 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
   background:white;
   color:black;
   padding:7px 10px;
-  font-family: "BIZ UDPGothic","Rounded Mplus 1c";
   border:none;
 
 }
@@ -61,3 +56,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 .msgboxbody a:visited { color:#EB8686; }
 .msgboxbody a:hover { color:#6088C6; }
 .msgboxbody a:active { color:#AEC4E5; }
+
+.setlist a:link { color:aquamarine; }
+.setlist a:visited { color:paleturquoise; }
+.setlist a:hover { color:mediumaquamarine; }
+.setlist a:active { color:lightskyblue; }

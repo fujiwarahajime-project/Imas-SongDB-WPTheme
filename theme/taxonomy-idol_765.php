@@ -184,6 +184,14 @@ do_action('lightning_loop_before'); ?>
 </div><!-- [ /.mainSection ] -->
 
 <div class="col-md-3 col-md-offset-1 subSection sideSection">
+
+<?php if(is_tax( 'idol_sc' ) and $child_temp->parent == 0){
+
+}else{
+  get_template_part('parts/tax/actor_disc');
+}
+?>
+
 <?php get_sidebar(get_post_type()); ?>
 </div><!-- [ /.subSection ] -->
 

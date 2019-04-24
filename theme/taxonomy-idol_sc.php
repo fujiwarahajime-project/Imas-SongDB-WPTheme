@@ -83,10 +83,7 @@ if ( $page_for_posts['post_top_use'] || get_post_type() != 'post' ) {
 if(is_tax( 'idol_sc' ) and $child_temp->parent == 0){
   //シャニマスのユニットページの場合
   $idol_profile = '<a href="'.$unitinfo_URL.''.$idol_term.'" id="button">'.$unitsyosai_bun.'</a>';
-  if(get_term_by('name',$archiveTitle,'unit')){
   $unitterm_url = esc_url(get_term_link(get_term_by('name',$archiveTitle,'unit')));
-}
-
 }else{//アイドルプロフィールURL生成
 $idol_profile = '<a href="'.$idolinfo_URL.''.$idol_term.'" id="button">'.$idolsyosai_bun.'</a>';
 }
@@ -187,6 +184,14 @@ do_action('lightning_loop_before'); ?>
 </div><!-- [ /.mainSection ] -->
 
 <div class="col-md-3 col-md-offset-1 subSection sideSection">
+
+<?php if(is_tax( 'idol_sc' ) and $child_temp->parent == 0){
+
+}else{
+  get_template_part('parts/tax/actor_disc');
+}
+?>
+
 <?php get_sidebar(get_post_type()); ?>
 </div><!-- [ /.subSection ] -->
 

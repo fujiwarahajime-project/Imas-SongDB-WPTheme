@@ -23,20 +23,25 @@ foreach ( $cd_group as $field_name => $field_value ) {
 
 	$tax_id_temp = $field_value['cd_term'];
 	$idol_temp =  $field_value['cd_mem'];
+	$solo_temp =  $field_value['cd_solo'];
 
-	global ${"cdidol_".$tax_id_temp."_".$id};
 
-	${"cdidol_".$tax_id_temp."_".$id} = array_unique(array_merge( explode(',', $idol_temp) , explode(',', $field_value['cd_solo']) ));
+	//${"cdidol_".$tax_id_temp."_".$id} = array_unique(array_merge( explode(',', $idol_temp) , explode(',', $field_value['cd_solo']) ));
 	if($term_id == $tax_id_temp){
+
+		foreach (explode(',', $idol_temp) as $idol_name_roop) {
+			idollist($idol_name_roop,"cd");
+		}
+		
+
+		foreach (explode(',', $solo_temp) as $idol_name_roop) {
+			idollist($idol_name_roop,"cdsolo");
+		}
+		
 		continue;
 	}
 
 }
-
-foreach (${"cdidol_".$term_id."_".$id} as $idol_name_roop) {
-	idollist($idol_name_roop,"live");
-}
-
 
 ?>
 

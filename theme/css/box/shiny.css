@@ -64,3 +64,8 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 .msgboxbody a:link,.msgboxbody a:active,.msgboxbody a:visited {color:#337ab7;}
 .msgboxbody a:hover {color:#23527c;}
+
+.setlist a:link { color:aquamarine; }
+.setlist a:visited { color:paleturquoise; }
+.setlist a:hover { color:mediumaquamarine; }
+.setlist a:active { color:lightskyblue; }

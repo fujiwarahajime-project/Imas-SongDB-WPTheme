@@ -1,20 +1,83 @@
-﻿<style type="text/css">.idol{float:left;height:102px;width:375px;max-width: 100%;border:solid 1px darkgray;border-radius:2px;background:white;}
-.idolicon{background:linear-gradient(lightgray,gray);float:left;padding:8px;width:100px;margin-bottom:0px;display:block;}
-.idolname{font-size:20px;margin:7px 5px;border-bottom:dotted 2px gray;font-weight: bold;}.moreinfo{margin:7px 7px;}
-.info{margin-left:100px;}
-.cv{float: left;}
-.count{text-align: right;}
-.entry-body h2{
-    margin:10px 0 0px;
+﻿<style type="text/css">
+
+
+@media screen and (min-width:641px) {
+  /*　横幅1201px以上（PCフル表示などの場合）は3列表示　*/
+  .idol {width:50%;}
+  .solocolle .idol {width:50%;}
+  :root{
+  --idolpic: 100px;
+  }
+  .idolname{
+    margin:3px 3px;
+  }
+  .moreinfo{
+    margin:3px 3px;
+  }
+
 }
-.unitpic{
-    height:40px;
-    margin-right:10px
-}</style>
 
-<p>このページからユニット名を開いたときに出てくる一覧ページは、ユニット名義の歌唱ではなくユニットメンバーの誰かが参加している楽曲の一覧になります。<br>
-ユニット名義で出ている曲については<a href="https://fujiwarahaji.me/sitemap/unit">ユニットページ</a>からユニット名を探してください</p>
+@media screen and (max-width: 640px) { 
+  /*　横幅520px以下（スマホなど）は1列表示　*/
+  .idol {width:100%;}
+  :root{
+  --idolpic: 90px;
+  }
+  .idolname{
+    margin:2px 2px;
+  }
+  .moreinfo{
+    margin:7px 7px;
+  }
+}
 
+@-moz-document url-prefix(){
+  /*Firefox*/
+  .idolname{
+    margin:7px 5px;
+  }
+  .moreinfo{
+    margin:2px 2px;
+  }
+}
+
+.idollist{/* フレックスボックスにする */
+  display: flex;
+  flex-wrap: wrap;
+}
+.idol{/* アイテムの外枠、全体フォントに関する設定 */
+  height:calc(var(--idolpic) + 2px);
+  border:solid 1px darkgray;
+  border-radius:2px;
+}
+.idolicon{/* アイコンに関する設定（バックグラウンドは、アイドルのテーマカラーを指定しなかったときのみ使用されます） */
+  background:linear-gradient(lightgray,gray);
+  float:left;
+  padding:8px;
+  height:var(--idolpic);
+  margin-bottom:0px;
+  display:block;
+}
+.idolname{/* アイドルの名前まわりのスタイル設定 */
+  font-size:20px;
+  border-bottom:dotted 2px gray;
+  font-weight: bold;
+}
+
+.info{
+  margin-left:var(--idolpic);
+}
+
+.count{
+    text-align: right;
+}
+
+.cv{
+    float: left;
+}
+</style>
+
+<div class="idollist">
 <?php
 // カスタム分類名
 $taxonomy = 'idol_sc';
@@ -39,7 +102,7 @@ $args = array(
     'pad_counts' => true,
   
     // 投稿記事がないタームも取得
-    'hide_empty' => false,
+    'hide_empty' => true,
    //並び順
 'orderby' => $orderby,
 'order' => DESC,
@@ -86,11 +149,11 @@ if($taxonomy == 'idol_sc') {//シャイニーカラーズの分岐
         echo PHP_EOL;
 
         } else {
-        echo '<h2 style="border-top-color:'.$idol_color.';">'; //親ターム
+        echo '<h2>'; //親ターム
         echo PHP_EOL;
         echo '  <a href="' . esc_url( $term_link ) . '">';
         echo PHP_EOL;
-        echo '  <img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/unit/'.$idol_term.'.png" class="unitpic";">'.$term->name.'</a>';
+        echo '  <img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/unit/'.$idol_term.'.png" style="height:40px;margin-right:10px;background:'.$idol_color.';">'.$term->name.'</a>';
         echo PHP_EOL;
         echo ' </h2>';
         echo PHP_EOL;
@@ -105,7 +168,11 @@ if($taxonomy == 'idol_sc') {//シャイニーカラーズの分岐
         echo PHP_EOL;
         echo '  <img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';">';
         echo PHP_EOL;
-        echo '  <div class="info"><p class="idolname"><ruby>'.$term->name.'<rt>'.$Kana.'</rt></ruby></a></p>';
+        if($term->name == $Kana){
+          echo '  <div class="info"><p class="idolname">'.$term->name.'</a></p>';
+        }else{
+          echo '  <div class="info"><p class="idolname"><ruby>'.$term->name.'<rt>'.$Kana.'</rt></ruby></a></p>';
+        }
         echo PHP_EOL;
         echo '  <div class="moreinfo"><p class="cv">CV：<ruby>'.$cv.'<rt>'.$CVKana.'</rt></ruby></p>';
         echo PHP_EOL;
@@ -116,7 +183,7 @@ if($taxonomy == 'idol_sc') {//シャイニーカラーズの分岐
 
 
 }
-
 //最後の処理
 }}
 ?>
+</div>

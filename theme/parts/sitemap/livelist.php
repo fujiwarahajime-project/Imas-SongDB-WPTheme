@@ -42,19 +42,21 @@ if ( count( $terms ) != 0 ) {
             continue;
         }
 				$place = get_field('place', $term);
-				$live_bd = get_field('shop', $term);
                 $setlist_hantei = count(SCF::get_term_meta( $term, $taxonomy, 'setlist' )) >= 2; //セットリスト判定
 
             echo '<tr>';
 
     echo '<td>';
 
-if(!empty($live_bd)) {//もしライブBDが発売されているのなら
+if(!empty(get_field('shop', $term))) {//もしライブBDが発売されているのなら
 echo '<i class="fas fa-compact-disc"></i>';}//CDマークを出力する
 
 if($setlist_hantei) {//もしセットリストが登録されているなら
     echo '<i class="fas fa-list-ul"></i>';}//リストのマークを出力する
-    
+
+if(!empty(get_field('movie', $term))){ //もし放映情報があるなら
+    echo '<i class="fas fa-tv"></i>'; //TVマークを出力
+}
     echo '</td>';
         echo '<td><a href="' . esc_url( $term_link ) . '">' .str_ireplace("THE IDOLM@STER ","", $term->name). '</a></td>';
         echo '<td>'.$place.'</td>';

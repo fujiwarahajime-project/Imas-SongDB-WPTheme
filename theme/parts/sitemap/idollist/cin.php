@@ -1,20 +1,45 @@
 ﻿<style type="text/css">
-:root{
-  --idolpic: 100px;
-}
+
 
 @media screen and (min-width:641px) {
   /*　横幅1201px以上（PCフル表示などの場合）は3列表示　*/
   .idol {width:50%;}
   .solocolle .idol {width:50%;}
+  :root{
+  --idolpic: 100px;
+  }
+  .idolname{
+    margin:3px 3px;
+  }
+  .moreinfo{
+    margin:3px 3px;
+  }
 
 }
 
 @media screen and (max-width: 640px) { 
   /*　横幅520px以下（スマホなど）は1列表示　*/
   .idol {width:100%;}
+  :root{
+  --idolpic: 90px;
+  }
+  .idolname{
+    margin:2px 2px;
+  }
+  .moreinfo{
+    margin:7px 7px;
+  }
 }
 
+@-moz-document url-prefix(){
+  /*Firefox*/
+  .idolname{
+    margin:7px 5px;
+  }
+  .moreinfo{
+    margin:2px 2px;
+  }
+}
 
 .idollist{/* フレックスボックスにする */
   display: flex;
@@ -35,12 +60,10 @@
 }
 .idolname{/* アイドルの名前まわりのスタイル設定 */
   font-size:20px;
-  margin:7px 5px;
   border-bottom:dotted 2px gray;
-  font-weight: bold;}
-.moreinfo{
-  margin:7px 7px;
+  font-weight: bold;
 }
+
 .info{
   margin-left:var(--idolpic);
 }
@@ -79,7 +102,7 @@ $args = array(
     'pad_counts' => true,
   
     // 投稿記事がないタームも取得
-    'hide_empty' => false,
+    'hide_empty' => true,
    //並び順
 'orderby' => $orderby,
 'order' => DESC,
@@ -145,7 +168,11 @@ if($taxonomy == 'idol_sc') {//シャイニーカラーズの分岐
         echo PHP_EOL;
         echo '  <img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';">';
         echo PHP_EOL;
-        echo '  <div class="info"><p class="idolname"><ruby>'.$term->name.'<rt>'.$Kana.'</rt></ruby></a></p>';
+        if($term->name == $Kana){
+          echo '  <div class="info"><p class="idolname">'.$term->name.'</a></p>';
+        }else{
+          echo '  <div class="info"><p class="idolname"><ruby>'.$term->name.'<rt>'.$Kana.'</rt></ruby></a></p>';
+        }
         echo PHP_EOL;
         echo '  <div class="moreinfo"><p class="cv">CV：<ruby>'.$cv.'<rt>'.$CVKana.'</rt></ruby></p>';
         echo PHP_EOL;
@@ -156,8 +183,7 @@ if($taxonomy == 'idol_sc') {//シャイニーカラーズの分岐
 
 
 }
-
-                                //最後の処理
+//最後の処理
 }}
 ?>
 </div>
