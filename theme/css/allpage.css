@@ -84,13 +84,13 @@ font-family: "BIZ UDPGothic","Rounded Mplus 1c";
   background:linear-gradient(lightgray,gray);
   float:left;
 	padding:8px;
-  width:88px;
-	margin-bottom:0px;
+  height:88px;
+  margin-bottom:0px;
+  margin-right: 10px;
 	display: block;
 }
 
 .cdname{
-  margin-left:104px;
   margin-top:7px;
 }
 

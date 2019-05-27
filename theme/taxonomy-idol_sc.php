@@ -45,6 +45,7 @@ $child_temp = $wp_query->get_queried_object(); //子タームがあるか調べ�
 <meta property="og:title" content="ユニット「<?php echo get_the_archive_title();?>」の歌う楽曲｜<?php bloginfo('name'); ?>">
 <meta property="og:description" content="<?php echo $ryakusyou; ?>のユニット「<?php echo get_the_archive_title();?>」の歌う曲の一覧ページです。">
 <meta property="og:image" content="<?php echo $upload_dir['baseurl'];?>/idol/<?php echo $idol_pic_pass;?>/unit/<?php echo $idol_term;?>.png">
+<meta property="thumbnail" content="<?php echo $upload_dir['baseurl'];?>/idol/<?php echo $idol_pic_pass;?>/unit/<?php echo $idol_term;?>.png">
 
 <?php else : ?>
 <!-- 個別アイドルページOGP -->
@@ -55,6 +56,8 @@ $child_temp = $wp_query->get_queried_object(); //子タームがあるか調べ�
 <meta property="og:title" content="<?php echo get_the_archive_title();?>（CV.<?php echo $CV;?>）の歌う楽曲｜<?php bloginfo('name'); ?>">
 <meta property="og:description" content="<?php echo $ryakusyou; ?>で<?php echo $CV;?>さん演じる<?php echo get_the_archive_title();?>の歌う曲の一覧ページです。">
 <meta property="og:image" content="<?php echo $upload_dir['baseurl'];?>/idol/<?php echo $idol_pic_pass;?>/<?php echo $idol_term;?>.png">
+<meta property="thumbnail" content="<?php echo $upload_dir['baseurl'];?>/idol/<?php echo $idol_pic_pass;?>/unit/<?php echo $idol_term;?>.png">
+
 <?php
 if(is_tax( 'idol_765' )){ //ミリオンライブ以外の場合、サイトのメインカラーを出力する
 echo '<meta name="theme-color" content="'.$idol_color.'">';

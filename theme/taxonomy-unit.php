@@ -4,6 +4,11 @@ $taxonomy = get_query_var( 'taxonomy' );
 $tax_info = get_taxonomy($taxonomy);
 $pageTitle = $tax_info->label;
 
+$term_id = get_queried_object_id(); // タームIDの取得
+$term_idmenu = $taxonomy.'_'; //「taxonomyname_ + termID」を取得
+
+$unitpic_hantei = get_field('termpic',$term_idmenu.$term_id);
+$unitpic = wp_get_attachment_image_src( $unitpic_hantei ,'full');
 ?>
 
 <?php get_header(); ?>
@@ -23,7 +28,12 @@ $pageTitle = $tax_info->label;
 <meta name="twitter:creator" content="@<?php echo $creator_twitter; ?>" />
 <meta property="og:title" content="<?php echo get_the_archive_title();?>｜<?php bloginfo('name'); ?>">
 <meta property="og:description" content="ユニット「<?php echo get_the_archive_title();?>」の歌唱した<?php echo $ryakusyou; ?>楽曲の情報です。">
-<meta property="og:image" content="<?php echo get_stylesheet_directory_uri();?>/resources/note_icon.png">
+<?php if(!empty($unitpic_hantei)){
+  echo '<meta property="og:image" content="'.esc_url($unitpic[0]).'">';
+  $picurl = '<img src="'.esc_url($unitpic[0]).'" class="cdicon">';
+}else{
+  echo '<meta property="og:image" content="'.get_stylesheet_directory_uri().'/resources/note_icon.png">';
+}?>
 
 
 <!-- CD情報用CSS（OSにより分岐） -->
@@ -55,8 +65,12 @@ $page_for_posts = lightning_get_page_for_posts();
 // Use post top page（ Archive title wrap to div ）
 if ( $page_for_posts['post_top_use'] || get_post_type() != 'post' ) {
   if ( is_year() || is_month() || is_day() || is_tag() || is_author() || is_tax() || is_category() ) {
-      $archiveTitle = get_the_archive_title();
-      $archiveTitle_html = '<img src="'.get_stylesheet_directory_uri().'/resources/note_icon.png" class="cdicon"><div class="cdname" style="font-weight: bold;">'. $archiveTitle .'</div></div></header>';
+    $archiveTitle = get_the_archive_title();
+    if(!empty(get_field('Kana',$term_idmenu.$term_id))){
+      $archiveTitle_html = $picurl.'<div class="cdname" style="font-weight: bold;"><ruby>'.$archiveTitle.'<rt>'.get_field('Kana',$term_idmenu.$term_id).'</rt></ruby></div></div></header>';
+    }else{
+      $archiveTitle_html = $picurl.'<div class="cdname" style="font-weight: bold;">'. $archiveTitle .'</div></div></header>';
+    }
       echo apply_filters( 'lightning_mainSection_archiveTitle' , $archiveTitle_html );
   }
 }
