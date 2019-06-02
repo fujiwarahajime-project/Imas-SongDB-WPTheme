@@ -8,16 +8,21 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
+.msgbox{
+  box-shadow:none !important;
+}
 .msgboxtop{
   background:white;
-  color:#333333;
-  padding:8px 5px;
+  color:dimgray;
+  padding:4px;
   font-weight:bold;
+  font-size:1.3em;
+  margin-bottom:10px;
   border:solid 2px gray;
-  border-top-left-radius:7px;
-  border-top-right-radius:7px;
-	border-bottom: dotted 2px gray;
+  border-radius:40px;
+    
 }
+
 .msgboxtop:before{
 	content:"";
 	display:inline-block;
@@ -27,17 +32,18 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 	background-size:contain;*/
 	vertical-align:middle;
 }
+
 .msgboxbody{
   background:white;
   color:black !important;
   padding:7px 10px;
-  border-left:solid 2px gray;
-  border-right:solid 2px gray;
+  border-left:none;
+  border-right:none;
 }
 .msgboxfoot{
   background:white;
   padding:15px 0 18px 0;
-  border:solid 2px gray;
+  border:none;
   border-bottom-left-radius:7px;
   border-bottom-right-radius:7px;
   text-align:center;
