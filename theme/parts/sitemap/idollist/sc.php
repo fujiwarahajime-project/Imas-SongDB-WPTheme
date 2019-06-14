@@ -75,6 +75,15 @@
 .cv{
     float: left;
 }
+
+.entry-body h2{
+  margin-bottom:0px;
+}
+
+.unitpic{
+  height:40px;
+  margin-right:10px;
+}
 </style>
 
 <div class="idollist">
@@ -132,7 +141,7 @@ if ( count( $terms ) != 0 ) {
 
 if($taxonomy == 'idol_sc') {//シャイニーカラーズの分岐
 
-        if( $term->parent != 0 ) { //親タームと子タームの分岐
+        if( $term->parent != '0' ) { //親タームと子タームの分岐
         echo '<div class="idol">'; //子ターム
         echo PHP_EOL;
         echo '  <a href="' . esc_url( $term_link ) . '">';
@@ -149,14 +158,19 @@ if($taxonomy == 'idol_sc') {//シャイニーカラーズの分岐
         echo PHP_EOL;
 
         } else {
-        echo '<h2>'; //親ターム
+        echo '</div>'; //親ターム
+        echo PHP_EOL;
+        echo '<h2 style="border-top-color:'.$idol_color.';">';
         echo PHP_EOL;
         echo '  <a href="' . esc_url( $term_link ) . '">';
         echo PHP_EOL;
-        echo '  <img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/unit/'.$idol_term.'.png" style="height:40px;margin-right:10px;background:'.$idol_color.';">'.$term->name.'</a>';
+        echo '  <img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/unit/'.$idol_term.'.png" class="unitpic">'.$term->name.'</a>';
         echo PHP_EOL;
-        echo ' </h2>';
+        echo '</h2>';
         echo PHP_EOL;
+        echo '<div class="idollist">';
+        echo PHP_EOL;
+
 
 }
 
