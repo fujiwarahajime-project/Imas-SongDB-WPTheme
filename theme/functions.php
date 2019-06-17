@@ -177,6 +177,8 @@ function idolicon($name,$listtype){
 			  echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
 			  }elseif($listtype == "cdsolo"){
 				echo '<div class="idol"><img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"></a><p class="fuchidori solo" title="ソロ">S</p></div>';
+			  }elseif($listtype == "iconsolo"){
+				echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"><p class="fuchidori solo" title="ソロ">S</p></a>';
 			  }else{
 				echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"></a>';
 			  }
@@ -189,10 +191,6 @@ function idolicon($name,$listtype){
 
 //通常利用用
 function idollist($idol_name_roop,$listtype){
-
-	$term_cin = get_term_by('name',$idol_name_roop,'idol_cg');
-	$term_ml = get_term_by('name',$idol_name_roop,'idol_765');
-	$term_shiny = get_term_by('name',$idol_name_roop,'idol_sc');
 
 	if(get_term_by('name',$idol_name_roop,'unit')){
 		$unit_term = get_term_by('name',$idol_name_roop,'unit');
@@ -211,6 +209,20 @@ function idollist($idol_name_roop,$listtype){
 	  echo '（<a href="' .$unit_link. '">'.$idol_name_roop.'</a>）</div>';
 	  echo PHP_EOL;
 
+
+}elseif($listtype == 'getcv'){
+	$name = $idol_name_roop;
+	if( get_term_by('name',$name,'idol_cg') ){
+		// シンデレラガールズ有無判定 
+	  $term = get_term_by('name',$name,'idol_cg');
+	  }elseif( get_term_by('name',$name,'idol_765') ){
+		//ミリオンライブ有無判定
+	  $term = get_term_by('name',$name,'idol_765');
+	  }elseif( get_term_by('name',$name,'idol_sc') ){
+		//シャイニーカラーズ有無判定
+	  $term = get_term_by('name',$name,'idol_sc');
+	  }
+	  $live_member = get_field('cv', $term);
 
 }elseif(get_term_by('name',$idol_name_roop,'idol_cg') or get_term_by('name',$idol_name_roop,'idol_765') or get_term_by('name',$idol_name_roop,'idol_sc')){
 	$live_member[] = idolicon($idol_name_roop,$listtype);

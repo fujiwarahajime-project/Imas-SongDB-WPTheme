@@ -2,7 +2,7 @@
 /* アイドルごとの横幅を指定 */
 @media screen and (min-width:1201px) {
   /*　横幅1201px以上（PCフル表示などの場合）は3列表示　*/
-  .idol {width:33%;}
+  .idollist .idol {width:33%;}
   .solocolle .idol {width:50%;}
 
 }
@@ -11,13 +11,13 @@
 
 @media screen and (min-width: 521px) and (max-width: 1200px) {
   /*　横幅521px～1200px（タブレットやPCの半面表示など）は2列表示　*/
-  .idol {width:50%;}
+  .idollist .idol {width:50%;}
 
 }
 
 @media screen and (max-width: 520px) { 
   /*　横幅520px以下（スマホなど）は1列表示　*/
-  .idol {width:100%;}
+  .idollist .idol {width:100%;}
 }
 
 @media screen and (min-width: 521px) and (max-width: 600px) {
@@ -33,7 +33,7 @@
   display: flex;
   flex-wrap: wrap;
 }
-.idol{/* アイテムの外枠、全体フォントに関する設定 */
+.idollist .idol{/* アイテムの外枠、全体フォントに関する設定 */
   height:102px;
   border:solid 1px darkgray;
   border-radius:2px;
@@ -85,6 +85,11 @@
 /* CDアイコンまわり */
 .cdinfo{
   height:auto;
+}
+
+.info_C .idol{
+	display: inline-block;
+	position: relative;
 }
 
 .cdicon{
@@ -187,4 +192,17 @@ z-index:100;
                -1px 1px 0 #000,
                1px -1px 0 #000,
                -1px -1px 0 #000;
+}
+
+/* 関連楽曲まわり */
+.musiclist {
+  display: grid;
+  grid-gap: 2px;
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+.item {
+  border-radius: 2px;
+  padding: 2px;
+  text-align: center;
 }

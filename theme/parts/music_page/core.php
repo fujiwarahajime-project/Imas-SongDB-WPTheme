@@ -5,9 +5,13 @@ if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 } elseif(is_singular( 'music_ml' )){ //ミリオンライブの場合
 	get_template_part('sitehensu/millionlive');
 	$ryakusyou = 'ミリオンライブ';
+	$css_pass = 'millionlive';
+
 } elseif(is_singular( 'music_shiny' )){ //シャイニーカラーズの場合
 	get_template_part('sitehensu/shiny');
 	$ryakusyou = 'シャイニーカラーズ';
+	$css_pass = 'shiny';
+
 } elseif(is_singular( 'music_as' )){ //シャイニーカラーズの場合
 	get_template_part('sitehensu/as');
 	$ryakusyou = '765AS';
@@ -56,7 +60,6 @@ if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 	echo get_bloginfo( 'template_directory' ) . '/images/thumbnail.png';
 } ?>
 ">
-
 
 <style>
 .solo{
@@ -205,7 +208,8 @@ foreach ( explode(',', $field_value['cd_solo']) as $idol_solo ) {
 $solo_temp[] = $idol_temp;
 set_query_var('solo_temp',$solo_temp);
 //CD表示用の配列をつくる
-${"cdidol_".$tax_id_temp."_".$id} = array_unique(array_merge( explode(',', $idol_temp) , explode(',', $field_value['cd_solo']) ));
+${"cdidol_".$tax_id_temp."_".$id} = array_unique(explode(',', $idol_temp));
+${"cdidols_".$tax_id_temp."_".$id} = array_unique(explode(',', $field_value['cd_solo']));
 }
 
 //アイドル表示の順番を指定
@@ -246,11 +250,24 @@ if(!empty($idol_temp)):?>
 <input id="tabtw" type="radio" name="tab_btn">
 
 <div class="tab_area link_label">
-<span class="btn_item_5" style="border-top: medium solid thistle;border-left: medium solid thistle;padding:2px 0px 2px 2px;"><label class="tabni_label btn_item_in" for="tabni" id="button" style="border-radius:10px 0px 0px 15px;margin:0px;"><img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/nico_logo.png" width="25px"></label></span>
-<span class="btn_item_5" style="border-top: medium solid thistle;border-right: medium solid thistle;padding:2px 2px 2px 0px;"><label class="tabtw_label btn_item_in" for="tabtw" id="button" style="border-radius:0px 15px 15px 0px;margin:0px;"><i class="fab fa-twitter"></i></label></span>
-<span class="btn_item_5 under_line"><a href="https://www.google.co.jp/search?q=<?php the_title(); ?>" rel="nofollow"  id="button" class="btn_item_in"><i class="fab fa-google"></i></a></span>
-<span class="btn_item_5 under_line"><a href="https://www.pixiv.net/search.php?s_mode=s_tc&amp;word=<?php the_title(); ?>" rel="nofollow"  id="button" class="btn_item_in"><img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/pixiv_logo.jpg" width="25px"></a></span>
-<span class="btn_item_5 under_line"><a href="https://www.youtube.com/results?search_query=<?php the_title(); ?>" rel="nofollow" id="button" class="btn_item_in"><i class="fab fa-youtube"></i></a></span>
+<span class="btn_item_5" style="border-top: medium solid thistle;border-left: medium solid thistle;padding:2px 0px 2px 2px;">
+	<label class="tabni_label btn_item_in" for="tabni" id="button" style="border-radius:10px 0px 0px 15px;margin:0px;">
+	<img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/nico_logo.png" width="25px"></label>
+</span>
+<span class="btn_item_5" style="border-top: medium solid thistle;border-right: medium solid thistle;padding:2px 2px 2px 0px;">
+	<label class="tabtw_label btn_item_in" for="tabtw" id="button" style="border-radius:0px 15px 15px 0px;margin:0px;">
+	<i class="fab fa-twitter"></i></label>
+</span>
+<span class="btn_item_5 under_line">
+	<a href="https://www.google.co.jp/search?q=<?php the_title(); ?>" rel="nofollow"  id="button" class="btn_item_in"><i class="fab fa-google"></i></a>
+</span>
+<span class="btn_item_5 under_line">
+	<a href="https://www.pixiv.net/search.php?s_mode=s_tc&amp;word=<?php the_title(); ?>" rel="nofollow"  id="button" class="btn_item_in">
+	<img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/pixiv_logo.jpg" width="25px"></a>
+</span>
+<span class="btn_item_5 under_line">
+	<a href="https://www.youtube.com/results?search_query=<?php the_title(); ?>" rel="nofollow" id="button" class="btn_item_in"><i class="fab fa-youtube"></i></a>
+</span>
 </div>
 
 
@@ -371,6 +388,10 @@ if(is_singular( 'music_shiny' ) or is_singular( 'music_godo' )): //シャイニ�
 foreach (${"cdidol_h_".$kiji_id} as $idol_name_roop) {
 	idollist($idol_name_roop,"CD");
 }
+foreach (${"cdidols_h_".$kiji_id} as $idol_name_roop) {
+	idollist($idol_name_roop,"cdsolo");
+}
+
 ?>
 <?php echo apply_filters('the_content',get_post_meta($post->ID, 'haishin', true)); ?></div></div><br>
 <?php endif; ?>
@@ -396,6 +417,10 @@ echo "\n";
 foreach (${"cdidol_".$term_id."_".$kiji_id} as $idol_name_roop) {
 	idollist($idol_name_roop,"CD");
 }
+foreach (${"cdidols_".$term_id."_".$kiji_id} as $idol_name_roop) {
+	idollist($idol_name_roop,"cdsolo");
+}
+
 
 echo $shop;
 echo '</div></div><br>';
