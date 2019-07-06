@@ -24,11 +24,12 @@ $disc_series = array(
     array("name"=>"MILLION THE@TER GENERATION" , "word"=>"THE IDOLM@STER MILLION THE@TER GENERATION" , "type"=>"ml") ,
     array("name"=>"M@STER SPARKLE" , "word"=>"THE IDOLM@STER MILLION LIVE! M@STER SPARKLE" , "type"=>"ml") ,
     array("name"=>"THE@TER BOOST" , "word"=>"THE IDOLM@STER THE@TER BOOST" , "type"=>"ml") ,
+    array("name"=>"MILLION THE@TER WAVE" , "word"=>"THE IDOLM@STER MILLION THE@TER WAVE" , "type"=>"ml") ,
     array("name"=>"LIVE THE@TER SOLO COLLECTION（ソロコレ）" , "word"=>"THE IDOLM@STER LIVE THE@TER SOLO COLLECTION" , "type"=>"ml") ,
     array("name"=>"ゲッサン版ミリオンライブ！" , "word"=>"ゲッサン版ミリオンライブ！" , "type"=>"ml") ,
     array("name"=>"Blooming Clover" , "word"=>"アイドルマスター ミリオンライブ！ Blooming Clover" , "type"=>"ml") ,
     array("name"=>"その他ミリオンライブ！" , "word"=>"THE IDOLM@STER MILLION LIVE!" , "type"=>"ml") ,
-    array("name"=>"その他ミリオンライブ！" , "word"=>"THE IDOLM@STER LIVE THE@TER" , "type"=>"ml") ,
+    array("name"=>"その他ミリオンライブ！" , "word"=>"THE IDOLM@STER LIVE" , "type"=>"ml") ,
 
     array("name"=>"BRILLI@NT WING" , "word"=>"THE IDOLM@STER SHINY COLORS BRILLI@NT WING" , "type"=>"sc") ,
     array("name"=>"FR@GMENT WING" , "word"=>"THE IDOLM@STER SHINY COLORS FR@GMENT WING" , "type"=>"sc") ,
