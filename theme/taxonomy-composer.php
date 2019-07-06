@@ -124,7 +124,9 @@ do_action('lightning_loop_before'); ?>
 </div><!-- [ /.mainSection ] -->
 
 <div class="col-md-3 col-md-offset-1 subSection sideSection">
-<?php get_sidebar(get_post_type()); ?>
+<?php
+get_template_part('parts/tax/actor_disc');
+get_sidebar(get_post_type()); ?>
 </div><!-- [ /.subSection ] -->
 
 </div><!-- [ /.row ] -->
