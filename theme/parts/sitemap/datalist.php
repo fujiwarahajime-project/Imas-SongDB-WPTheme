@@ -24,6 +24,9 @@ overflow-x:scroll;
 .music_godo{
   background: #E0E0E0;
 }
+.music_cover{
+  background: #ffe4b5;
+}
 
 .musiclist {
   display: grid;
@@ -57,6 +60,7 @@ $("#tablesort").tablesorter();
 <div class="item music_sc">シャイニーカラーズ曲</div>
 <div class="item music_as">765AS曲</div>
 <div class="item music_godo">合同曲</div>
+<div class="item music_cover">アイマス外からの曲</div>
 </div>
 <table id="tablesort" class="tablesorter">
 <thead>
@@ -84,7 +88,7 @@ $args = array(
 	'paged' => $paged,
 	'orderby' => 'post_date',
 	'order' => 'DESC',
-	'post_type' => array('music_cg','music_ml','music_sc','music_as','music_godo'),
+	'post_type' => array('music_cg','music_ml','music_sc','music_as','music_godo','music_cover'),
 	'post_status' => 'publish'
 );
 $the_query = new WP_Query($args);

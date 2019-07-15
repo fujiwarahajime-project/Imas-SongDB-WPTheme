@@ -18,7 +18,7 @@ $args = array(
 	'paged' => $paged,
 	'orderby' => 'post_date',
 	'order' => 'DESC',
-	'post_type' => array('music_cg','music_ml','music_sc','music_as','music_godo'),
+	'post_type' => array('music_cg','music_ml','music_sc','music_as','music_godo','music_cover'),
 	'post_status' => 'publish'
 );
 $the_query = new WP_Query($args);

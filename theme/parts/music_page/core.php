@@ -19,6 +19,10 @@ if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 	get_template_part('sitehensu/godo');
 	$ryakusyou = 'プロジェクトをまたいだ合同';
 }
+elseif(is_singular( 'music_cover' )){ //シャイニーカラーズの場合
+	get_template_part('sitehensu/cover');
+	$ryakusyou = 'カバー';
+}
 $site_twitter = 'fujiwarahaji_me';//＠をはぶくこと
 $creator_twitter = 'fujiwarahaji_me';//＠をはぶくこと
 
@@ -287,7 +291,7 @@ if(!empty($idol_temp)):?>
 <div class="tab_area_long">
 <?php
 $NicoTag = get_post_meta($post->ID,'NicoTag',true);
-if(is_singular( 'music_shiny' ) or is_singular( 'music_godo' )): //シャイニーカラーズまたは合同曲（MVがない）の場合
+if(is_singular( 'music_shiny' ) or is_singular( 'music_godo' ) or  is_singular( 'music_cover' )): //シャイニーカラーズまたは合同曲（MVがない）の場合
 ?>
 <a href="http://www.nicovideo.jp/search/<?php the_title(); ?>" rel="nofollow" id="button" class="btn_item_long2">ワード</a>
 <a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long2">タグ</a>

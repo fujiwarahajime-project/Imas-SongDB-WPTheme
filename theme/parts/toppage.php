@@ -1,12 +1,20 @@
-﻿<!--
-<div class="msgbox">
+﻿<!-- <div class="msgbox" style="margin-bottom:20px;">
 <div class="msgboxtop"></div>
 <div class="msgboxbody">
-コンテンツ
 </div>
 <div class="msgboxfoot"></div>
+</div> -->
+
+<div id="tv">
+  <div class="inner off tv_box">
+    <div class="program">
+<!-- テレビの中身のコンテンツ（サイズ可変の16:9固定） -->
+<!-- <iframe width="100%" height="100%" src="https://www.youtube.com/embed/RwwUaM_UTLk?controls=2&loop=1&modestbranding=1&showinfo=0&start=97&end=195" frameborder="0"></iframe> -->
+<iframe width="100%" height="100%" src="https://www.youtube.com/embed/kmRAbPj7ZUU?controls=2&loop=1&modestbranding=1&showinfo=0" frameborder="0"></iframe>
+<!-- <iframe width="100%" height="100%" src="https://www.youtube.com/embed?listType=search&list=title:(ミリオンライブ OR シャイニーカラーズ OR 楽曲試聴) (シンデレラ OR ミリオンライブ OR ゲーム内楽曲) 試聴 (Columbia OR 876TV OR Lantis) -ミリシタ塾 -スペシャル動画 -wilson &controls=2&loop=1&modestbranding=1&showinfo=0" frameborder="0"></iframe> -->
 </div>
--->
+  </div>
+</div>
 
 <!--
 Copyright (c) 2018 by Amanda Ashley (https://codepen.io/coinoperatedgoi/pen/MbeOEN)
@@ -18,6 +26,7 @@ The above copyright notice and this permission notice shall be included in all c
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
+
 <style>
 #tv {
  width:100%;
@@ -80,17 +89,20 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     padding-top: calc(9/16*100%);
 }
 
+/*ウィジェットエリアのマージンをつめる*/
+.mainSection .widget{
+  margin-bottom:0px;
+}
+.section{
+  margin-top:20px !important;
+}
+
 </style>
-<div id="tv">
-  <div class="inner off tv_box">
-    <div class="program">
-<!-- テレビの中身のコンテンツ（サイズ可変の16:9固定） -->
-<iframe width="100%" height="100%" src="https://www.youtube.com/embed?listType=search&list=title:(ミリオンライブ OR シャイニーカラーズ OR 楽曲試聴) (シンデレラ OR ミリオンライブ OR ゲーム内楽曲) 試聴 (Columbia OR 876TV OR Lantis) -ミリシタ塾 -スペシャル動画 -wilson &controls=2&loop=1&modestbranding=1&showinfo=0" frameborder="0"></iframe>
-</div>
-  </div>
-</div>
 
 <?php 
+//echo do_shortcode( '[amazonjs asin="B01KNCPKMM" locale="JP" title="THE IDOLM@STER MILLION LIVE! 3rdLIVE TOUR BELIEVE MY DRE@M!! LIVE Blu-ray 02@SENDAI"]' );
+//echo do_shortcode( '[amazonjs asin="B07QDZ4JNP" locale="JP" title="THE IDOLM@STER CINDERELLA MASTER 052-054 白菊ほたる・森久保乃々・佐藤心"]' ); ?>
+
 $count_cin = wp_count_posts('music_cg');
 $cin_count = $count_cin->publish;
 
@@ -106,10 +118,14 @@ $as_count = $count_shiny->publish;
 $count_godo = wp_count_posts('music_godo');
 $godo_count = $count_shiny->publish;
 
-$count_all = $cin_count + $ml_count + $shiny_count + $as_count + $godo_count;
+$count_cover = wp_count_posts('music_cover');
+$cover_count = $count_cover->publish;
+
+$count_all = $cin_count + $ml_count + $shiny_count + $as_count + $godo_count + $cover_count;
 
 
 ?>
+
 
 <div class="prBlocks prBlocks-default row">
 <a href="https://fujiwarahaji.me/about/">
@@ -141,3 +157,7 @@ $count_all = $cin_count + $ml_count + $shiny_count + $as_count + $godo_count;
 
 
 </div>
+
+
+
+

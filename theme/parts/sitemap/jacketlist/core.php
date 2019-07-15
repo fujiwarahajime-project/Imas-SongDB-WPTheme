@@ -26,6 +26,9 @@
 .music_godo{
   background: #E0E0E0;
 }
+.music_cover{
+  background: #ffe4b5;
+}
 /* 遅延ロード関係 */
 img {
   transition: filter 0s;
@@ -39,6 +42,8 @@ img {
 <div class="item music_sc">シャイニーカラーズ曲</div>
 <div class="item music_as">765AS曲</div>
 <div class="item music_godo">合同曲</div>
+<div class="item music_cover">アイマス外からの曲</div>
+
 </div>
 <h3>リスト</h3>
 <div class="musiclist">
@@ -49,7 +54,7 @@ $args = array(
 	'paged' => $paged,
 	'orderby' => 'post_date',
 	'order' => 'DESC',
-	'post_type' => array('music_cg','music_ml','music_sc','music_as','music_godo'),
+	'post_type' => array('music_cg','music_ml','music_sc','music_as','music_godo','music_cover'),
 	'post_status' => 'publish'
 );
 $the_query = new WP_Query($args);
