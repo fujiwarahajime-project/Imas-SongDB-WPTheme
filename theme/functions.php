@@ -66,19 +66,6 @@ module_loop_★ポストタイプ名★.php
 /*-------------------------------------------*/
 function add_wp_head_custom(){ ?>
 <!-- head内に書きたいコード -->
-
-<!--
-  ココのコメントアウトはサイトの内容とは関係のない管理人の私心です。
-  総選挙の時期ですので、こんなところからですが少しだけ応援してみようと思います。
-
-  ┌―┐
-  │藤│  令和はじめのシンデレラガールに
-  │原│    はじめちゃんがなっている夢を見ました。
-  │肇│      実現のためによければ投票よろしくお願いします。
-  └―┘ 
--->
-
-
 <!--カスタムフォント-->
 <link href="https://fonts.googleapis.com/css?family=Kosugi|Noto+Sans" rel="stylesheet">
 <?php
@@ -251,3 +238,17 @@ remove_filter('the_title'  , 'wptexturize');
 remove_filter('the_title'  , 'convert_chars');
 //remove_filter('the_excerpt', 'convert_chars');
 //remove_filter('comment_text', 'convert_chars');
+
+//iTunes用ショートコード
+function itunes($atts) {
+    extract(shortcode_atts(array(
+		'album_id' => 0,
+		'song_id' => 0,
+	), $atts));
+ 
+	echo '<iframe src="https://tools.applemusic.com/embed/v1/song/'.$song_id.'?country=jp&at=1001lM5U" width="100%" height="110px" frameborder="0"></iframe>';
+	echo PHP_EOL;
+	echo '<a href="https://music.apple.com/jp/album/'.$album_id.'?i='.$song_id.'&app=itunes&at=1001lM5U" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/ja-jp/badge-lrg.svg?releaseDate=2018-06-27T00:00:00Z&kind=song&bubble=itunes_music) no-repeat;width:140px;height:41px;"></a>';
+	echo PHP_EOL;
+}
+add_shortcode('itunes', 'itunes');
