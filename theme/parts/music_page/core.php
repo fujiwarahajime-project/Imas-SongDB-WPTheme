@@ -312,10 +312,10 @@ if(is_singular( 'music_shiny' ) or is_singular( 'music_godo' ) or  is_singular( 
 <!-- Twitterのタブの中身 -->
 <p class="tab_title">Twitterでさがす</p>
 <div class="tab_area_long">
-<a href="https://twitter.com/search?vertical=default&amp;q=&quot;<?php the_title(); ?>&quot;" rel="nofollow" id="button" class="btn_item_long2">人気</a>
-<a href="https://twitter.com/search?f=tweets&amp;vertical=default&amp;&q=&quot;<?php the_title(); ?>&quot;" rel="nofollow" id="button"class="btn_item_long2">リアルタイム</a>
-<a href="https://twitter.com/search?f=videos&amp;vertical=default&amp;q=&quot;<?php the_title(); ?>&quot;" rel="nofollow" id="button"class="btn_item_long2">動画</a>
-<a href="https://twitter.com/search?f=images&amp;vertical=default&amp;q=&quot;<?php the_title(); ?>&quot;" rel="nofollow" id="button" class="btn_item_long2">画像</a>
+<a href="https://twitter.com/search?q=&quot;<?php the_title(); ?>&quot;" rel="nofollow" id="button" class="btn_item_long2">人気</a>
+<a href="https://twitter.com/search?q=&quot;<?php the_title(); ?>&quot;&f=live" rel="nofollow" id="button"class="btn_item_long2">最新</a>
+<a href="https://twitter.com/search?q=&quot;<?php the_title(); ?>&quot;&f=image" rel="nofollow" id="button"class="btn_item_long2">動画</a>
+<a href="https://twitter.com/search?q=&quot;<?php the_title(); ?>&quot;&f=video" rel="nofollow" id="button" class="btn_item_long2">画像</a>
 </div>
 </div>
 
