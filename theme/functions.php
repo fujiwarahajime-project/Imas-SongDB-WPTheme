@@ -246,9 +246,9 @@ function itunes($atts) {
 		'song_id' => 0,
 	), $atts));
  
-	echo '<iframe src="https://tools.applemusic.com/embed/v1/song/'.$song_id.'?country=jp&at=1001lM5U" width="100%" height="110px" frameborder="0"></iframe>';
-	echo PHP_EOL;
-	echo '<a href="https://music.apple.com/jp/album/'.$album_id.'?i='.$song_id.'&app=itunes&at=1001lM5U" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/ja-jp/badge-lrg.svg?releaseDate=2018-06-27T00:00:00Z&kind=song&bubble=itunes_music) no-repeat;width:140px;height:41px;"></a>';
-	echo PHP_EOL;
+	return '<iframe src="https://tools.applemusic.com/embed/v1/song/'.$song_id.'?country=jp&at=1001lM5U" width="100%" height="110px" frameborder="0"></iframe>'
+		//.PHP_EOL.
+		//'<a href="https://music.apple.com/jp/album/'.$album_id.'?i='.$song_id.'&app=itunes&at=1001lM5U" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/ja-jp/badge-lrg.svg?releaseDate=2018-06-27T00:00:00Z&kind=song&bubble=itunes_music) no-repeat;width:140px;height:41px;"></a>'
+		.PHP_EOL;
 }
 add_shortcode('itunes', 'itunes');
