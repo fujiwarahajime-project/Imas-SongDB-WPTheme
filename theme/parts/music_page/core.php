@@ -15,6 +15,8 @@ if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 } elseif(is_singular( 'music_as' )){ //シャイニーカラーズの場合
 	get_template_part('sitehensu/as');
 	$ryakusyou = '765AS';
+	$css_pass = 'millionlive';
+
 } elseif(is_singular( 'music_godo' )){ //シャイニーカラーズの場合
 	get_template_part('sitehensu/godo');
 	$ryakusyou = 'プロジェクトをまたいだ合同';
@@ -72,23 +74,6 @@ if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 	echo get_bloginfo( 'template_directory' ) . '/images/thumbnail.png';
 } ?>
 ">
-
-
-<style>
-.solo{
-	float:left;
-	position:absolute;
-	top:0;
-	left:2px;
-	color:white;
-}
-.fuchidori{
-	text-shadow: 1px 1px 0 #000,
-               -1px 1px 0 #000,
-               1px -1px 0 #000,
-               -1px -1px 0 #000;
-}</style>
-
 
 <?php //MVのタグを指定
 	$kiji_id = get_the_ID();
@@ -150,7 +135,7 @@ if (have_posts()) : while ( have_posts() ) : the_post();?>
 <div class="msgbox">
   <div class="msgboxtop">曲情報</div>
   <div class="msgboxbody" style="overflow:hidden;">
-<table>
+<table class="songinfo">
 	<tbody>
 		<tr>
 			<td>ニコ動タグ</td>
