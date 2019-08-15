@@ -206,3 +206,28 @@ z-index:100;
   padding: 2px;
   text-align: center;
 }
+
+/* 基本情報のスマホ対応 */
+@media screen and (max-width : 750px) {
+  .songinfo td{
+    display : block;
+    padding: 2px;
+  }
+
+  .songinfo td:nth-child(1){
+    text-align: left;
+    font-weight: bold;
+    font-size: 120%;
+    border-bottom: dotted 3px gray;
+  }
+  
+  .songinfo td:nth-child(2){
+    padding: 10px;
+    border: none !important;
+  }
+
+  .songinfo{
+    border-top: none !important;
+  }
+
+}

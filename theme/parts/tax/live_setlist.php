@@ -4,7 +4,7 @@ $setlist_hantei = count(SCF::get_term_meta( $term_id, $taxonomy, 'setlist' )) >=
 $upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
 if($setlist_hantei): ?>
 
-<table><tbody>
+<table class="setlist"><tbody>
 <tr><th>曲名</th><th>アイドル</th></tr>
 <?php
 $setlist = SCF::get_term_meta( $term_id, $taxonomy, 'setlist' );
