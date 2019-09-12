@@ -1,12 +1,21 @@
-﻿<?php
-$term_id = get_queried_object_id(); // タームIDの取得
-$setlist_hantei = count(SCF::get_term_meta( $term_id, $taxonomy, 'setlist' )) >= 2;
-$upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
-if($setlist_hantei): ?>
-
-<table class="setlist"><tbody>
-<tr><th>曲名</th><th>アイドル</th></tr>
+﻿
 <?php
+$term_id = get_queried_object_id(); // タームIDの取得
+$setlist_kazu = count(SCF::get_term_meta( $term_id, $taxonomy, 'setlist' )) >= 2;
+$upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
+$setlist_hide = array_search("term", SCF::get_term_meta( $term_id, $taxonomy, 'hide_setlist' ));
+if($setlist_kazu){
+if(!($setlist_hide !== false) or is_admin_bar_showing()){
+  if(is_admin_bar_showing() and ($setlist_hide !== false)){
+    echo '<span style="color:red;font-weight: bold;">このセットリストは下書きです。<br>
+    管理画面にログインしている場合のみ表示されます。<br>
+    本番環境で表示する場合には編集画面から「term」のチェックボックスを操作してください。</span>';
+  }
+  echo '<table class="setlist"><tbody>';
+  echo PHP_EOL;
+  echo '<tr><th>曲名</th><th>アイドル</th></tr>';
+
+
 $setlist = SCF::get_term_meta( $term_id, $taxonomy, 'setlist' );
 foreach ($setlist as $fields ) {
 echo "<tr>";
@@ -50,6 +59,8 @@ echo PHP_EOL;
 echo PHP_EOL;
 
 }
+echo '</tbody></table>';
+$setlist_showing = TRUE;
+}}
+
 ?>
-</tbody></table>
-<?php endif; ?>

@@ -62,6 +62,7 @@ if ( count( $terms ) != 0 ) {
      
     // タームのリスト $terms を $term に格納してループ
     foreach ( $terms as $term ) {
+
         // タームのURLを取得
         $term = sanitize_term( $term, $taxonomy );
         $term_link = get_term_link( $term, $taxonomy );
@@ -72,6 +73,8 @@ if ( count( $terms ) != 0 ) {
                 $live_bd = get_field('shop', $term);
                 if(count(SCF::get_term_meta( $term, $taxonomy, 'setlist' )) >= 2){
                 $setlist = SCF::get_term_meta( $term, $taxonomy, 'setlist' ); //セットリスト判定
+                $setlist_hide = array_search("term", SCF::get_term_meta( $term, $taxonomy, 'hide_setlist' ));
+                if(!($setlist_hide !== false)){
         
                 foreach ($setlist as $fields ) {
                     echo '<div class="msgbox setlist_card">';
@@ -134,6 +137,7 @@ if ( count( $terms ) != 0 ) {
     
 echo PHP_EOL;
     }
+}
 }
 }
 ?>
