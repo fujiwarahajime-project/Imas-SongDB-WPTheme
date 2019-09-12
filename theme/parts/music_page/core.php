@@ -224,6 +224,8 @@ get_template_part('parts/music_page/member/765');
 get_template_part('parts/music_page/member/cin');
 get_template_part('parts/music_page/member/shiny');
 }
+get_template_part('parts/music_page/member/cv');
+
 ?>
 
 <?php

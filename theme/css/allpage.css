@@ -51,6 +51,28 @@ https://opensource.org/licenses/mit-license.php
   box-shadow:0px 1px 0px black;
 }
 
+.button{
+  box-sizing:border-box;
+  position:relative;
+  background:linear-gradient(white,lightgray);
+  padding:4px 15px;
+  margin:5px;
+  color:black;
+  text-decoration:none;
+  border-radius:5px;
+  border:solid 1px black;
+  box-shadow:0px 3px 0px black;
+  font-weight:bold;
+ line-height:2.5;
+}
+.button:hover{
+  top:2px;
+  box-shadow:0px 1px 0px black;
+  text-decoration: none;
+  color:black;
+}
+
+
 .msgboxbody a:link { color:aquamarine; }
 .msgboxbody a:visited { color:paleturquoise; }
 .msgboxbody a:hover { color:mediumaquamarine; }

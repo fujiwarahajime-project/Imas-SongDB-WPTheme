@@ -85,10 +85,15 @@ if ( $page_for_posts['post_top_use'] || get_post_type() != 'post' ) {
 
 if(is_tax( 'idol_sc' ) and $child_temp->parent == 0){
   //シャニマスのユニットページの場合
-  $idol_profile = '<a href="'.$unitinfo_URL.''.$idol_term.'" id="button">'.$unitsyosai_bun.'</a>';
+  $idol_profile = '<a href="'.$unitinfo_URL.''.$idol_term.'" class="button">'.$unitsyosai_bun.'</a>';
   $unitterm_url = esc_url(get_term_link(get_term_by('name',$archiveTitle,'unit')));
 }else{//アイドルプロフィールURL生成
-$idol_profile = '<a href="'.$idolinfo_URL.''.$idol_term.'" id="button">'.$idolsyosai_bun.'</a>';
+$idol_profile = '<a href="'.$idolinfo_URL.''.$idol_term.'" class="button">'.$idolsyosai_bun.'</a>';
+}
+
+if(get_term_by('name',$CV,'cv')){
+  $cv_link = get_term_link( get_term_by('name',$CV,'cv') );
+  $cv_page = '<a href="'.$cv_link.'" class="button">声優名義の曲</a>';
 }
 
 //蒼天画廊さん用処理
@@ -101,14 +106,14 @@ $idol_profile = '<a href="'.$idolinfo_URL.''.$idol_term.'" id="button">'.$idolsy
 //  }
 
 //  if(!empty($azure_tag)){
-//    $idol_illust = '<a href="https://azure-gallery.net/?query=imas%3A'.$azure_tag.'" id="button">イラスト検索</a>';
+//    $idol_illust = '<a href="https://azure-gallery.net/?query=imas%3A'.$azure_tag.'" class="button">イラスト検索</a>';
 //  }
 
 if(is_tax( 'idol_sc' ) and $child_temp->parent == 0){ //子タクソノミーがある（ユニットページの）場合の出力
       $archiveTitle_html = '<div class="idol"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_pic_pass.'/unit/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';"><div class="info"><div class="idolname">'.$archiveTitle.'</div><div class="moreinfo">'.$idol_profile.'</div></div></div>';
 }
 else{ //子タクソノミーがない（個別アイドルページの）場合の出力
-      $archiveTitle_html = '<div class="idol"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_pic_pass.'/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';"><div class="info"><div class="idolname"><ruby>'.$archiveTitle.'<rt>'.$Kana.'</rt></ruby>(CV.<ruby>'.$CV.'<rt>'.$CVKana.'</rt></ruby>)</div><div class="moreinfo">'.$idol_profile.''.$idol_illust.'</div></div></div>';
+      $archiveTitle_html = '<div class="idol"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_pic_pass.'/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';"><div class="info"><div class="idolname"><ruby>'.$archiveTitle.'<rt>'.$Kana.'</rt></ruby>(CV.<ruby>'.$CV.'<rt>'.$CVKana.'</rt></ruby>)</div><div class="moreinfo">'.$idol_profile.$cv_page.$idol_illust.'</div></div></div>';
 }
 
       echo apply_filters( 'lightning_mainSection_archiveTitle' , $archiveTitle_html );
