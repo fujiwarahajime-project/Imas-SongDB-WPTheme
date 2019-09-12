@@ -9,7 +9,7 @@
                 "name": "shop",
                 "type": "wysiwyg",
                 "instructions": "",
-                "required": 1,
+                "required": 0,
                 "conditional_logic": 0,
                 "wrapper": {
                     "width": "",
@@ -17,9 +17,9 @@
                     "id": ""
                 },
                 "default_value": "",
+                "tabs": "all",
                 "toolbar": "full",
                 "media_upload": 1,
-                "tabs": "all",
                 "delay": 0
             },
             {
@@ -56,8 +56,8 @@
         "style": "seamless",
         "label_placement": "top",
         "instruction_placement": "label",
-        "hide_on_screen": [],
-        "active": 1,
+        "hide_on_screen": "",
+        "active": true,
         "description": ""
     },
     {
@@ -157,8 +157,8 @@
         "style": "seamless",
         "label_placement": "top",
         "instruction_placement": "label",
-        "hide_on_screen": [],
-        "active": 1,
+        "hide_on_screen": "",
+        "active": true,
         "description": ""
     },
     {
@@ -338,6 +338,13 @@
                     "operator": "==",
                     "value": "music_godo"
                 }
+            ],
+            [
+                {
+                    "param": "post_type",
+                    "operator": "==",
+                    "value": "music_cover"
+                }
             ]
         ],
         "menu_order": 0,
@@ -346,7 +353,7 @@
         "label_placement": "top",
         "instruction_placement": "label",
         "hide_on_screen": "",
-        "active": 1,
+        "active": true,
         "description": ""
     }
 ]

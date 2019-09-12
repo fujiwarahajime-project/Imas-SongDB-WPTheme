@@ -203,23 +203,18 @@
 	);
 
 	register_post_type( "music_cg", $args );
-}
-
-add_action( 'init', 'cptui_register_my_cpts' );
-
-function cptui_register_my_cpts_music_ml() {
 
 	/**
-	 * Post Type: ミリオンライブ曲.
+	 * Post Type: カバー曲.
 	 */
 
 	$labels = array(
-		"name" => __( "ミリオンライブ曲", "lightning-child" ),
-		"singular_name" => __( "ミリオンライブ曲", "lightning-child" ),
+		"name" => __( "カバー曲", "lightning-child" ),
+		"singular_name" => __( "カバー曲", "lightning-child" ),
 	);
 
 	$args = array(
-		"label" => __( "ミリオンライブ曲", "lightning-child" ),
+		"label" => __( "カバー曲", "lightning-child" ),
 		"labels" => $labels,
 		"description" => "",
 		"public" => true,
@@ -236,14 +231,354 @@ function cptui_register_my_cpts_music_ml() {
 		"capability_type" => "post",
 		"map_meta_cap" => true,
 		"hierarchical" => false,
-		"rewrite" => array( "slug" => "music/ml", "with_front" => true ),
+		"rewrite" => array( "slug" => "music/cover", "with_front" => true ),
 		"query_var" => true,
 		"menu_icon" => "dashicons-format-audio",
 		"supports" => array( "title", "editor", "thumbnail", "custom-fields", "comments" ),
+		"taxonomies" => array( "musictype", "lyrics", "arrange", "composer", "disc", "unit", "live", "idol_765", "idol_cg", "idol_sc" ),
 		"yarpp_support" => true,
 	);
 
-	register_post_type( "music_ml", $args );
+	register_post_type( "music_cover", $args );
 }
 
-add_action( 'init', 'cptui_register_my_cpts_music_ml' );
+add_action( 'init', 'cptui_register_my_cpts' );
+function cptui_register_my_taxes() {
+
+	/**
+	 * Taxonomy: 曲のタイプ.
+	 */
+
+	$labels = array(
+		"name" => __( "曲のタイプ", "lightning-child" ),
+		"singular_name" => __( "曲のタイプ", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "曲のタイプ", "lightning-child" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => false,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'musictype', 'with_front' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "musictype",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		);
+	register_taxonomy( "musictype", array( "music", "music_ml", "music_shiny" ), $args );
+
+	/**
+	 * Taxonomy: 作詞.
+	 */
+
+	$labels = array(
+		"name" => __( "作詞", "lightning-child" ),
+		"singular_name" => __( "作詞", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "作詞", "lightning-child" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => false,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'lyrics', 'with_front' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "lyrics",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		);
+	register_taxonomy( "lyrics", array( "music", "music_ml", "music_shiny" ), $args );
+
+	/**
+	 * Taxonomy: 編曲.
+	 */
+
+	$labels = array(
+		"name" => __( "編曲", "lightning-child" ),
+		"singular_name" => __( "編曲", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "編曲", "lightning-child" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => false,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'arrange', 'with_front' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "arrange",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		);
+	register_taxonomy( "arrange", array( "music", "music_ml", "music_shiny" ), $args );
+
+	/**
+	 * Taxonomy: 作曲.
+	 */
+
+	$labels = array(
+		"name" => __( "作曲", "lightning-child" ),
+		"singular_name" => __( "作曲", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "作曲", "lightning-child" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => false,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'composer', 'with_front' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "composer",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		);
+	register_taxonomy( "composer", array( "music", "music_ml", "music_shiny" ), $args );
+
+	/**
+	 * Taxonomy: 収録CD.
+	 */
+
+	$labels = array(
+		"name" => __( "収録CD", "lightning-child" ),
+		"singular_name" => __( "収録CD", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "収録CD", "lightning-child" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => false,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'disc', 'with_front' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "disc",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => true,
+		);
+	register_taxonomy( "disc", array( "music", "music_ml", "music_shiny" ), $args );
+
+	/**
+	 * Taxonomy: CG関連楽曲.
+	 */
+
+	$labels = array(
+		"name" => __( "CG関連楽曲", "lightning-child" ),
+		"singular_name" => __( "CG関連楽曲", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "CG関連楽曲", "lightning-child" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => false,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'kanren/', 'with_front' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "music",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		);
+	register_taxonomy( "music", array( "music_ml", "music_cg" ), $args );
+
+	/**
+	 * Taxonomy: ユニット.
+	 */
+
+	$labels = array(
+		"name" => __( "ユニット", "lightning-child" ),
+		"singular_name" => __( "ユニット", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "ユニット", "lightning-child" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => false,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'unit', 'with_front' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "unit",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		);
+	register_taxonomy( "unit", array( "music", "music_ml", "music_shiny" ), $args );
+
+	/**
+	 * Taxonomy: 披露ライブ.
+	 */
+
+	$labels = array(
+		"name" => __( "披露ライブ", "lightning-child" ),
+		"singular_name" => __( "披露ライブ", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "披露ライブ", "lightning-child" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => false,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'live', 'with_front' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "live",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => true,
+		);
+	register_taxonomy( "live", array( "music", "music_ml", "music_shiny" ), $args );
+
+	/**
+	 * Taxonomy: 765アイドル.
+	 */
+
+	$labels = array(
+		"name" => __( "765アイドル", "lightning-child" ),
+		"singular_name" => __( "765アイドル", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "765アイドル", "lightning-child" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => false,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'idol/765', 'with_front' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "idol_765",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		);
+	register_taxonomy( "idol_765", array( "music", "music_ml" ), $args );
+
+	/**
+	 * Taxonomy: シンデレラガールズアイドル.
+	 */
+
+	$labels = array(
+		"name" => __( "シンデレラガールズアイドル", "lightning-child" ),
+		"singular_name" => __( "シンデレラガールズアイドル", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "シンデレラガールズアイドル", "lightning-child" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => false,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'idol/cg', 'with_front' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "idol_cg",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		);
+	register_taxonomy( "idol_cg", array( "music_ml" ), $args );
+
+	/**
+	 * Taxonomy: シャイニーカラーズアイドル.
+	 */
+
+	$labels = array(
+		"name" => __( "シャイニーカラーズアイドル", "lightning-child" ),
+		"singular_name" => __( "シャイニーカラーズアイドル", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "シャイニーカラーズアイドル", "lightning-child" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => true,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'idol/sc', 'with_front' => true,  'hierarchical' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "idol_sc",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		);
+	register_taxonomy( "idol_sc", array( "music_shiny" ), $args );
+
+	/**
+	 * Taxonomy: 声優.
+	 */
+
+	$labels = array(
+		"name" => __( "声優", "lightning-child" ),
+		"singular_name" => __( "声優", "lightning-child" ),
+	);
+
+	$args = array(
+		"label" => __( "声優", "lightning-child" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => false,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'idol/cv', 'with_front' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "cv",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		);
+	register_taxonomy( "cv", array( "music_ml", "music_shiny", "music_as", "music_godo", "music_cg", "music_cover" ), $args );
+}
+add_action( 'init', 'cptui_register_my_taxes' );
