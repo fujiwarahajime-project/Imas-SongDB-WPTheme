@@ -15,7 +15,7 @@
 if(is_tax( 'idol_765' ) or is_tax( 'idol_cg' ) or is_tax( 'idol_sc' )){
 get_template_part('parts/tax/module_loop_idol_meta');
 }else{
-get_template_part('module_loop_post_meta');
+get_template_part('template-parts/post/loop-post');
 }
 ?>
 		<h1 class="media-heading entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
