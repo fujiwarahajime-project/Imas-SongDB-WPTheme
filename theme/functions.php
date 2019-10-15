@@ -157,19 +157,31 @@ function idolicon($name,$listtype){
 			  $idol_term = get_field('idol-thum', $term);
 			  $idol_color = get_field('idol_color', $term);
 			  // 結果を出力
+			  if(!($listtype == "data_only")){
 			  echo '<a href="' . esc_url( $term_link ) . '" class="idolicon_link">';
+			  }
 			  //echo PHP_EOL;
 
 			  if($listtype == "live"){
 			  echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
 			  }elseif($listtype == "cdsolo"){
 				echo '<div class="idol"><img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"></a><p class="fuchidori solo" title="ソロ">S</p></div>';
-			  }elseif($listtype == "iconsolo"){
+			  }elseif($listtype == "data_only"){
+				$image_url = $upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png';
+				if(empty($idol_term)){
+					$image = 'no_image';
+				}else{
+					$image = 'image';
+				}
+				return array("url" => $image_url,"color" => $idol_color,"info" => $image,"link" => $term_link);
+  			  }elseif($listtype == "cdicon"){
 				echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"><p class="fuchidori solo" title="ソロ">S</p></a>';
 			  }else{
 				echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"></a>';
 			  }
-			  //echo PHP_EOL;
+			  if(!($listtype == "data_only")){
+			  echo "<!--".PHP_EOL."-->";
+			  }
 			}
 	  return $live_temp;
 }
@@ -252,3 +264,10 @@ function itunes($atts) {
 		.PHP_EOL;
 }
 add_shortcode('itunes', 'itunes');
+
+//Twitter投稿にサムネイルをつけない
+//add_filter( 'wpt_upload_media','wpt_nomedia');
+function wpt_nomedia(){
+	$media = false;
+}
+

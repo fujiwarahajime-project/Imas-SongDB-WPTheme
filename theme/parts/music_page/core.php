@@ -408,7 +408,26 @@ $shop = get_field('shop',$term_idmenu.$term_id);//販売情報を取得
 
 //出力
 echo '<div class="vmenu_off">';
-echo '<div class="vmenuitem" onclick="doToggleClassName(getParentObj(this),\'vmenu_on\',\'vmenu_off\')"><img src="'.get_stylesheet_directory_uri().'/resources/cd_icon.png" class="cdicon"  title="'.$term->term_id.'"><div class="cdname">' .str_ireplace("THE IDOLM@STER ","", esc_html($term->name)).'</div></div>';
+echo '<div class="vmenuitem" onclick="doToggleClassName(getParentObj(this),\'vmenu_on\',\'vmenu_off\')">';
+if(count(${"cdidol_".$term_id."_".$kiji_id}) == "1"){
+	echo '<img title="'.$term->term_id.'" class="cdicon" src="';
+	foreach (${"cdidol_".$term_id."_".$kiji_id} as $idol_name_roop) {
+		$icon_data = idolicon($idol_name_roop,"data_only");
+		if($icon_data[info] == "image"){
+			echo $icon_data[url].'" style="background:'.$icon_data[color];
+		}else{
+			echo get_stylesheet_directory_uri();
+			echo '/resources/cd_icon.png';
+		}
+	}
+	echo '">';
+}else{
+
+	echo '<img src="'.get_stylesheet_directory_uri().'/resources/cd_icon.png" class="cdicon"  title="'.$term->term_id.'">';
+
+}
+echo '<div class="cdname">' .str_ireplace("THE IDOLM@STER ","", esc_html($term->name)).'</div></div>';
+
 echo "\n";
 echo '<div class="info_C"><a href="'.$link.'" id="button" style="text-align:center;display:inline-block;width:100%;">このCDのすべての収録曲を見る</a>';//リンク
 echo "\n";
