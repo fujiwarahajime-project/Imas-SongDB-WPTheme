@@ -15,8 +15,8 @@ get_template_part('sitehensu/shiny');
 
 <?php get_header(); ?>
 
-<?php get_template_part('module_pageTit'); ?>
-<?php get_template_part('module_panList'); ?>
+<?php get_template_part('template-parts/page-header'); ?>
+<?php get_template_part('template-parts/breadcrumb'); ?>
 
 <?php if(!empty($css_pass)):?>
 <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/box/<?php echo $css_pass; ?>.css" type="text/css" />

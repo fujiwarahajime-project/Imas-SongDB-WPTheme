@@ -3,8 +3,8 @@
  * Template Name: Nosidebar-All width */
 get_header(); ?>
 
-<?php get_template_part('module_pageTit'); ?>
-<?php get_template_part('module_panList'); ?>
+<?php get_template_part('template-parts/page-header'); ?>
+<?php get_template_part('template-parts/breadcrumb'); ?>
 
 <div class="section siteContent">
 <div class="container" style="width:100%;">

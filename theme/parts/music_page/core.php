@@ -1,6 +1,9 @@
-﻿<?php
+﻿<?php get_header(); ?>
+<?php get_template_part('template-parts/page-header'); ?>
+<?php get_template_part('template-parts/breadcrumb'); ?>
+
+<?php
 if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
-	get_template_part('sitehensu/cinderella');
 	$ryakusyou = 'シンデレラガールズ';
 } elseif(is_singular( 'music_ml' )){ //ミリオンライブの場合
 	get_template_part('sitehensu/millionlive');
@@ -84,19 +87,11 @@ if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 <div class="section siteContent">
 <div class="container">
 <div class="row">
-
 <div class="col-md-8 mainSection" id="main" role="main">
 
-<!-- タイトル -->
-<?php
-if( apply_filters( 'is_lightning_extend_single' , false ) ):
-    do_action( 'lightning_extend_single' );
-else:
-if (have_posts()) : while ( have_posts() ) : the_post();?>
-<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 	<header>
-	<?php get_template_part('module_loop_post_meta');?>
 
+<!-- タイトル -->
 <?php if (is_object_in_term($post->ID, 'musictype','rearrange')): //リアレンジ曲の場合、Rubyタグを使わない
 ?>
 
@@ -113,8 +108,8 @@ if (have_posts()) : while ( have_posts() ) : the_post();?>
 
 <?php get_template_part('share'); ?>
 
-	<div class="entry-body">
-<!-- カスタムフィールド -->
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+<div class="entry-body">
 
 <?php if(wp_is_mobile()): ?>
 <!-- モバイル向けジャケット画像表示 -->
@@ -127,11 +122,13 @@ if (have_posts()) : while ( have_posts() ) : the_post();?>
       </div>
 </div>
 </div>
-
+<!-- モバイル向け広告 -->
 <?php get_template_part('parts/music_page/ad'); ?>
 
-<?php endif; ?>
+<?php endif; //モバイル表示閉じ ?>
 
+
+<!-- 曲情報 -->
 <div class="msgbox">
   <div class="msgboxtop">曲情報</div>
   <div class="msgboxbody" style="overflow:hidden;">
@@ -468,37 +465,8 @@ echo "\n";
   </div>
 </div>
 
-
 	</div><!-- [ /.entry-body ] -->
-	<div class="entry-footer">
-	<?php
-	$args = array(
-		'before'           => '<nav class="page-link"><dl><dt>Pages :</dt><dd>',
-		'after'            => '</dd></dl></nav>',
-		'link_before'      => '<span class="page-numbers">',
-		'link_after'       => '</span>',
-		'echo'             => 1 );
-	wp_link_pages( $args ); ?>
-
-
-	<?php $tags_list = get_the_tag_list();
-	if ( $tags_list ): ?>
-	<div class="entry-meta-dataList entry-tag">
-	<dl>
-	<dt><?php _e('Tags','lightning') ;?></dt>
-	<dd class="tagcloud"><?php echo $tags_list; ?></dd>
-	</dl>
-	</div><!-- [ /.entry-tag ] -->
-	<?php endif; ?>
-	</div><!-- [ /.entry-footer ] -->
-
-	<?php comments_template( '', true ); ?>
 </article>
-<?php endwhile;endif;
-endif;
-?>
-
-
 </div><!-- [ /.mainSection ] -->
 
 <div class="col-md-3 col-md-offset-1 subSection">
@@ -518,6 +486,8 @@ endif;
 <?php endif; ?>
 
 <?php get_sidebar(get_post_type()); ?>
+
+
 </div><!-- [ /.subSection ] -->
 
 </div><!-- [ /.row ] -->

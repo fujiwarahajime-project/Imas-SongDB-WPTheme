@@ -5,8 +5,8 @@ get_template_part('sitehensu/godo');
 
 <?php get_header(); ?>
 
-<?php get_template_part('module_pageTit'); ?>
-<?php get_template_part('module_panList'); ?>
+<?php get_template_part('template-parts/page-header'); ?>
+<?php get_template_part('template-parts/breadcrumb'); ?>
 <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/disc.css" type="text/css" />
 
 <div class="section siteContent">
@@ -85,7 +85,8 @@ $shop = get_field('shop',$term_idmenu.$term_id);//購入情報を取得
 echo $shop; // 取得した購入情報を出力
   ?>
 </div>
-  <div class="msgboxfoot">
+  <div class="msgboxfoot" style="padding:0px;">
+  <a id="button" href="https://store-tsutaya.tsite.jp/item/search_result.html?i=213&k=<?php echo  $archiveTitle;?>" target="_blank">TSUTAYA検索</a>
   </div>
 </div>
 
