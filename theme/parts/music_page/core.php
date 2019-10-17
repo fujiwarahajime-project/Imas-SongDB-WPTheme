@@ -4,6 +4,7 @@
 
 <?php
 if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
+	get_template_part('sitehensu/cinderella');
 	$ryakusyou = 'シンデレラガールズ';
 } elseif(is_singular( 'music_ml' )){ //ミリオンライブの場合
 	get_template_part('sitehensu/millionlive');
@@ -92,6 +93,7 @@ if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 	<header>
 
 <!-- タイトル -->
+<?php get_template_part( 'module_loop_post_meta' ); ?>
 <?php if (is_object_in_term($post->ID, 'musictype','rearrange')): //リアレンジ曲の場合、Rubyタグを使わない
 ?>
 
@@ -194,7 +196,7 @@ echo get_the_term_list( $post->ID, unit, '', '<br>', '');
 $cd_group = SCF::get( 'CD_group',$id );
 foreach ( $cd_group as $field_name => $field_value ) {
 
-$tax_id_temp = $field_value['cd_term'];
+
 $idol_temp =  $field_value['cd_mem'];
 foreach ( explode(',', $field_value['cd_solo']) as $idol_solo ) {
 	$solo_temp[] = $idol_solo;
@@ -203,8 +205,8 @@ foreach ( explode(',', $field_value['cd_solo']) as $idol_solo ) {
 $solo_temp[] = $idol_temp;
 set_query_var('solo_temp',$solo_temp);
 //CD表示用の配列をつくる
-${"cdidol_".$tax_id_temp."_".$id} = array_unique(explode(',', $idol_temp));
-${"cdidols_".$tax_id_temp."_".$id} = array_unique(explode(',', $field_value['cd_solo']));
+${"cdidol_".$field_value['cd_term']} = array_unique(explode(',', $idol_temp));
+${"cdidols_".$field_value['cd_term']} = array_unique(explode(',', $field_value['cd_solo']));
 }
 
 //アイドル表示の順番を指定
@@ -382,17 +384,16 @@ if(is_singular( 'music_shiny' ) or is_singular( 'music_godo' ) or  is_singular( 
 <div class="info_C">
 <?php 
 //アイドル画像出力ループ
-foreach (${"cdidol_h_".$kiji_id} as $idol_name_roop) {
+foreach ($cdidol_h as $idol_name_roop) {
 	idollist($idol_name_roop,"CD");
 }
-foreach (${"cdidols_h_".$kiji_id} as $idol_name_roop) {
+foreach ($cdidols_h as $idol_name_roop) {
 	idollist($idol_name_roop,"cdsolo");
 }
 
 ?>
 <?php echo apply_filters('the_content',get_post_meta($post->ID, 'haishin', true)); ?></div></div><br>
 <?php endif; ?>
-
 <?php 
 $taxonomy = 'disc';
 if ($terms = get_the_terms($post->ID, $taxonomy)) {
@@ -406,9 +407,9 @@ $shop = get_field('shop',$term_idmenu.$term_id);//販売情報を取得
 //出力
 echo '<div class="vmenu_off">';
 echo '<div class="vmenuitem" onclick="doToggleClassName(getParentObj(this),\'vmenu_on\',\'vmenu_off\')">';
-if(count(${"cdidol_".$term_id."_".$kiji_id}) == "1"){
+if(count(${"cdidol_".$term_id}) == "1"){
 	echo '<img title="'.$term->term_id.'" class="cdicon" src="';
-	foreach (${"cdidol_".$term_id."_".$kiji_id} as $idol_name_roop) {
+	foreach (${"cdidol_".$term_id} as $idol_name_roop) {
 		$icon_data = idolicon($idol_name_roop,"data_only");
 		if($icon_data[info] == "image"){
 			echo $icon_data[url].'" style="background:'.$icon_data[color];
@@ -430,10 +431,10 @@ echo '<div class="info_C"><a href="'.$link.'" id="button" style="text-align:cent
 echo "\n";
 
 //アイドル画像出力ループ
-foreach (${"cdidol_".$term_id."_".$kiji_id} as $idol_name_roop) {
+foreach (${"cdidol_".$term_id} as $idol_name_roop) {
 	idollist($idol_name_roop,"CD");
 }
-foreach (${"cdidols_".$term_id."_".$kiji_id} as $idol_name_roop) {
+foreach (${"cdidols_".$term_id} as $idol_name_roop) {
 	idollist($idol_name_roop,"cdsolo");
 }
 
@@ -445,6 +446,7 @@ echo "\n";
     }
 }
 ?>
+
 
   </div>
   <div class="msgboxfoot">
