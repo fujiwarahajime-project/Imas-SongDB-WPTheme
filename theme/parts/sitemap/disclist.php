@@ -25,6 +25,7 @@ $disc_series = array(
     array("name"=>"M@STER SPARKLE" , "word"=>"THE IDOLM@STER MILLION LIVE! M@STER SPARKLE" , "type"=>"ml") ,
     array("name"=>"THE@TER BOOST" , "word"=>"THE IDOLM@STER THE@TER BOOST" , "type"=>"ml") ,
     array("name"=>"MILLION THE@TER WAVE" , "word"=>"THE IDOLM@STER MILLION THE@TER WAVE" , "type"=>"ml") ,
+    array("name"=>"THE@TER CHALLENGE" , "word"=>"THE IDOLM@STER THE@TER CHALLENGE" , "type"=>"ml") ,
     array("name"=>"LIVE THE@TER SOLO COLLECTION（ソロコレ）" , "word"=>"THE IDOLM@STER LIVE THE@TER SOLO COLLECTION" , "type"=>"ml") ,
     array("name"=>"ゲッサン版ミリオンライブ！" , "word"=>"ゲッサン版ミリオンライブ！" , "type"=>"ml") ,
     array("name"=>"Blooming Clover" , "word"=>"アイドルマスター ミリオンライブ！ Blooming Clover" , "type"=>"ml") ,
