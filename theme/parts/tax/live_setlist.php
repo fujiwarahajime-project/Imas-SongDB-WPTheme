@@ -18,6 +18,7 @@ if(!($setlist_hide !== false) or is_admin_bar_showing()){
 
 $setlist = SCF::get_term_meta( $term_id, $taxonomy, 'setlist' );
 foreach ($setlist as $fields ) {
+  unset($song_id);
 echo "<tr>";
   //曲名を表示
   echo '<td style="padding:0px">';
@@ -33,12 +34,15 @@ echo "<tr>";
 
     
   echo '<a href="'.get_permalink($songname).'">'.get_post($songname)->post_title.'</a>';
+  if(!empty($songname)){
+  $song_id = "song_".$term_id."_".$songname;
+  }
   }
   echo $fields['setlist_song2'];
   //ここまで曲名処理
   echo '</td>';
   echo PHP_EOL;
-  echo '<td class="livemember">';
+  echo '<td class="livemember '.$song_id.'">';
   
   $idol_temp = $fields['setlist_idol'];
   if($fields['setlist_idol']){

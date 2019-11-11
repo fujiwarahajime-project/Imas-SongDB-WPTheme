@@ -47,7 +47,7 @@ echo "\n";
 echo '<tr><td>'.$star.'</td>'; //恒常出力
 echo '<td><div class="livelist"><a href="'.$link.'">'.str_ireplace("THE IDOLM@STER ","", esc_html($term->name)).'</a>';
 
-	echo '<div class="setlist">';
+	echo '<div class="setlist song_'.$term_id.'_'.get_the_ID().'">';
 	echo '<div>開催場所：';
 	echo $place;
 	echo "</div>\n";
