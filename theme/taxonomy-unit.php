@@ -20,7 +20,7 @@ $unitpic = wp_get_attachment_image_src( $unitpic_hantei ,'full');
 <div class="container">
 <div class="row">
 
-<div class="col-md-8 mainSection" id="main" role="main">
+<div class="col mainSection mainSection-col-two" id="main" role="main">
 <!-- OGP -->
 <meta name="description" content="ユニット「<?php echo get_the_archive_title();?>」の歌唱した<?php echo $ryakusyou; ?>楽曲の情報です。">
 <meta name="twitter:card" content="summary" />
@@ -139,7 +139,7 @@ do_action('lightning_loop_before'); ?>
 
 </div><!-- [ /.mainSection ] -->
 
-<div class="col-md-3 col-md-offset-1 subSection sideSection">
+<div class="col subSection sideSection sideSection-col-two">
 <?php get_sidebar(get_post_type()); ?>
 </div><!-- [ /.subSection ] -->
 

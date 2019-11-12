@@ -22,7 +22,7 @@ get_template_part('sitehensu/shiny');
 <div class="container">
 <div class="row">
 
-<div class="col-md-8 mainSection" id="main" role="main">
+<div class="col mainSection mainSection-col-two" id="main" role="main">
 
 <?php
 $term_id = get_queried_object_id(); // タームIDの取得
@@ -191,7 +191,7 @@ do_action('lightning_loop_before'); ?>
 
 </div><!-- [ /.mainSection ] -->
 
-<div class="col-md-3 col-md-offset-1 subSection sideSection">
+<div class="col subSection sideSection sideSection-col-two">
 
 <?php if(is_tax( 'idol_sc' ) and $child_temp->parent == 0){
 

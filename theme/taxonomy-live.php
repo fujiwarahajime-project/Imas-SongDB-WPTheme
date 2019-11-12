@@ -18,7 +18,7 @@ $address =  get_field('address',$term_idmenu.$term_id);
 <div class="container">
 <div class="row">
 
-<div class="col-md-8 mainSection" id="main" role="main">
+<div class="col mainSection mainSection-col-two" id="main" role="main">
 
 <!-- OGP -->
 <meta name="description" content="<?php echo $place; ?>で開催のライブ「<?php echo get_the_archive_title();?>」の曲情報です。">
@@ -195,7 +195,7 @@ if (have_posts() and !$setlist_hantei) : ?>
 
 </div><!-- [ /.mainSection ] -->
 
-<div class="col-md-3 col-md-offset-1 subSection sideSection">
+<div class="col subSection sideSection sideSection-col-two">
 <?php get_sidebar(get_post_type()); ?>
 </div><!-- [ /.subSection ] -->
 
