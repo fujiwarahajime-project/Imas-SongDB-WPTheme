@@ -10,15 +10,11 @@
 
 <?php 
 $taxonomy = 'live';
-if ($terms = get_the_terms($post->ID, $taxonomy)) {
-foreach ( $terms as $term ) {
-$term_id = $term->term_id;//タームIDを取得
-$term_idmenu = $taxonomy.'_'; //「taxonomyname_ + termID」にする
-$link = get_term_link( $term, $taxonomy );//タームのリンクを取得
-$live_bd = get_field('shop',$term_idmenu.$term_id);
-$place = get_field('place',$term_idmenu.$term_id);
 
-//ライブのセットリストをを変数にしまうところ
+if ($terms = get_the_terms($post->ID, $taxonomy)) {
+	foreach ( $terms as $term ) {
+		$term_id = $term->term_id;//タームIDを取得
+//ライブのセットリストを変数にしまうところ
 $setlist = SCF::get_term_meta( $term_id, $taxonomy, 'setlist' );
 foreach ($setlist as $fields ) {
 	foreach ($fields['setlist_song'] as $songname) {
@@ -28,6 +24,30 @@ foreach ($setlist as $fields ) {
 		${"liveunit_".$term_id."_".get_the_ID()} = $fields['unit'];
 		}
 	  }
+}
+
+
+
+	}}
+
+
+if ($terms = get_the_terms($post->ID, $taxonomy)) {
+foreach ( $terms as $term ) {
+$term_id = $term->term_id;//タームIDを取得
+$term_idmenu = $taxonomy.'_'; //「taxonomyname_ + termID」にする
+$link = get_term_link( $term, $taxonomy );//タームのリンクを取得
+$live_bd = get_field('shop',$term_idmenu.$term_id);
+$place = get_field('place',$term_idmenu.$term_id);
+
+unset($setlist_id);
+//セットリストを上書きするIDを取得
+foreach (SCF::get_term_meta($term_id, $taxonomy, 'same_setlist') as $field) {
+	if(!empty($field)){
+	  $setlist_id = $field;
+	  }
+  }
+if(empty($setlist_id)){
+	$setlist_id = $term_id;
 }
 
 $media_dir = wp_upload_dir()[baseurl];
@@ -52,13 +72,13 @@ echo '<td><div class="livelist"><a href="'.$link.'">'.str_ireplace("THE IDOLM@ST
 	echo $place;
 	echo "</div>\n";
 
-if(!empty(${"liveidol_".$term_id."_".get_the_ID()})){
-	$setlistidol_list = explode(',', ${"liveidol_".$term_id."_".get_the_ID()});
+if(!empty(${"liveidol_".$setlist_id."_".get_the_ID()})){
+	$setlistidol_list = explode(',', ${"liveidol_".$setlist_id."_".get_the_ID()});
 	echo "<div>";
 	if($setlistidol_list){
 		foreach ($setlistidol_list as $idol_name_roop) {
 			if($idol_name_roop == "全員"){
-				foreach(explode(',',get_field('member',$term_idmenu.$term_id)) as  $idol_name_roop){
+				foreach(explode(',',get_field('member',$term_idmenu.$setlist_id)) as  $idol_name_roop){
 					$live_member[] = idollist($idol_name_roop,"live");
 				}
 
@@ -69,7 +89,7 @@ if(!empty(${"liveidol_".$term_id."_".get_the_ID()})){
 	  
 	}
 }
-echo ${"livehosoku_".$term_id."_".get_the_ID()};
+echo ${"livehosoku_".$setlist_id."_".get_the_ID()};
 echo '</div></td></tr>';
 
 }

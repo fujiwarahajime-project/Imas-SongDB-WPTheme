@@ -16,7 +16,7 @@
 <!-- 7. WordPress will then import each of the posts, pages, comments, categories, etc. -->
 <!--    contained in this file into your site. -->
 
-	<!-- generator="WordPress/5.2.3" created="2019-09-12 13:45" -->
+	<!-- generator="WordPress/5.3" created="2019-11-23 10:23" -->
 <rss version="2.0"
 	xmlns:excerpt="http://wordpress.org/export/1.2/excerpt/"
 	xmlns:content="http://purl.org/rss/1.0/modules/content/"
@@ -29,7 +29,7 @@
 	<title>デレマス・ミリマス・シャニマス楽曲DB ふじわらはじめ</title>
 	<link>https://fujiwarahaji.me</link>
 	<description>アイドルマスターシンデレラガールズ、ミリオンライブ、シャイニーカラーズの曲情報サイト</description>
-	<pubDate>Thu, 12 Sep 2019 13:45:42 +0000</pubDate>
+	<pubDate>Sat, 23 Nov 2019 10:23:51 +0000</pubDate>
 	<language>ja</language>
 	<wp:wxr_version>1.2</wp:wxr_version>
 	<wp:base_site_url>https://fujiwarahaji.me</wp:base_site_url>
@@ -38,7 +38,7 @@
 		<wp:author><wp:author_id>1</wp:author_id><wp:author_login><![CDATA[maccha]]></wp:author_login><wp:author_email><![CDATA[webmaster@fujiwarahaji.me]]></wp:author_email><wp:author_display_name><![CDATA[@fujiwarahaji_me]]></wp:author_display_name><wp:author_first_name><![CDATA[]]></wp:author_first_name><wp:author_last_name><![CDATA[]]></wp:author_last_name></wp:author>
 
 				
-	<generator>https://wordpress.org/?v=5.2.3</generator>
+	<generator>https://wordpress.org/?v=5.3</generator>
 
 <image>
 	<url>https://fujiwarahaji.me/media/cropped-logo_f-32x32.png</url>
@@ -197,7 +197,7 @@
 		</wp:postmeta>
 							<wp:postmeta>
 		<wp:meta_key><![CDATA[smart-cf-setting]]></wp:meta_key>
-		<wp:meta_value><![CDATA[a:2:{i:0;a:3:{s:10:"group-name";i:1;s:6:"fields";a:1:{i:0;a:8:{s:4:"type";s:5:"check";s:5:"label";s:24:"セットリスト削除";s:4:"name";s:12:"hide_setlist";s:7:"choices";s:4:"term";s:15:"check_direction";s:10:"horizontal";s:7:"default";s:0:"";s:11:"instruction";s:0:"";s:5:"notes";s:0:"";}}s:6:"repeat";b:0;}i:1;a:3:{s:6:"repeat";b:1;s:10:"group-name";s:7:"setlist";s:6:"fields";a:4:{i:0;a:7:{s:4:"type";s:8:"relation";s:5:"label";s:6:"曲名";s:4:"name";s:12:"setlist_song";s:9:"post-type";a:6:{i:0;s:8:"music_ml";i:1;s:11:"music_shiny";i:2;s:8:"music_as";i:3;s:10:"music_godo";i:4;s:8:"music_cg";i:5;s:11:"music_cover";}s:5:"limit";s:1:"1";s:11:"instruction";s:0:"";s:5:"notes";s:0:"";}i:1;a:6:{s:4:"type";s:4:"text";s:5:"label";s:20:"曲名（MCなど）";s:4:"name";s:13:"setlist_song2";s:7:"default";s:0:"";s:11:"instruction";s:0:"";s:5:"notes";s:0:"";}i:2;a:6:{s:4:"type";s:4:"text";s:5:"label";s:12:"アイドル";s:4:"name";s:12:"setlist_idol";s:7:"default";s:0:"";s:11:"instruction";s:0:"";s:5:"notes";s:0:"";}i:3;a:6:{s:4:"type";s:4:"text";s:5:"label";s:18:"アイドル補足";s:4:"name";s:19:"setlist_idol_hosoku";s:7:"default";s:0:"";s:11:"instruction";s:0:"";s:5:"notes";s:0:"";}}}}]]></wp:meta_value>
+		<wp:meta_value><![CDATA[a:3:{i:0;a:3:{s:10:"group-name";i:1;s:6:"fields";a:1:{i:0;a:7:{s:4:"type";s:8:"taxonomy";s:5:"label";s:24:"セットリスト参照";s:4:"name";s:12:"same_setlist";s:8:"taxonomy";a:1:{i:0;s:4:"live";}s:5:"limit";s:1:"1";s:11:"instruction";s:150:"セットリストとセットリスト削除を指定したタームと連動させます。ただしメンバー情報は登録してください。";s:5:"notes";s:0:"";}}s:6:"repeat";b:0;}i:1;a:3:{s:10:"group-name";i:2;s:6:"fields";a:1:{i:0;a:8:{s:4:"type";s:5:"check";s:5:"label";s:24:"セットリスト削除";s:4:"name";s:12:"hide_setlist";s:7:"choices";s:4:"term";s:15:"check_direction";s:10:"horizontal";s:7:"default";s:0:"";s:11:"instruction";s:0:"";s:5:"notes";s:0:"";}}s:6:"repeat";b:0;}i:2;a:3:{s:6:"repeat";b:1;s:10:"group-name";s:7:"setlist";s:6:"fields";a:4:{i:0;a:7:{s:4:"type";s:8:"relation";s:5:"label";s:6:"曲名";s:4:"name";s:12:"setlist_song";s:9:"post-type";a:6:{i:0;s:8:"music_ml";i:1;s:11:"music_shiny";i:2;s:8:"music_as";i:3;s:10:"music_godo";i:4;s:8:"music_cg";i:5;s:11:"music_cover";}s:5:"limit";s:1:"1";s:11:"instruction";s:0:"";s:5:"notes";s:0:"";}i:1;a:6:{s:4:"type";s:4:"text";s:5:"label";s:20:"曲名（MCなど）";s:4:"name";s:13:"setlist_song2";s:7:"default";s:0:"";s:11:"instruction";s:0:"";s:5:"notes";s:0:"";}i:2;a:6:{s:4:"type";s:4:"text";s:5:"label";s:12:"アイドル";s:4:"name";s:12:"setlist_idol";s:7:"default";s:0:"";s:11:"instruction";s:0:"";s:5:"notes";s:0:"";}i:3;a:6:{s:4:"type";s:4:"text";s:5:"label";s:18:"アイドル補足";s:4:"name";s:19:"setlist_idol_hosoku";s:7:"default";s:0:"";s:11:"instruction";s:0:"";s:5:"notes";s:0:"";}}}}]]></wp:meta_value>
 		</wp:postmeta>
 							<wp:postmeta>
 		<wp:meta_key><![CDATA[smart-cf-condition-post-ids]]></wp:meta_key>

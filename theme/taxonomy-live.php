@@ -125,8 +125,6 @@ echo get_field('movie',$term_idmenu.$term_id);//出力
 <!-- メンバー情報の表示 -->
 <?php get_template_part('parts/tax/unit_member'); ?>
 
-<!-- セットリスト -->
-
 <?php if(wp_is_mobile()): ?>
 <style type="text/css">
 <!-- スマホ用CSS -->
@@ -152,8 +150,13 @@ echo get_field('movie',$term_idmenu.$term_id);//出力
 <div class="postList">
 
 <?php 
+foreach (SCF::get_term_meta($term_id, $taxonomy, 'same_setlist') as $field) {
+  if(!empty($field)){
+    $same_setlist = TRUE;
+    }
+}
 $setlist_hantei = count(SCF::get_term_meta( $term_id, $taxonomy, 'setlist' )) >= 2;
-if (have_posts() and !$setlist_hantei) : ?>
+if (have_posts() and !$setlist_hantei and !$same_setlist) : ?>
 
   <?php if( apply_filters( 'is_lightning_extend_loop' , false ) ): ?>
 
