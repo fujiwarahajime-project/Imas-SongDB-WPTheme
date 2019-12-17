@@ -150,4 +150,8 @@ document.addEventListener('DOMContentLoaded', function() {
   border-style:none;
   background-color:rgba(0,0,0,0);
 }
+
+.fc-list-item-time{ /* ライブの時間を消す（今の所all-dayしか表示しないため） */
+    display:none;
+}
 </style>
