@@ -1,6 +1,6 @@
-﻿
-<?php
+﻿<?php
 $term_id = get_queried_object_id(); // タームIDの取得
+$term_idmenu = $taxonomy.'_'; //「taxonomyname_ + termID」を取得
 $term_id_orig = $term_id;
 $upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
 foreach (SCF::get_term_meta($term_id, $taxonomy, 'same_setlist') as $field) {
@@ -83,4 +83,73 @@ echo '</tbody></table>';
 $setlist_showing = TRUE;
 }}
 
+
+  if((!$setlist_kazu or ($setlist_hide !== false)) AND !empty(get_field('member',$term_idmenu.$term_id))){
+    echo "<h3>セトリ予想</h3>";
+    $idol_live = explode(',', get_field('member',$term_idmenu.$term_id));
+    //デュエット曲・ユニット曲の一覧をつくる
+    $post_kyoku = get_posts(array(
+      'post_type' => array('music_cg','music_ml','music_shiny','music_as','music_cover'),
+      'posts_per_page' => 10000,
+      'tax_query' => array( 'relation' => 'OR',
+      array(
+        'taxonomy' => 'musictype',
+        'field' => 'slug',
+        'terms' => array('unit','duet'),
+        'operator' => 'IN'
+      ),
+      )
+      ));
+
+      //はじめの出力
+      echo '<table id="tablesort" class="tablesorter"><thead>'.PHP_EOL.'
+      <tr><th class="header">曲名</th><th class="header">ライブ参加 / 収録音源有</th><th class="header">%</th></tr></thead><tbody>';
+
+      global $post;
+      foreach($post_kyoku as $post){
+        setup_postdata( $post );
+        unset($idol_cd);
+
+        foreach (wp_get_object_terms( $id, array("idol_cg","idol_765","idol_sc")) as $term){   
+          //CDのメンバーを変数に突っ込む       
+          $idol_cd[] = $term->name;
+        }
+        //くらべる
+        $idol_hikaku = array_intersect($idol_cd , $idol_live);
+
+        if(count($idol_hikaku)>"1"){
+          echo '<tr><td><a href="';
+          echo get_permalink( $post );
+          echo '">';
+          echo get_the_title( $id );
+          echo '</a></td><td>';
+          echo count($idol_hikaku);
+          echo " / ";
+          echo count($idol_cd);
+          echo "</td><td>";
+          echo round(count($idol_hikaku)/count($idol_cd)*100);
+          echo "</td></tr>";
+          echo PHP_EOL;
+        }
+        
+
+      }
+      echo "</tbody></table>";
+  }
+
+
+
 ?>
+<!-- JQuery読み込み -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<!-- TableSorterのJSとCSS -->
+<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/resources/table_css/style.css" type="text/css" media="print, projection, screen" />
+<script src="<?php echo get_stylesheet_directory_uri(); ?>/resources/jquery.tablesorter.min.js" type="text/javascript"></script>
+<!-- TableSorterを動かす -->
+<script type="text/javascript">
+$("table").tablesorter({ 
+        // 確率が高い順にソートする
+        sortList: [[2,1]] 
+    });
+</script>
