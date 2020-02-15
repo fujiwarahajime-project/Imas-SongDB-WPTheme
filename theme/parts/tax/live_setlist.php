@@ -108,11 +108,15 @@ $setlist_showing = TRUE;
       global $post;
       foreach($post_kyoku as $post){
         setup_postdata( $post );
+        if(!is_object_in_term($post->ID, 'musictype','zentai')){
         unset($idol_cd);
 
-        foreach (wp_get_object_terms( $id, array("idol_cg","idol_765","idol_sc")) as $term){   
+        foreach (wp_get_object_terms( $id, array("idol_cg","idol_765","idol_sc")) as $term){
+          //シャニマスのユニット制対応（親タームの除外）
+          if(!($term->parent == 0) OR !$term->taxnomy == "idol_sc"){
           //CDのメンバーを変数に突っ込む       
           $idol_cd[] = $term->name;
+          }
         }
         //くらべる
         $idol_hikaku = array_intersect($idol_cd , $idol_live);
@@ -131,6 +135,7 @@ $setlist_showing = TRUE;
           echo "</td></tr>";
           echo PHP_EOL;
         }
+      }
         
 
       }
