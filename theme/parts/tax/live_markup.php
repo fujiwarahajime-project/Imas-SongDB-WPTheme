@@ -25,45 +25,41 @@ $address3 = $address_temp[3][0];
 $idol_temp = get_field('member',$term_idmenu.$term_id);
   $idol_list = explode(',', $idol_temp);
   foreach ($idol_list as $idol_name_roop) {
-    $live_member[] = idollist($idol_name_roop,"getcv");
+    unset($member_temp);
+    $member_temp = idollist($idol_name_roop,"getcv");
+    if(empty($member_temp)){
+      $member_temp = $idol_name_roop;
+    }
+    $live_member[] = array(
+      '@type' => 'Person',
+      'name' => $member_temp,
+      );
   }
+
+//JSON用の配列をつくる
+$json_data = array(
+  '@context' => 'https://schema.org',
+  '@type' => 'Event',
+  'name' => $title,
+  'startDate' => $day,
+  'endDate' => $day,
+  'location' => array(
+    '@type' => 'place',
+    'name' => $place,
+    'address' => array(
+      '@type' => 'PostalAddress',
+      'streetAddress' => $address3,
+      'addressLocality' => $address2,
+      'addressRegion' => $address1,
+      'addressCountry' => 'JP',
+    ),
+    ),
+  'description' => 'アイドルマスターのイベント',
+  'performer' => $live_member,
+);
 
 ?>
 <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Event",
-  "name": "<?php echo $title; ?>",
-  "startDate": "<?php echo $day;?>",
-  "location": {
-    "@type": "Place",
-    "name": "<?php echo $place;?>",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "<?php echo $address3;?>",
-      "addressLocality": "<?php echo $address2;?>",
-      "addressRegion": "<?php echo $address1;?>",
-      "addressCountry": "JP"
-    }
-  },
-  "description": "アイドルマスターのイベント",
-  "performer": [
-<?php
-foreach($live_member as $cv){
-  echo '    {';
-  echo PHP_EOL;
-  echo '      "@type": "Person",';
-  echo PHP_EOL;
-  echo '     "name": "'.$cv.'"';
-  echo PHP_EOL;
-  if ($cv === end($live_member)) {
-    echo '  }';
-  }else{
-    echo '  },';
-  }
-  echo PHP_EOL;
+<?php echo json_encode($json_data);?>
 
-}?>
-  ]
-}
 </script>
