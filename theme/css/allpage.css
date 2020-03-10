@@ -188,3 +188,8 @@ body{
     font-weight:bold;
   }
 }
+
+/* ループのサムネイルのリンク干渉修正 */
+.postList_thumbnail a{
+  z-index : 100;
+}
