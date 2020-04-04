@@ -1,6 +1,5 @@
-﻿<?php $upload_dir = wp_upload_dir(); ?>
-
-<div class="msgbox" id="live">
+<?php $upload_dir = wp_upload_dir();
+?><div class="msgbox" id="live">
   <div class="msgboxtop">この曲が披露されたライブ・イベント</div>
   <div class="msgboxbody">
 先頭に「<i class="fas fa-compact-disc"></i>」がついているライブは、DVD・BD等の円盤メディアが発売されています。<br>

@@ -1,4 +1,4 @@
-﻿<?php get_header(); ?>
+<?php get_header(); ?>
 <?php get_template_part('template-parts/page-header'); ?>
 <?php get_template_part('template-parts/breadcrumb'); ?>
 
@@ -56,12 +56,12 @@ if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 <?php endif; ?>
 
 <!-- Metaデータ -->
-<meta name="description" content="<?php echo "$ryakusyou"; ?>曲「<?php the_title(); ?>」の曲情報です。ニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
+<meta name="description" content="<?php echo "$ryakusyou"; ?>曲「<?php the_title(); ?>」の曲情報です。">
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:site" content="@<?php echo "$site_twitter"; ?>" />
 <meta name="twitter:creator" content="@<?php echo "$creator_twitter"; ?>" />
 <meta property="og:title" content="「<?php the_title(); ?>」｜<?php bloginfo('name'); ?>">
-<meta property="og:description" content="<?php echo "$ryakusyou"; ?>曲「<?php the_title(); ?>」のニコ動へのリンク、作詞・作曲・編曲・ユニット名などを掲載しています。">
+<meta property="og:description" content="<?php echo "$ryakusyou"; ?>曲「<?php the_title(); ?>」の曲情報を掲載しています。">
 <meta property="og:image" content="<?php if ( has_post_thumbnail() ) {
 	$image_id = get_post_thumbnail_id ();
 	$image_url = wp_get_attachment_image_src ($image_id, true);
@@ -85,7 +85,7 @@ if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 
 ?>
 
-<div class="section siteContent">
+<div class="section siteContent" style="padding-top:0px;">
 <div class="container">
 <div class="row">
 <div class="col mainSection mainSection-col-two" id="main" role="main">
@@ -237,96 +237,6 @@ if(!empty($idol_temp)):?>
   </div>
 </div>
 
-<div class="msgbox" id="link">
-  <div class="msgboxtop">リンク集</div>
-
-  <div class="msgboxbody" style="text-align: center;">
-
-<!-- リンク集 -->
-
-<div class="tab_wrap">
-<input id="tabni" type="radio" name="tab_btn" checked>
-<input id="tabtw" type="radio" name="tab_btn">
-
-<div class="tab_area link_label">
-<span class="btn_item_5" style="border-top: medium solid thistle;border-left: medium solid thistle;padding:2px 0px 2px 2px;">
-	<label class="tabni_label btn_item_in" for="tabni" id="button" style="border-radius:10px 0px 0px 15px;margin:0px;">
-	<img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/nico_logo.png" width="25px"></label>
-</span>
-<span class="btn_item_5" style="border-top: medium solid thistle;border-right: medium solid thistle;padding:2px 2px 2px 0px;">
-	<label class="tabtw_label btn_item_in" for="tabtw" id="button" style="border-radius:0px 15px 15px 0px;margin:0px;">
-	<i class="fab fa-twitter"></i></label>
-</span>
-<span class="btn_item_5 under_line">
-	<a href="https://www.google.co.jp/search?q=<?php the_title(); ?>" rel="nofollow"  id="button" class="btn_item_in"><i class="fab fa-google"></i></a>
-</span>
-<span class="btn_item_5 under_line">
-	<a href="https://www.pixiv.net/search.php?s_mode=s_tc&amp;word=<?php the_title(); ?>" rel="nofollow"  id="button" class="btn_item_in">
-	<img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/pixiv_logo.jpg" width="25px"></a>
-</span>
-<span class="btn_item_5 under_line">
-	<a href="https://www.youtube.com/results?search_query=<?php the_title(); ?>" rel="nofollow" id="button" class="btn_item_in"><i class="fab fa-youtube"></i></a>
-</span>
-</div>
-
-
-<div class="panel_area">
-<div id="panelni" class="tab_panel">
-<!-- niconicoのタブの中身 -->
-<p class="tab_title">niconicoでさがす</p>
-<div class="tab_area_long">
-<?php
-$NicoTag = get_post_meta($post->ID,'NicoTag',true);
-if(is_singular( 'music_shiny' ) or is_singular( 'music_godo' ) or  is_singular( 'music_cover' )): //シャイニーカラーズまたは合同曲（MVがない）の場合
-?>
-<a href="http://www.nicovideo.jp/search/<?php the_title(); ?>" rel="nofollow" id="button" class="btn_item_long2">ワード</a>
-<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long2">タグ</a>
-<a href="http://dic.nicovideo.jp/a/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long2">大百科</a>
-<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?> アイマスRemix" rel="nofollow" id="button" class="btn_item_long2">Remix</a>
-<?php else //シンデレラガールズやミリオンライブの場合
-: ?>
-<a href="http://www.nicovideo.jp/search/<?php the_title(); ?>" rel="nofollow" id="button" class="btn_item_long">ワード</a>
-<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long">タグ</a>
-<a href="http://dic.nicovideo.jp/a/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long">大百科</a>
-<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?> アイマスRemix" rel="nofollow" id="button" class="btn_item_long">Remix</a>
-<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?> <?php echo "$MV_Tag"; ?>" rel="nofollow" id="button" class="btn_item_long">MV</a>
-<?php endif; ?>
-</div>
-</div>
-
-<div id="paneltw" class="tab_panel">
-<!-- Twitterのタブの中身 -->
-<p class="tab_title">Twitterでさがす</p>
-<div class="tab_area_long">
-<a href="https://twitter.com/search?q=&quot;<?php the_title(); ?>&quot;" rel="nofollow" id="button" class="btn_item_long2">人気</a>
-<a href="https://twitter.com/search?q=&quot;<?php the_title(); ?>&quot;&f=live" rel="nofollow" id="button"class="btn_item_long2">最新</a>
-<a href="https://twitter.com/search?q=&quot;<?php the_title(); ?>&quot;&f=image" rel="nofollow" id="button"class="btn_item_long2">動画</a>
-<a href="https://twitter.com/search?q=&quot;<?php the_title(); ?>&quot;&f=video" rel="nofollow" id="button" class="btn_item_long2">画像</a>
-</div>
-</div>
-
-</div>
-
-</div>
-
-
-
-<p class="tab_title">歌詞をみる</p>
-<?php $kasi_umu = get_post_meta($post->ID, 'kasi', true);?>
-<?php if(!empty($kasi_umu)):?>
-<p><a href="<?php echo get_post_meta($post->ID, 'kasi', true); ?>" rel="nofollow" id="button">歌詞サイトでFULL歌詞を見る</a></p>
-<?php endif;?>
-<?php if(empty($kasi_umu)):?>
-<p>この曲は現時点でリンクに対応していません。<br>検索すると見つかるかもです。<br>
-<a href="https://www.google.co.jp/search?q=<?php the_title(); ?> 歌詞" rel="nofollow" id="button">Google検索で歌詞を検索する</a></p>
-<?php endif;?>
-
-
-  </div>
-  <div class="msgboxfoot">
-  </div>
-</div>
-
 <div class="msgbox" id="movie">
   <div class="msgboxtop">公式動画</div>
   <div class="msgboxbody">
@@ -454,6 +364,91 @@ echo "\n";
 </div>
 
 <?php get_template_part('parts/music_page/livelist');?>
+
+<div class="msgbox" id="link">
+  <div class="msgboxtop">リンク集</div>
+
+  <div class="msgboxbody" style="text-align: center;">
+
+<!-- リンク集 -->
+
+<div class="tab_wrap">
+<input id="tabni" type="radio" name="tab_btn" checked>
+<input id="tabtw" type="radio" name="tab_btn">
+
+<div class="tab_area link_label">
+<span class="btn_item_5" style="border-top: medium solid thistle;border-left: medium solid thistle;padding:2px 0px 2px 2px;">
+	<label class="tabni_label btn_item_in" for="tabni" id="button" style="border-radius:10px 0px 0px 15px;margin:0px;">
+	<img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/nico_logo.png" width="25px"></label>
+</span>
+<span class="btn_item_5" style="border-top: medium solid thistle;border-right: medium solid thistle;padding:2px 2px 2px 0px;">
+	<label class="tabtw_label btn_item_in" for="tabtw" id="button" style="border-radius:0px 15px 15px 0px;margin:0px;">
+	<i class="fab fa-twitter"></i></label>
+</span>
+<span class="btn_item_5 under_line">
+	<a href="https://www.google.co.jp/search?q=<?php the_title(); ?>" rel="nofollow"  id="button" class="btn_item_in"><i class="fab fa-google"></i></a>
+</span>
+<span class="btn_item_5 under_line">
+	<a href="https://www.pixiv.net/search.php?s_mode=s_tc&amp;word=<?php the_title(); ?>" rel="nofollow"  id="button" class="btn_item_in">
+	<img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/pixiv_logo.jpg" width="25px"></a>
+</span>
+<span class="btn_item_5 under_line">
+	<a href="https://www.youtube.com/results?search_query=<?php the_title(); ?>" rel="nofollow" id="button" class="btn_item_in"><i class="fab fa-youtube"></i></a>
+</span>
+</div>
+
+
+<div class="panel_area">
+<div id="panelni" class="tab_panel">
+<!-- niconicoのタブの中身 -->
+<p class="tab_title">niconicoでさがす</p>
+<div class="tab_area_long">
+<?php
+$NicoTag = get_post_meta($post->ID,'NicoTag',true);
+if(is_singular( 'music_shiny' ) or is_singular( 'music_godo' ) or  is_singular( 'music_cover' )): //シャイニーカラーズまたは合同曲（MVがない）の場合
+?>
+<a href="http://www.nicovideo.jp/search/<?php the_title(); ?>" rel="nofollow" id="button" class="btn_item_long2">ワード</a>
+<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long2">タグ</a>
+<a href="http://dic.nicovideo.jp/a/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long2">大百科</a>
+<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?> アイマスRemix" rel="nofollow" id="button" class="btn_item_long2">Remix</a>
+<?php else //シンデレラガールズやミリオンライブの場合
+: ?>
+<a href="http://www.nicovideo.jp/search/<?php the_title(); ?>" rel="nofollow" id="button" class="btn_item_long">ワード</a>
+<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long">タグ</a>
+<a href="http://dic.nicovideo.jp/a/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long">大百科</a>
+<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?> アイマスRemix" rel="nofollow" id="button" class="btn_item_long">Remix</a>
+<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?> <?php echo "$MV_Tag"; ?>" rel="nofollow" id="button" class="btn_item_long">MV</a>
+<?php endif; ?>
+</div>
+</div>
+
+<div id="paneltw" class="tab_panel">
+<!-- Twitterのタブの中身 -->
+<p class="tab_title">Twitterでさがす</p>
+<div class="tab_area_long">
+<a href="https://twitter.com/search?q=&quot;<?php the_title(); ?>&quot;" rel="nofollow" id="button" class="btn_item_long2">人気</a>
+<a href="https://twitter.com/search?q=&quot;<?php the_title(); ?>&quot;&f=live" rel="nofollow" id="button"class="btn_item_long2">最新</a>
+<a href="https://twitter.com/search?q=&quot;<?php the_title(); ?>&quot;&f=image" rel="nofollow" id="button"class="btn_item_long2">動画</a>
+<a href="https://twitter.com/search?q=&quot;<?php the_title(); ?>&quot;&f=video" rel="nofollow" id="button" class="btn_item_long2">画像</a>
+</div>
+</div>
+
+</div>
+
+</div>
+
+
+
+<?php $kasi_umu = get_post_meta($post->ID, 'kasi', true);?>
+<?php if(!empty($kasi_umu)):?>
+	<p class="tab_title">歌詞をみる</p>
+	<p><a href="<?php echo get_post_meta($post->ID, 'kasi', true); ?>" rel="nofollow" id="button">歌詞サイトでFULL歌詞を見る</a></p>
+<?php endif;?>
+
+  </div>
+  <div class="msgboxfoot">
+  </div>
+</div>
 
 <!--ここまで-->
 <div class="msgbox">
