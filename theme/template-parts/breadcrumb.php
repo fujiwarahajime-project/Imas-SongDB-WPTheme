@@ -18,17 +18,20 @@ function lightning_bread_crumb() {
 	// Microdata
 	// http://schema.org/BreadcrumbList
 	/*-------------------------------------------*/
-	$microdata_li        = ' itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"';
-	$microdata_li_a      = ' itemprop="item"';
-	$microdata_li_a_span = ' itemprop="name"';
+	//$microdata_li        = ' itemprop="itemListElement" itemscope itemtype="http://schema.org/ListItem"';
+	//$microdata_li_a      = ' itemprop="item"';
+	//$microdata_li_a_span = ' itemprop="name"';
 
 	$panListHtml = '<!-- [ .breadSection ] -->
 <div class="section breadSection">
 <div class="container">
 <div class="row">
-<ol class="breadcrumb" itemtype="http://schema.org/BreadcrumbList">';
+<ol  class="breadcrumb">';
 
 	$panListHtml .= '<li id="panHome"' . $microdata_li . '><a' . $microdata_li_a . ' href="' . home_url( '/' ) . '"><span' . $microdata_li_a_span . '><i class="fa fa-home"></i> HOME</span></a></li>';
+	$count_markup = 0;
+	$bread_data[] = array('@type'=>'ListItem','position'=>$count_markup,'name'=>'HOME','item'=>home_url( '/' ));
+
 
 	/* Post type
 	/*-------------------------------*/
@@ -44,6 +47,7 @@ $panListHtml .= '<li' . $microdata_li . '><span' . $microdata_li_a_span . '>' . 
 			if ( $page_for_posts['post_top_use'] ) {
 				if ( ! is_home() ) {
 					$panListHtml .= '<li' . $microdata_li . '><a' . $microdata_li_a . ' href="' . esc_url( $postType['url'] ) . '"><span' . $microdata_li_a_span . '>' . $postType['name'] . '</span></a></li>';
+					$bread_data[] = array('@type'=>'ListItem','position'=>++$count_markup,'name'=>$postType['name'],'item'=>esc_url( $postType['url'] ));
 				} else {
 					$panListHtml .= '<li><span>' . the_title( '', '', false ) . '</span></li>';
 				}
@@ -51,6 +55,7 @@ $panListHtml .= '<li' . $microdata_li . '><span' . $microdata_li_a_span . '>' . 
 		} else {
 			if ( is_single() || is_year() || is_month() || is_day() || is_tax() || is_author() ) {
 				$panListHtml .= '<li' . $microdata_li . '><a' . $microdata_li_a . ' href="' . esc_url( $postType['url'] ) . '"><span' . $microdata_li_a_span . '>' . $postType['name'] . '</span></a></li>';
+				$bread_data[] = array('@type'=>'ListItem','position'=>++$count_markup,'name'=>$postType['name'],'item'=>esc_url( $postType['url'] ));
 			} else {
 				$panListHtml .= '<li><span>' . $postType['name'] . '</span></li>';
 			}
@@ -82,6 +87,7 @@ $panListHtml .= '<li' . $microdata_li . '><span' . $microdata_li_a_span . '>' . 
 			// 祖先階層の配列回数分ループ
 			foreach ( $ancestors as $ancestor ) :
 				$panListHtml .= '<li' . $microdata_li . '><a' . $microdata_li_a . ' href="' . get_category_link( $ancestor ) . '"><span' . $microdata_li_a_span . '>' . esc_html( get_cat_name( $ancestor ) ) . '</span></a></li>';
+				$bread_data[] = array('@type'=>'ListItem','position'=>++$count_markup,'name'=>esc_html( get_cat_name( $ancestor )),'item'=>get_category_link( $ancestor ));
 			endforeach;
 			endif;
 		$panListHtml .= '<li><span>' . $cat->cat_name . '</span></li>';
@@ -111,6 +117,7 @@ $panListHtml .= '<li' . $microdata_li . '><span' . $microdata_li_a_span . '>' . 
 			foreach ( $ancestors as $ancestor ) :
 				$pan_term     = get_term( $ancestor, $now_taxonomy );
 				$panListHtml .= '<li' . $microdata_li . '><a' . $microdata_li_a . ' href="' . get_term_link( $ancestor, $now_taxonomy ) . '"><span' . $microdata_li_a_span . '>' . esc_html( $pan_term->name ) . '</a></li>';
+				$bread_data[] = array('@type'=>'ListItem','position'=>++$count_markup,'name'=>esc_html( $pan_term->name ),'item'=>get_term_link( $ancestor, $now_taxonomy ));
 			endforeach;
 		endif;
 
@@ -149,6 +156,7 @@ $panListHtml .= '<li' . $microdata_li . '><span' . $microdata_li_a_span . '>' . 
 					$parent_obj   = get_term( $parent_term_id, 'category' );
 					$term_url     = get_term_link( $parent_obj->term_id, $parent_obj->taxonomy );
 					$panListHtml .= '<li' . $microdata_li . '><a' . $microdata_li_a . ' href="' . $term_url . '"><span' . $microdata_li_a_span . '>' . esc_html( $parent_obj->name ) . '</span></a></li>';
+					$bread_data[] = array('@type'=>'ListItem','position'=>$count_markup,'name'=>esc_html( $parent_obj->name ),'item'=>$term_url);
 				}
 			}
 
@@ -178,10 +186,12 @@ $panListHtml .= '<li' . $microdata_li . '><span' . $microdata_li_a_span . '>' . 
 					foreach ( $ancestors as $ancestor ) :
 						$pan_term     = get_term( $ancestor, $taxonomy );
 						$panListHtml .= '<li' . $microdata_li . '><a' . $microdata_li_a . ' href="' . get_term_link( $ancestor, $taxonomy ) . '"><span' . $microdata_li_a_span . '>' . esc_html( $pan_term->name ) . '</span></a></li>';
+						$bread_data[] = array('@type'=>'ListItem','position'=>$count_markup,'name'=>esc_html( $pan_term->name ),'item'=>get_term_link( $ancestor, $taxonomy ));
 					endforeach;
 				}
 				$term_url     = get_term_link( $term->term_id, $taxonomy );
 				$panListHtml .= '<li' . $microdata_li . '><a' . $microdata_li_a . ' href="' . $term_url . '"><span' . $microdata_li_a_span . '>' . esc_html( $term->name ) . '</span></a></li>';
+				$bread_data[] = array('@type'=>'ListItem','position'=>$count_markup,'name'=>esc_html( $term->name ),'item'=>$term_url);
 				endif;
 
 		}
@@ -202,6 +212,7 @@ $panListHtml .= '<li' . $microdata_li . '><span' . $microdata_li_a_span . '>' . 
 			foreach ( $ancestors as $ancestor ) {
 				if ( $ancestor != end( $ancestors ) ) {
 					$panListHtml .= '<li' . $microdata_li . '><a' . $microdata_li_a . ' href="' . get_permalink( $ancestor ) . '"><span' . $microdata_li_a_span . '>' . strip_tags( apply_filters( 'single_post_title', get_the_title( $ancestor ) ) ) . '</span></a></li>';
+					$bread_data[] = array('@type'=>'ListItem','position'=>$count_markup,'name'=>strip_tags( apply_filters( 'single_post_title', get_the_title( $ancestor ) ) ),'item'=>get_permalink( $ancestor ));
 				} else {
 					$panListHtml .= '<li><span>' . strip_tags( apply_filters( 'single_post_title', get_the_title( $ancestor ) ) ) . '</span></li>';
 				}
@@ -233,9 +244,20 @@ $panListHtml .= '<li' . $microdata_li . '><span' . $microdata_li_a_span . '>' . 
 </div>
 </div>
 </div>
-<!-- [ /.breadSection ] -->';
+<!-- [ /.breadSection ] -->
+<!-- パンくずリスト構造化マークアップ -->
+';
+	//JSONデータ生成
+	$markup_json = json_encode(array('@context'=>'https://schema.org','@type'=>'BreadcrumbList','itemListElement'=>$bread_data));
+	//JSONデータをくっつける
+
+	$panListHtml .= '<script type="application/ld+json">
+'.$markup_json.'
+</script>';
+
 	return $panListHtml;
 }
 $panListHtml = lightning_bread_crumb();
 $panListHtml = apply_filters( 'lightning_panListHtml', $panListHtml );
 echo $panListHtml;
+
