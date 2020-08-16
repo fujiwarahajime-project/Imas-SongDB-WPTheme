@@ -18,7 +18,7 @@ $args = array(
 	'paged' => $paged,
 	'orderby' => 'post_date',
 	'order' => 'DESC',
-	'post_type' => array('music_cg','music_ml','music_sc','music_as','music_godo','music_cover'),
+	'post_type' => array('music_cg','music_ml','music_shiny','music_as','music_godo','music_cover'),
 	'post_status' => 'publish'
 );
 $the_query = new WP_Query($args);
@@ -28,10 +28,34 @@ if ( $the_query->have_posts() ) :
 <?php //準備
 if (!(get_post_meta($post->ID,'Kana',true) == "※この記事は仮の記事です。")):?>
 <?php
+switch ($post->post_type){
+	case 'music_cg':
+		$music_type = 'アイドルマスターシンデレラガールズの楽曲';
+	break;
+	case 'music_ml':
+		$music_type = 'アイドルマスターミリオンライブ！の楽曲';
+	break;
+	case 'music_shiny':
+		$music_type = 'アイドルマスターシャイニーカラーズの楽曲';
+	break;
+	case 'music_godo':
+		$music_type = 'アイドルマスターのプロジェクトをまたいだ楽曲';
+	break;
+	case 'music_as':
+		$music_type = 'アイドルマスター765ASの楽曲';
+	break;
+	case 'music_cover':
+		$music_type = 'アイドルマスターシリーズでカバーされた楽曲';
+	break;	
+	default:
+		$music_type = "アイドルマスターシリーズの楽曲";
+	break;
+	}
+
 echo preg_replace("/[^ぁ-んーゔ]+/u",'' ,str_replace("ヴ","ゔ",mb_convert_kana( get_field('Kana',$post->ID) , "cH")));
 echo "\t";
 echo get_the_title();
-echo "\t";?>固有名詞<?php echo "\t";?>アイドルマスターの楽曲
+echo "\t";?>固有名詞<?php echo "\t"; echo $music_type;echo PHP_EOL;?>
 <?php endif; endwhile; endif; ?>
 <?php wp_reset_query(); ?>
 
