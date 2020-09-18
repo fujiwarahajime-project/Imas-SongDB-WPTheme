@@ -145,11 +145,19 @@ https://opensource.org/licenses/mit-license.php
 
 /* 横幅が広くてさみしいとき、なよたけ肇ちゃんを表示する */
 @media screen and (min-width: 1560px) {
-.single-music_cg,.single-music_ml,.single-music_as,.single-music_sc,.single-music_godo,.archive,.page-template-default{
-  background-image: url(https://fujiwarahaji.me/media/nayotake_puchi.png);
-  background-position:95% 98% ;
+.scrolled .topbtn_hajime {
+  position: fixed;
+  background-image: url(https://fujiwarahaji.me/media/tenchi.png);
   background-repeat: no-repeat;
-  background-attachment: fixed; }
+  width: 110px;
+  height:200px;
+  z-index:999999;
+  right:calc(2% + 40px);
+  bottom:3%;
+  overflow: hidden;
+  background-position: center;
+  transition: opacity .3s;
+}
 }
 
 /* UDPゴをメインフォントにする。
@@ -192,4 +200,16 @@ body{
 /* ループのサムネイルのリンク干渉修正 */
 .postList_thumbnail a{
   z-index : 100;
+}
+
+/* entry-titleの1文字目だけ色を変える */
+.entry-title:first-letter{
+  color:#7272b4 ;/*はねず色*/
+}
+
+/* APIボタンの体裁を整える */
+.button_block{
+  display : block;
+  text-align : center;
+  padding : 0px 15px;
 }

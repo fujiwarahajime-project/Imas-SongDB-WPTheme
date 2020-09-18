@@ -2,8 +2,11 @@
 /* アイドルごとの横幅を指定 */
 @media screen and (min-width:1201px) {
   /*　横幅1201px以上（PCフル表示などの場合）は3列表示　*/
-  .idollist .idol {width:33%;}
-  .solocolle .idol {width:50%;}
+  :root{
+    --idolicon_size:100px;
+    --idolicon_row:3;
+    --idolicon_padding:8px;
+  }
 
 }
 
@@ -11,19 +14,21 @@
 
 @media screen and (min-width: 521px) and (max-width: 1200px) {
   /*　横幅521px～1200px（タブレットやPCの半面表示など）は2列表示　*/
-  .idollist .idol {width:50%;}
+  :root{
+    --idolicon_size:100px;
+    --idolicon_row:2;
+    --idolicon_padding:5px;
+  }
 
 }
 
 @media screen and (max-width: 520px) { 
   /*　横幅520px以下（スマホなど）は1列表示　*/
-  .idollist .idol {width:100%;}
-}
-
-@media screen and (min-width: 521px) and (max-width: 600px) {
-  /*　横幅521px～1200px（タブレットやPCの半面表示など）は2列表示　*/
-  .solocolle .idol {width:100%;}
-
+  :root{
+    --idolicon_size:80px;
+    --idolicon_row:1;
+    --idolicon_padding:8px;
+  }
 }
 
 
@@ -34,20 +39,22 @@
   flex-wrap: wrap;
 }
 .idollist .idol{/* アイテムの外枠、全体フォントに関する設定 */
-  height:102px;
+  height:calc(var(--idolicon_size) + 2px);
+  width:calc(100% / var(--idolicon_row));
   border:solid 1px darkgray;
   border-radius:2px;
 }
+
 .idolicon{/* アイコンに関する設定（バックグラウンドは、アイドルのテーマカラーを指定しなかったときのみ使用されます） */
+  width:var(--idolicon_size);
+  padding:var(--idolicon_padding);
   background:linear-gradient(lightgray,gray);
   float:left;
-  padding:8px;
-  width:100px;
   margin-bottom:0px;
   display:block;
 }
 .idolname{/* アイドルの名前まわりのスタイル設定 */
-  font-size:20px;
+  font-size:120%;
   margin:7px 5px;
   border-bottom:dotted 2px gray;
   font-weight: bold;}
@@ -55,8 +62,9 @@
   margin:7px 7px;
 }
 .info{
-  margin-left:100px;
-}/* CVまわりのスタイル */</style>
+  margin-left:var(--idolicon_size);
+}
+/* CVまわりのスタイル */
 
 /* 開閉メニュー */
 .vmenu_on, .vmenu_off{margin:2px 0px;}
@@ -231,3 +239,4 @@ z-index:100;
   }
 
 }
+

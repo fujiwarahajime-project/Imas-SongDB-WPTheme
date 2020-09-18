@@ -20,7 +20,7 @@ foreach ($setlist as $fields ) {
 		if($songname == get_the_ID()){ //入力されている記事のIDと、この曲の記事IDが一緒の場合のみ変数格納を行う
 		${"liveidol_".$term_id."_".get_the_ID()} = $fields['setlist_idol']; //アイドルの一覧
 		${"livehosoku_".$term_id."_".get_the_ID()} = $fields['setlist_idol_hosoku']; //補足のテキスト
-		${"liveunit_".$term_id."_".get_the_ID()} = $fields['unit'];
+		//${"liveunit_".$term_id."_".get_the_ID()} = $fields['unit'];
 		}
 	  }
 }

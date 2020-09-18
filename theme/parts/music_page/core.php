@@ -85,7 +85,7 @@ if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 
 ?>
 
-<div class="section siteContent" style="padding-top:0px;">
+<div class="section siteContent">
 <div class="container">
 <div class="row">
 <div class="col mainSection mainSection-col-two" id="main" role="main">
@@ -321,7 +321,7 @@ if(count(${"cdidol_".$term_id}) == "1"){
 	echo '<img title="'.$term->term_id.'" class="cdicon" src="';
 	foreach (${"cdidol_".$term_id} as $idol_name_roop) {
 		$icon_data = idolicon($idol_name_roop,"data_only");
-		if($icon_data[info] == "image"){
+		if($icon_data[info] == "image" AND ($icon_data[parent] == 0) AND !($icon_data[production] == "shinycolors") ){
 			echo $icon_data[url].'" style="background:'.$icon_data[color];
 		}else{
 			echo get_stylesheet_directory_uri();
