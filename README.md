@@ -26,7 +26,7 @@ Modify Author : Maccha (http://twitter.com/maccha_pie)
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 # 使用方法
-適当にインポートしたら使えると思います。
-正直、自分の環境以外で動かすことを想定していないのでなんとも言えません。
+適当にインポートしたら使えると思います。  
+正直、自分の環境以外で動かすことを想定していないのでなんとも言えません。  
 親テーマは[Lightning](https://ja.wordpress.org/themes/lightning/)。
 
