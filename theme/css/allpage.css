@@ -213,3 +213,12 @@ body{
   text-align : center;
   padding : 0px 15px;
 }
+
+/* ブランドカラーの設定 */
+:root{
+  --as:#F34E6C;
+  --cg:#2581C7;
+  --ml:#FFC20B;
+  --sidem:#11BE93;
+  --sc:#8DBAFF;
+}
