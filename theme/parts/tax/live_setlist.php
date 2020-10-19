@@ -3,11 +3,14 @@ $term_id = get_queried_object_id(); // タームIDの取得
 $term_idmenu = $taxonomy.'_'; //「taxonomyname_ + termID」を取得
 $term_id_orig = $term_id;
 $upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
+
+//他のセットリストを参照する設定の場合、タームIDを上書きする
 foreach (SCF::get_term_meta($term_id, $taxonomy, 'same_setlist') as $field) {
   if(!empty($field)){
     $term_id = $field;
     }
 }
+
 $setlist_kazu = count(SCF::get_term_meta( $term_id, $taxonomy, 'setlist' )) >= 2;
 
 
@@ -30,7 +33,8 @@ $setlist = SCF::get_term_meta( $term_id, $taxonomy, 'setlist' );
 foreach ($setlist as $fields ) {
   unset($song_id);
 echo "<tr>";
-//メンバー情報があるか判定 
+//メンバー情報があるか判定
+//メンバー情報がない場合、セルを結合
 unset($hide_2cell);
 if(empty($fields['setlist_idol']) and empty($fields['setlist_idol_hosoku'])){
   $hide_2cell = 'colspan="2" ';
@@ -84,6 +88,8 @@ $setlist_showing = TRUE;
 }}
 
 
+//セットリスト予想
+
   if((!$setlist_kazu or ($setlist_hide !== false)) AND !empty(get_field('member',$term_idmenu.$term_id))){
     echo "<h3>セトリ予想</h3>";
     $idol_live = explode(',', get_field('member',$term_idmenu.$term_id));
@@ -113,8 +119,11 @@ $setlist_showing = TRUE;
 
         foreach (wp_get_object_terms( $id, array("idol_cg","idol_765","idol_sc")) as $term){
           //シャニマスのユニット制対応（親タームの除外）
-          if(!($term->parent == 0) OR !$term->taxnomy == "idol_sc"){
-          //CDのメンバーを変数に突っ込む       
+          if(!($term->parent == 0) AND ($term->taxonomy == "idol_sc")){
+          //CDのメンバーを変数に突っ込む
+          $idol_cd[] = $term->name;
+          }elseif(!($term->taxonomy == "idol_sc")){
+          //CDのメンバーを変数に突っ込む
           $idol_cd[] = $term->name;
           }
         }
