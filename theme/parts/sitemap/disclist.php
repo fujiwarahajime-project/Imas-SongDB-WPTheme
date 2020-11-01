@@ -1,6 +1,6 @@
 ﻿<?php
 $disc_series = array(
-    //array('name'=>'見出しとして表示するseries名' , 'word'=>'検索ワード' , 'type'=>'cg ml sc radio as')
+    //array('name'=>'見出しとして表示するseries名' , 'word'=>'検索ワード' , 'type'=>'cg ml sc radio as godo')
     //array('name'=>'' , 'word'=>'' 'type'=>'')
     array("name"=>"CINDERELLA MASTER ソロCD" , "word"=>"THE IDOLM@STER CINDERELLA MASTER 0" , "type"=>"cg") ,
     array("name"=>"CINDERELLA MASTER ユニット・カバーCD" , "word"=>"THE IDOLM@STER CINDERELLA MASTER" , "type"=>"cg") ,
@@ -35,19 +35,25 @@ $disc_series = array(
     array("name"=>"BRILLI@NT WING" , "word"=>"THE IDOLM@STER SHINY COLORS BRILLI@NT WING" , "type"=>"sc") ,
     array("name"=>"FR@GMENT WING" , "word"=>"THE IDOLM@STER SHINY COLORS FR@GMENT WING" , "type"=>"sc") ,
     array("name"=>"GR@DATE WING" , "word"=>"THE IDOLM@STER SHINY COLORS GR@DATE WING" , "type"=>"sc") ,
+    array("name"=>"COLORFUL FE@THERS" , "word"=>"THE IDOLM@STER SHINY COLORS COLORFUL FE@THERS" , "type"=>"sc") ,
     array("name"=>"SOLO COLLECTION（ソロコレ）" , "word"=>"THE IDOLM@STER SHINY COLORS SOLO COLLECTION" , "type"=>"sc") ,
     array("name"=>"その他シャイニーカラーズ" , "word"=>"THE IDOLM@STER SHINY COLORS" , "type"=>"sc") ,
 
-    array("name"=>"GRE@TEST BEST!" , "word"=>"THE IDOLM@STER 765PRO ALLSTARS+ GRE@TEST BEST!" , "type"=>"as") ,
+    array("name"=>"GRE@TEST BEST!" , "word"=>"THE IDOLM@STER 765PRO ALLSTARS" , "type"=>"as") ,
+    array("name"=>"Best of 765+876=!!" , "word"=>"THE IDOLM@STER Best of 765" , "type"=>"as") ,
     array("name"=>"ANIM@TION MASTER" , "word"=>"THE IDOLM@STER ANIM@TION MASTER" , "type"=>"as") ,
     array("name"=>"BEST ALBUM" , "word"=>"THE IDOLM@STER BEST" , "type"=>"as") ,
     array("name"=>"MASTER ARTIST" , "word"=>"THE IDOLM@STER MASTER ARTIST" , "type"=>"as") ,
     array("name"=>"MASTER SPECIAL" , "word"=>"THE IDOLM@STER MASTER SPECIAL" , "type"=>"as") ,
     array("name"=>"MASTERPIECE" , "word"=>"THE IDOLM@STER MASTERPIECE" , "type"=>"as") ,
     array("name"=>"映画関係" , "word"=>"THE IDOLM@STER MOVIE" , "type"=>"as") ,
+    array("name"=>"映画関係" , "word"=>"劇場版『THE IDOLM@STER MOVIE 輝きの向こう側へ" , "type"=>"as") ,
+
     array("name"=>"STELLA MASTER" , "word"=>"THE IDOLM@STER STELLA MASTER" , "type"=>"as") ,
 
-    array("name"=>"MOIW関係" , "word"=>"THE IDOLM@STER M@STERS OF IDOL WORLD!!" , "type"=>"as") ,
+    array("name"=>"MOIW関係" , "word"=>"THE IDOLM@STER M@STERS OF IDOL WORLD!!" , "type"=>"joint") ,
+    array("name"=>"なんどでも笑おう" , "word"=>"なんどでも笑おう" , "type"=>"joint") ,
+
     array("name"=>"デレパ" , "word"=>"CINDERELLA PARTY!" , "type"=>"radio") ,
     array("name"=>"作者によるカバー" , "word"=>"☆" , "type"=>"cover") ,
     array("name"=>"他アーティストによるカバー" , "word"=>"△" , "type"=>"cover") ,
