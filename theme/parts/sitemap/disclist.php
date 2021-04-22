@@ -35,7 +35,8 @@ $disc_series = array(
     array("name"=>"BRILLI@NT WING" , "word"=>"THE IDOLM@STER SHINY COLORS BRILLI@NT WING" , "type"=>"sc") ,
     array("name"=>"FR@GMENT WING" , "word"=>"THE IDOLM@STER SHINY COLORS FR@GMENT WING" , "type"=>"sc") ,
     array("name"=>"GR@DATE WING" , "word"=>"THE IDOLM@STER SHINY COLORS GR@DATE WING" , "type"=>"sc") ,
-    array("name"=>"COLORFUL FE@THERS" , "word"=>"THE IDOLM@STER SHINY COLORS COLORFUL FE@THERS" , "type"=>"sc") ,
+    array("name"=>"COLORFUL FE@THERS" , "word"=>"THE IDOLM@STER SHINY COLORS COLORFUL FE@THERS -" , "type"=>"sc") ,
+    array("name"=>"L@YERED WING" , "word"=>"THE IDOLM@STER SHINY COLORS L@YERED WING " , "type"=>"sc") ,
     array("name"=>"SOLO COLLECTION（ソロコレ）" , "word"=>"THE IDOLM@STER SHINY COLORS SOLO COLLECTION" , "type"=>"sc") ,
     array("name"=>"その他シャイニーカラーズ" , "word"=>"THE IDOLM@STER SHINY COLORS" , "type"=>"sc") ,
 
