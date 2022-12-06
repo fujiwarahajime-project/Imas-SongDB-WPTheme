@@ -1,83 +1,8 @@
 ﻿<style type="text/css">
-
-
-@media screen and (min-width:641px) {
-  /*　横幅1201px以上（PCフル表示などの場合）は3列表示　*/
-  .idol {width:50%;}
-  .solocolle .idol {width:50%;}
-  :root{
-  --idolpic: 100px;
-  }
-  .idolname{
-    margin:3px 3px;
-  }
-  .moreinfo{
-    margin:3px 3px;
-  }
-
-}
-
-@media screen and (max-width: 640px) { 
-  /*　横幅520px以下（スマホなど）は1列表示　*/
-  .idol {width:100%;}
-  :root{
-  --idolpic: 90px;
-  }
-  .idolname{
-    margin:2px 2px;
-  }
-  .moreinfo{
-    margin:7px 7px;
-  }
-}
-
-@-moz-document url-prefix(){
-  /*Firefox*/
-  .idolname{
-    margin:7px 5px;
-  }
-  .moreinfo{
-    margin:2px 2px;
-  }
-}
-
-.idollist{/* フレックスボックスにする */
-  display: flex;
-  flex-wrap: wrap;
-}
-.idol{/* アイテムの外枠、全体フォントに関する設定 */
-  height:calc(var(--idolpic) + 2px);
-  border:solid 1px darkgray;
-  border-radius:2px;
-}
-.idolicon{/* アイコンに関する設定（バックグラウンドは、アイドルのテーマカラーを指定しなかったときのみ使用されます） */
-  background:linear-gradient(lightgray,gray);
-  float:left;
-  padding:8px;
-  height:var(--idolpic);
-  margin-bottom:0px;
-  display:block;
-}
-.idolname{/* アイドルの名前まわりのスタイル設定 */
-  font-size:20px;
-  border-bottom:dotted 2px gray;
-  font-weight: bold;
-}
-
-.info{
-  margin-left:var(--idolpic);
-}
-
-.count{
-    text-align: right;
-}
-
-.cv{
-    float: left;
-}
-
 .entry-body h2{
+  margin-top:.5em;
   margin-bottom:0px;
+  padding:.1em 0;
 }
 
 .unitpic{
@@ -104,7 +29,7 @@ $orderby = 'none';
 
 }
 
-
+$upload_dir = wp_upload_dir();
 // パラメータ 
 $args = array(
     // 子タームの投稿数を親タームに含める
@@ -112,92 +37,73 @@ $args = array(
   
     // 投稿記事がないタームも取得
     'hide_empty' => true,
-   //並び順
-'orderby' => $orderby,
-'order' => DESC,
+    //並び順
+    'orderby' => $orderby,
+    'order' => 'DESC',
+    //親ターム（ユニット）のみ取得
+    'parent' => 0
 );
 
 // カスタム分類のタームのリストを取得
 $terms = get_terms( $taxonomy , $args );
+//ループ1回目（ユニット）
+  foreach($terms as $term){
+    //ユニット見出し
+    echo '
+    <h2 style="border-top-color:'.get_field('idol_color', $term).';" data-sort="'.$term->count.'">
+    <a href="' . esc_url( get_term_link( $term, $taxonomy ) ) . '">
+    <img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/unit/'.get_field('idol-thum', $term).'.png" class="unitpic">'.$term->name.'</a>
+    </h2>
 
-if ( count( $terms ) != 0 ) {
-    // タームのリスト $terms を $term に格納してループ
-    foreach ( $terms as $term ) {
-    
-        // タームのURLを取得
-        $term = sanitize_term( $term, $taxonomy );
-        $term_link = get_term_link( $term, $taxonomy );
-        if ( is_wp_error( $term_link ) ) {
-            continue;
-        }
-//データの取得
-        			$cv = get_field('cv', $term);
+    <div class="container"><div class="row idollist">
+    ';
+    $unit_id = $term->term_id;
+
+    //ループ2回目（ユニットメンバー）
+    $terms = get_terms( $taxonomy , array('hide_empty' => true, 'parent' => $unit_id));
+    foreach($terms as $term){
+      //ユニットメンバー出力
+      $cv = get_field('cv', $term);
 				$CVKana = get_field('CVKana', $term);
 				$Kana = get_field('Kana', $term);
 				$idol_term = get_field('idol-thum', $term);
 				$idol_color = get_field('idol_color', $term);
 				$count = $term->count;
-				$upload_dir = wp_upload_dir();
+        $term_link = get_term_link( $term, $taxonomy );
 
-if($taxonomy == 'idol_sc') {//シャイニーカラーズの分岐
-
-        if( $term->parent != '0' ) { //親タームと子タームの分岐
-        echo '<div class="idol">'; //子ターム
-        echo PHP_EOL;
-        echo '  <a href="' . esc_url( $term_link ) . '">';
-        echo PHP_EOL;
-        echo '  <img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';">';
-        echo PHP_EOL;
-        echo '  <div class="info"><p class="idolname"><ruby>'.$term->name.'<rt>'.$Kana.'</rt></ruby></a></p>';
-        echo PHP_EOL;
-        echo '  <div class="moreinfo"><p class="cv">CV：<ruby>'.$cv.'<rt>'.$CVKana.'</rt></ruby></p>';
-        echo PHP_EOL;
-        echo '  <p class="count">'.$count.'</p></div></div>';
-        echo PHP_EOL;
-        echo '</div>';
-        echo PHP_EOL;
-
-        } else {
-        echo '</div>'; //親ターム
-        echo PHP_EOL;
-        echo '<h2 style="border-top-color:'.$idol_color.';">';
-        echo PHP_EOL;
-        echo '  <a href="' . esc_url( $term_link ) . '">';
-        echo PHP_EOL;
-        echo '  <img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/unit/'.$idol_term.'.png" class="unitpic">'.$term->name.'</a>';
-        echo PHP_EOL;
-        echo '</h2>';
-        echo PHP_EOL;
-        echo '<div class="idollist">';
-        echo PHP_EOL;
-
-
+        echo 
+'
+<div class="col-sm-6 col-md-4 idol_card" data-sort="'.$count.'">
+<a href="' . esc_url( $term_link ) . '" class="card">
+<div class="row no-gutters">
+  <img class="col-auto bd-placeholder-img idol_icon" img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/'.$idol_term.'.png" style="background:'.$idol_color.';">
+<div class="col">
+<div class="card-body">
+<h5 class="card-title">';
+if($term->name == $Kana){
+  echo $term->name;
+}else{
+  echo '<ruby>'.$term->name.'<rt>'.$Kana.'</rt></ruby>';
 }
-
-} else { //シャイニーカラーズ以外の通常出力
-
-        echo '<div class="idol">'; //子ターム
-        echo PHP_EOL;
-        echo '  <a href="' . esc_url( $term_link ) . '">';
-        echo PHP_EOL;
-        echo '  <img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';">';
-        echo PHP_EOL;
-        if($term->name == $Kana){
-          echo '  <div class="info"><p class="idolname">'.$term->name.'</a></p>';
-        }else{
-          echo '  <div class="info"><p class="idolname"><ruby>'.$term->name.'<rt>'.$Kana.'</rt></ruby></a></p>';
-        }
-        echo PHP_EOL;
-        echo '  <div class="moreinfo"><p class="cv">CV：<ruby>'.$cv.'<rt>'.$CVKana.'</rt></ruby></p>';
-        echo PHP_EOL;
-        echo '  <p class="count">'.$count.'</p></div></div>';
-        echo PHP_EOL;
-        echo '</div>';
-        echo PHP_EOL;
-
-
+echo '</h5>
+<p class="card-text">';
+if($cv == $CVKana){
+  echo $cv;
+}else{
+  echo '<ruby>'.$cv.'<rt>'.$CVKana.'</rt></ruby>';
 }
-//最後の処理
-}}
+echo '</p>
+</div></div>
+</div></a></div>
+';
+    }
+    //ユニットの閉じ処理
+    echo '</div></div>';
+
+  }
+
+
+
+
 ?>
 </div>

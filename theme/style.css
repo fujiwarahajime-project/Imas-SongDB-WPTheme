@@ -1,13 +1,704 @@
 ﻿/*
- Theme Name:   ふじわらはじめテーマ（20181101）
+ Theme Name:   202202
  Theme URI:    https://fujiwarahaji.me/
  Description:  Lightning Child Theme
  Author:       Maccha
  Author URI:   https://twitter.com/maccha_pie/
  Template:     lightning
- Version:      1.0.0
+ Version:      2021.02
  License:      GNU General Public License v2 or later
  License URI:  http://www.gnu.org/licenses/gpl-2.0.html
  Tags:         light, dark, two-columns, right-sidebar, responsive-layout, accessibility-ready
  Text Domain:  lightning-child
 */
+
+/*
+@import url("https://fujiwarahaji.me/wp-content/themes/lightning/_g3/assets/css/style.css");
+@import url("https://fujiwarahaji.me/wp-content/themes/lightning/_g3/design-skin/origin3/css/style.css");
+*/
+  /* ボックスに縁取りをつける */
+  .msgbox{
+    border-radius:10px;
+    box-shadow: 0 0 10px 2px rgba(0,0,0,0.4);
+    margin-bottom:15px;
+    margin-top:15px;
+  }
+/*
+CGSS-MessageWindow(https://codepen.io/miyano/pen/MpRjEB)
+Code copyright miyacorata 
+Code released under the MIT license
+https://opensource.org/licenses/mit-license.php
+*/
+
+
+
+  /* Default and CG */
+
+.msgboxtop{
+    background:linear-gradient(white,lightgray);
+    color:#333333;
+    padding:8px 5px;
+    font-weight:bold;
+    border:solid 2px black;
+    border-top-left-radius:7px;
+    border-top-right-radius:7px;
+  }
+  .msgboxtop:before{
+    content:"\28FF\0020"
+  }
+  .msgboxbody{
+    background:rgba(1,1,1,0.8);
+    color:white;
+    padding:7px 10px;
+    border-left:solid 2px black;
+    border-right:solid 2px black;
+  }
+  .msgboxfoot{
+    background:linear-gradient(white,lightgray);
+    padding:15px 0 18px 0;
+    border:solid 2px black;
+    border-bottom-left-radius:7px;
+    border-bottom-right-radius:7px;
+    text-align:center;
+  }
+  
+  .button{
+    box-sizing:border-box;
+    position:relative;
+    background:linear-gradient(white,lightgray);
+    padding:4px 15px;
+    margin:5px;
+    color:black !important;
+    text-decoration:none;
+    border-radius:5px;
+    border:solid 1px black;
+    box-shadow:0px 3px 0px black;
+    font-weight:bold;
+    line-height:2.5;
+    text-decoration:none !important;
+  }
+  .button:hover{
+    top:2px;
+    box-shadow:0px 1px 0px black;
+    text-decoration: none;
+    color:black;
+  }
+  
+  
+  .msgboxbody a:link:not(.card) { color:aquamarine; }
+  .msgboxbody a:visited:not(.card) { color:paleturquoise; }
+  .msgboxbody a:hover:not(.card) { color:mediumaquamarine; }
+  .msgboxbody a:active:not(.card) { color:lightskyblue; }
+  /* End Default and CG */
+
+  /* ML */
+  .box_765 .msgboxtop
+  {
+    background:linear-gradient(#fde98b,#c6b46b);
+    color:#333333;
+    padding:8px 5px;
+    font-weight:bold;
+    border-top-left-radius:7px;
+    border-top-right-radius:7px;
+    border:none;
+  
+  }
+  .box_765 .msgboxtop:before
+  {
+    content:"\28FF\0020"
+  }
+  .box_765 .msgboxbody
+  {
+    background:white;
+    color:black;
+    padding:7px 10px;
+    border:none;
+  
+  }
+  .box_765 .msgboxfoot
+  {
+    background:lightgray;
+    padding:15px 0 18px 0;
+    border-bottom-left-radius:7px;
+    border-bottom-right-radius:7px;
+    text-align:center;
+    border:none;
+  }
+  
+  .box_765 .button{
+    box-sizing:border-box;
+    position:relative;
+    background:linear-gradient(to right,white,#dfe7f6);
+    padding:4px 15px;
+    margin:5px;
+    color:black;
+    text-decoration:none;
+    border-radius:100px;
+    border:solid 2px black;
+    font-weight:bold;
+   line-height:2.5;
+   box-shadow:none;
+  }
+  .box_765 .button:hover{
+    top:2px;
+   box-shadow:none;
+  }
+
+  .box_765 .msgboxbody a:link { color:#4072B3; }
+  .box_765 .msgboxbody a:visited { color:#EB8686; }
+  .box_765 .msgboxbody a:hover { color:#6088C6; }
+  .box_765 .msgboxbody a:active { color:#AEC4E5; }
+
+  .box_765 .setlist a:link { color:aquamarine; }
+  .box_765 .setlist a:visited { color:paleturquoise; }
+  .box_765 .setlist a:hover { color:mediumaquamarine; }
+  .box_765 .setlist a:active { color:lightskyblue; }
+  /* End ML */
+
+  /* SC */
+  .box_sc .msgbox{
+    box-shadow:none !important;
+  }
+  .box_sc .msgboxtop{
+    background:white;
+    color:dimgray;
+    padding:4px;
+    font-weight:bold;
+    font-size:1.3em;
+    margin-bottom:10px;
+    border:solid 2px gray;
+    border-radius:40px;
+      
+  }
+  
+  .box_sc .msgboxtop:before{
+    content:"";
+    display:inline-block;
+    width: 20px;
+    height:20px;
+    vertical-align:middle;
+  }
+  
+  .box_sc .msgboxbody{
+    background:white;
+    color:black !important;
+    padding:7px 10px;
+    border-left:none;
+    border-right:none;
+  }
+  .box_sc .msgboxfoot{
+    background:white;
+    padding:15px 0 18px 0;
+    border:none;
+    border-bottom-left-radius:7px;
+    border-bottom-right-radius:7px;
+    text-align:center;
+  }
+  
+  .box_sc .button{
+    box-sizing:border-box;
+    position:relative;
+    background: linear-gradient(-135deg, white, #D0D2F7);
+    padding:4px 15px;
+    margin:5px;
+    color:black;
+    text-decoration:none;
+    border-radius:5px;
+    border:solid 1px black;
+    box-shadow:0px 3px 0px black;
+    font-weight:bold;
+   line-height:2.5;
+  }
+  .box_sc button:hover{
+    top:2px;
+    box-shadow:0px 1px 0px black;
+  }
+  
+  .box_sc .msgboxbody a:link,
+  .box_sc .msgboxbody a:active,
+  .box_sc .msgboxbody a:visited {color:#337ab7;}
+  .box_sc .msgboxbody a:hover {color:#23527c;}
+  
+  .box_sc .setlist a:link { color:aquamarine; }
+  .box_sc .setlist a:visited { color:paleturquoise; }
+  .box_sc .setlist a:hover { color:mediumaquamarine; }
+  .box_sc .setlist a:active { color:lightskyblue; }
+  
+
+  /* End SC */
+
+  
+  .idol_765_thum{position:relative;}
+  .solocolle_idolpage{position:absolute;top:5px;left:5px;}
+  
+  .livemember{
+    /* letter-spacing: -0.4em; */
+    padding:0px;
+  }
+  
+  
+  .amazonjs_item .amazonjs_info a:link { color:#461b93; }
+  .amazonjs_item .amazonjs_info a:visited { color:#f78f1e; }
+  .amazonjs_item .amazonjs_info a:hover { color:#8253d7; }
+  .amazonjs_item .amazonjs_info a:active { color:#6a3cbc; }
+  
+  .cdinfo{
+    height:auto;
+  }
+  
+  .cdicon{
+    background:linear-gradient(lightgray,gray);
+    float:left;
+      padding:8px;
+    height:88px;
+    margin-bottom:0px;
+    margin-right: 10px;
+      display: block;
+  }
+  
+  .cdname{
+    margin-top:7px;
+  }
+  
+  .info_C {
+    border-right:1px solid #cccc77;
+    border-bottom:1px solid #cccc77;
+    border-left:5px solid #cccc77;
+    padding: 10px;
+  }
+  
+    
+ 
+  /* ボックス内タイトル */
+  .tab_title{
+    text-align: left;
+    font-size: 150%;
+    border-bottom: dotted 3px gray;
+  }
+    
+  /* UDPゴをメインフォントにする。
+    ないときは英字をNoto Sans、日本語をKosugiで
+  */
+  body{
+    font-family: "BIZ UDPGothic","Noto Sans","Kosugi" !important; 
+  }
+  
+  /* 別名義関係を小奇麗にする */
+  .meigi td{
+    padding:0px;
+  }
+  .meigi table{
+    text-align: center;
+    border-top: none;
+  }
+  .meigi td{
+    border-bottom: none;
+  }
+  
+  /* ライブセットリストのスマホ対応 */
+  @media screen and (max-width : 750px) {
+    /* ヘッダー削除 */
+    .setlist th{
+      display: none;
+    }
+    .setlist td{
+      display : block;
+    }
+    /* 曲名欄の装飾 */
+    .setlist td:nth-child(1) {
+      margin-top:20px;
+      background-color: lavender;
+      font-size: 1.05em;
+      font-weight:bold;
+    }
+  }
+  
+  /* ループのサムネイルのリンク干渉修正 */
+  .post-list_thumbnail a{
+    z-index : 100;
+  }
+  
+  
+  /* APIボタンの体裁を整える */
+  .button_block{
+    display : block;
+    text-align : center;
+    padding : 0px 15px;
+  }
+  
+  /* ブランドカラーの設定 */
+  :root{
+    --as:#F34E6C;
+    --cg:#2581C7;
+    --ml:#FFC20B;
+    --sidem:#11BE93;
+    --sc:#8DBAFF;
+  }
+
+/* GithubにあげないCSSを読み込む */
+@import url(./css/no_git.css);
+
+
+/* アイコンバッジ */
+.idolicon_link{
+  position:relative;
+  display:inline-block;
+}
+.icon_badge{
+  position: absolute;
+  left:0px;
+  bottom:0px;
+}
+
+/* 曲ページのアイドルアイコンまわり */
+.single .idollist{/* フレックスボックスにする */
+  display: flex;
+  flex-wrap: wrap;
+}
+.single .idollist .idol{/* アイテムの外枠、全体フォントに関する設定 */
+  border:solid 1px darkgray;
+  border-radius:2px;
+}
+
+.single .idolicon{/* アイコンに関する設定（バックグラウンドは、アイドルのテーマカラーを指定しなかったときのみ使用されます） */
+  max-height: 70px;
+  background:linear-gradient(lightgray,gray);
+  float:left;
+  margin-bottom:0px;
+  display:block;
+  padding: 3px;
+}
+.single .idolname{/* アイドルの名前まわりのスタイル設定 */
+  font-size:120%;
+  margin:7px 5px;
+  border-bottom:dotted 2px gray;
+  font-weight: bold;}
+  .single .moreinfo{
+  margin:7px 7px;
+}
+
+/* 
+ツールチップ関係
+ツールチップを普段は非表示
+*/
+div.setlist_tooltip .setlist {
+  display: none;
+  }
+  
+  /* マウスオーバーしたとき */
+  div.setlist_tooltip:hover {
+  position: relative;
+  }
+  
+  /* マウスオーバーしたときにツールチップをブロック要素にする */
+  div.setlist_tooltip:hover .setlist {
+  display: block;
+  position: absolute;
+  top: calc(100% + 5px); /*下から5px離したところに表示します*/
+  color: white; /*文字色は白に*/
+  background-color: #7272b4; /*ツールチップの背景色*/
+  max-width: 100%; /*親要素からはみ出さないように*/
+  padding: 5px;
+  border-radius:3px;
+  z-index:100;
+  }
+  
+  /*アイドルアイコンへのソロ表示*/
+  .solo{
+    float:left;
+    position:absolute;
+    top:0;
+    left:2px;
+    color:white;
+  }
+  .fuchidori{
+    text-shadow: 1px 1px 0 #000,
+                 -1px 1px 0 #000,
+                 1px -1px 0 #000,
+                 -1px -1px 0 #000;
+  }
+  
+
+  /* 関連楽曲まわり */
+.musiclist {
+  display: grid;
+  grid-gap: 2px;
+  grid-auto-flow: dense;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+.item {
+  border-radius: 2px;
+  padding: 2px;
+  text-align: center;
+}
+
+/* 基本情報のスマホ対応 */
+@media screen and (max-width : 750px) {
+  .songinfo td{
+    display : block;
+    padding: 2px;
+  }
+
+  .songinfo td:nth-child(1){
+    text-align: left;
+    font-weight: bold;
+    font-size: 120%;
+    border-bottom: dotted 3px gray;
+  }
+  
+  .songinfo td:nth-child(2){
+    padding: 10px;
+    border: none !important;
+  }
+
+  .songinfo{
+    border-top: none !important;
+  }
+
+}
+
+/* CDアイコンまわり */
+.cdinfo{
+  height:auto;
+}
+
+.info_C .idol{
+	display: inline-block;
+	position: relative;
+}
+
+.cdicon{
+  background:linear-gradient(lightgray,gray);
+  float:left;
+  padding:8px;
+  width:88px;
+  margin-bottom:0px;
+  display: block;
+}
+
+.cdname{
+  margin-left:104px;
+  margin-top:7px;
+}
+.info_C {
+  border-right:1px solid #cccc77;
+  border-bottom:1px solid #cccc77;
+  border-left:5px solid #cccc77;
+  padding: 10px;
+}
+
+/* 開閉メニュー */
+.vmenu_on, .vmenu_off{margin:2px 0px;}
+.vmenu_on .vmenuitem{
+  min-height:90px;
+  cursor:pointer;
+  border-right:1px solid #cccc77;
+  border-top:1px solid #cccc77; 
+  border-left:5px solid #cccc77;
+}
+.vmenu_off .vmenuitem{
+  min-height:90px;
+  cursor:pointer;
+  border:1px solid #77cccc;
+  border-left:5px solid #77cccc;
+}
+.vmenu_on {
+  display:auto;
+  margin:2px auto;
+}
+.vmenu_off .info_C{
+  display:none;
+}
+.vmenu_all_action {
+  cursor: pointer;
+}
+
+/* シェアボタン */
+.share{
+  display:flex;
+  justify-content:space-between;
+  }
+  
+  .share a{
+  display:block;
+  width:25%;
+  padding:7px;
+  color:#fff;
+  text-align:center;
+  font-size:25px;
+  text-decoration: none;
+  }
+  
+  .share a:hover {
+  cursor: pointer;
+  box-shadow:0px 0px 8px rgba(0,0,0,0.2);
+  }
+  
+  .twitter_share {
+   background-color: #1da1f2;
+  }
+  .facebook_share {
+   background-color: #3b5998;
+  }
+  .mastodon_share {
+   background-color: #2b90d9;
+  }
+  .pocket_share {
+   background-color: #ef4056;
+  }
+  .hatebu_share {
+   background-color: #00a4de;
+   font-weight: bold;
+  }
+  .line_share {
+   background-color: #00c300;
+   font-weight: bold;
+  }
+
+  /* ループにブランドカラーをつける */
+  .post-list .card-title::first-letter{
+    color:#7272b4 ;/*はねず色*/
+  }
+
+  .post-list .type-music_cg .card-title::first-letter{
+    color : var(--cg);
+  }
+  .post-list .type-music_ml .card-title::first-letter{
+    color : #d5a000; /* 読みやすくするため25%暗くします */
+  }
+  .post-list .type-music_shiny .card-title::first-letter{
+    color : var(--sc);
+  }
+  .post-list .type-music_as .card-title::first-letter{
+    color : var(--as);
+  }
+  .post-list .type-music_sidem .card-title::first-letter{
+    color : var(--sidem);
+  }
+
+  /* ループにブランドカラーをつける */
+  header .entry-title::first-letter{
+    color:#7272b4 ;/*はねず色*/
+  }
+
+  .single-music_cg header .entry-title::first-letter{
+    color : var(--cg);
+  }
+  .single-music_ml header .entry-title::first-letter{
+    color : #d5a000; /* 読みやすくするため25%暗くします */
+  }
+  .single-music_shiny header .entry-title::first-letter{
+    color : var(--sc);
+  }
+  .single-music_as header .entry-title::first-letter{
+    color : var(--as);
+  }
+  .single-music_sidem header .entry-title::first-letter{
+    color : var(--sidem);
+  }
+
+/* ページヘッダーを非表示に */
+.page-header {
+  display:none;
+}
+
+/* CDページでブランドカラーをつける */
+.disclist h2.cg{
+  border-top-color: var(--cg);
+}
+.disclist h2.ml{
+  border-top-color: var(--ml);
+}
+.disclist h2.as{
+  border-top-color: var(--as);
+}
+.disclist h2.sc{
+  border-top-color: var(--sc);
+}
+.disclist h2.sidem{
+  border-top-color: var(--sidem);
+}
+
+.disclist .cg::marker{
+  color: var(--cg);
+}
+.disclist .ml::marker{
+  color: var(--ml);
+}
+.disclist .sc::marker{
+  color: var(--sc);
+}
+.disclist .as::marker{
+  color: var(--as);
+}
+.disclist .sidem::marker{
+  color: var(--sidem);
+}
+
+/* アイドル一覧ページ */
+.idol_card{
+  padding:unset;
+}
+.idol_card .card-body{
+  padding: 0.5rem;
+}
+.idol_card h5{
+  padding-bottom: 0.1em;
+}
+.idol_icon{
+  max-width: 6em;
+  height: 6em;
+  background:linear-gradient(lightgray,gray);
+  padding: 5px !important;
+}
+
+/* タクソノミー共通ヘッダー */
+.tax_header .card-body{
+  padding: 0.7rem;
+}
+.tax_icon{
+  max-width :6em;
+  height : auto;
+  background:linear-gradient(lightgray,gray);
+  padding: auto !important;
+  align-items: center;
+}
+.tax_icon img{
+  padding:5px;
+}
+.tax_header h5{
+  padding-bottom:0px;
+}
+
+/* パンくずリスト */
+.breadcrumb{
+  padding :0px ;
+}
+
+/* Bootstrapのナビゲーションがおかしくなるのでそこを上書き */
+.nav{
+  flex-wrap: unset !important;
+}
+
+/* セットリストのアイコン */
+.tax-live .idolicon{
+  max-height: 70px;
+  background:linear-gradient(lightgray,gray);
+  float:left;
+  display:block;
+  padding: 3px;
+}
+.tax-disc .idolicon{
+  max-height: 70px;
+  background:linear-gradient(lightgray,gray);
+  float:left;
+  display:block;
+  padding: 3px;
+}
+.tax-unit .idolicon{
+  max-height: 70px;
+  background:linear-gradient(lightgray,gray);
+  float:left;
+  display:block;
+  padding: 3px;
+}

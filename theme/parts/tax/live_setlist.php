@@ -23,8 +23,10 @@ if(!($setlist_hide !== false) or is_admin_bar_showing()){
     <a href="https://fujiwarahaji.me/wp-admin/term.php?taxonomy=live&tag_ID='.get_queried_object_id().'">
     管理画面</a>にログインしている場合のみ表示されます。<br>
     本番環境で表示する場合には編集画面から「term」のチェックボックスを操作してください。</span>';
+    echo '<table class="setlist" style="border:10px solid red;">';
+  }else{
+    echo '<table class="setlist"><tbody>';
   }
-  echo '<table class="setlist"><tbody>';
   echo PHP_EOL;
   echo '<tr><th>曲名</th><th>アイドル</th></tr>';
 
@@ -41,7 +43,11 @@ if(empty($fields['setlist_idol']) and empty($fields['setlist_idol_hosoku'])){
 }
 
   //曲名を表示
-  echo '<td '.$hide_2cell.'style="padding:0px">';
+  if(empty($hide_2cell)){
+    echo '<td style="padding:0px">';
+  }else{
+    echo '<td '.$hide_2cell.'style="padding:0px">';
+  }
   foreach ($fields['setlist_song'] as $songname) {
      //ターム判定
     if(is_admin_bar_showing()){//WPの管理用ツールバーが表示されているときのみ表示
@@ -57,6 +63,9 @@ if(empty($fields['setlist_idol']) and empty($fields['setlist_idol_hosoku'])){
   if(!empty($songname)){
   $song_id = "song_".$term_id."_".$songname;
   }
+  }
+  if(empty($song_id)){
+    $song_id = "";
   }
   echo $fields['setlist_song2'];
   //ここまで曲名処理
@@ -167,3 +176,9 @@ $("table").tablesorter({
         sortList: [[2,1]] 
     });
 </script>
+<style>
+  /* ナビゲーションを消す */
+  .tax-live .navigation.pagination{
+    display:none;
+  }
+</style>

@@ -1,163 +1,163 @@
-﻿<!-- <div class="msgbox" style="margin-bottom:20px;">
-<div class="msgboxtop"></div>
-<div class="msgboxbody">
-</div>
-<div class="msgboxfoot"></div>
-</div> -->
+﻿
 
-<div id="tv">
-  <div class="inner off tv_box">
-    <div class="program">
-<!-- テレビの中身のコンテンツ（サイズ可変の16:9固定） -->
-<!-- <iframe width="100%" height="100%" src="https://www.youtube.com/embed/RwwUaM_UTLk?controls=2&loop=1&modestbranding=1&showinfo=0&start=97&end=195" frameborder="0"></iframe> -->
-<iframe width="100%" height="100%" src="https://www.youtube.com/embed/kmRAbPj7ZUU?controls=2&loop=1&modestbranding=1&showinfo=0" frameborder="0"></iframe>
-<!-- <iframe width="100%" height="100%" src="https://www.youtube.com/embed?listType=search&list=title:(ミリオンライブ OR シャイニーカラーズ OR 楽曲試聴) (シンデレラ OR ミリオンライブ OR ゲーム内楽曲) 試聴 (Columbia OR 876TV OR Lantis) -ミリシタ塾 -スペシャル動画 -wilson &controls=2&loop=1&modestbranding=1&showinfo=0" frameborder="0"></iframe> -->
-</div>
+<?php
+date_default_timezone_set('Asia/Tokyo');
+$today_live = get_terms('live',array('hide_empty'=>FALSE,'search'=>date("Y-m-d"),));
+
+$today_cont = strtotime(date('Y-m-d H:i'));
+if ($today_cont >= strtotime(/* 開始時間→ */'2021-06-15 0:00') AND $today_cont < strtotime(/* 終了時間→ */'2021-06-16 0:00') )
+{
+get_template_part('parts/kikaku/birthday_2021');
+}
+
+
+
+if(!empty($today_live)){
+  echo '<div class="alert alert-info" role="alert">
+  本日開催のライブ・イベント';
+  foreach($today_live as $term){
+    echo '<div><a href="'.get_term_link($term).'">'.preg_replace('/\d{4}\-\d{1,2}\-\d{1,2}/', '' , $term->name ).'</a></div>';
+  }
+  echo '
   </div>
-</div>
-
-<!--
-Copyright (c) 2018 by Amanda Ashley (https://codepen.io/coinoperatedgoi/pen/MbeOEN)
-
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
--->
-
-<style>
-#tv {
- width:100%;
-  border: 10px solid #333;
-  border-radius: 15px;
-  background-clip: border-box;
-  position: relative;
-  background: #000;
-  margin-bottom:60px;
-}
-#tv:after,
-#tv:before {
-  position: absolute;
-  content: "";
-  background: #333;
-}
-#tv:after {
-  width: 10%;
-  height: 50px;
-  bottom: -50px;
-  left: 50%;
-  margin-left: -5%;
-}
-#tv:before {
-  width: 50%;
-  height: 10px;
-  bottom: -50px;
-  left: 50%;
-  margin-left: -25%;
-  border-top-right-radius: 10px;
-  border-top-left-radius: 10px;
-}
-.inner {
-  overflow: hidden;
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-.inner.off {
-  -webkit-transform-origin: center;
-          transform-origin: center;
-}
-.program {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 4px;
-  overflow: hidden;
-  -webkit-animation: glitch 15s infinite;
-          animation: glitch 15s infinite;
-}
-.tv_box{
-    position: relative;
-    width: 100%;
-    height: auto;
-    content: "";
-    display: block;
-    padding-top: calc(9/16*100%);
+  ';
 }
 
-/*ウィジェットエリアのマージンをつめる*/
-.mainSection .widget{
-  margin-bottom:0px;
+$tomorrow_live = get_terms('live',array('hide_empty'=>FALSE,'search'=>date("Y-m-d",strtotime("+1 day")),));
+if(!empty($tomorrow_live)){
+  echo '<div class="alert alert-info" role="alert">
+  明日開催のライブ・イベント';
+  foreach($tomorrow_live as $term){
+    echo '<div><a href="'.get_term_link($term).'">'.preg_replace('/\d{4}\-\d{1,2}\-\d{1,2}/', '' , $term->name ).'</a></div>';
+  }
+  echo '
+  </div>
+  ';
 }
-.section{
-  margin-top:20px !important;
-}
-
-</style>
-
-<?php 
-//echo do_shortcode( '[amazonjs asin="B01KNCPKMM" locale="JP" title="THE IDOLM@STER MILLION LIVE! 3rdLIVE TOUR BELIEVE MY DRE@M!! LIVE Blu-ray 02@SENDAI"]' );
-//echo do_shortcode( '[amazonjs asin="B07QDZ4JNP" locale="JP" title="THE IDOLM@STER CINDERELLA MASTER 052-054 白菊ほたる・森久保乃々・佐藤心"]' ); ?>
-
-$count_cin = wp_count_posts('music_cg');
-$cin_count = $count_cin->publish;
-
-$count_ml = wp_count_posts('music_ml');
-$ml_count = $count_ml->publish;
-
-$count_shiny = wp_count_posts('music_shiny');
-$shiny_count = $count_shiny->publish;
-
-$count_as = wp_count_posts('music_as');
-$as_count = $count_shiny->publish;
-
-$count_godo = wp_count_posts('music_godo');
-$godo_count = $count_shiny->publish;
-
-$count_cover = wp_count_posts('music_cover');
-$cover_count = $count_cover->publish;
-
-$count_all = $cin_count + $ml_count + $shiny_count + $as_count + $godo_count + $cover_count;
-
-
 ?>
 
 
-<div class="prBlocks prBlocks-default row">
-<a href="https://fujiwarahaji.me/about/">
-<article class="prBlock prBlock_lighnt col-sm-4">
-<div class="prBlock_icon_outer">
-<i class="fas fa-database font_icon prBlock_icon"></i>
+<div class="container top_menu">
+    <div class="row">
+
+        <div class="col-xs-4 col-sm-3 col-md-2">
+          <a href="<?php echo get_permalink("355");?>">
+            <div class="card text-center">
+              <div class="card-block">
+                <i class="fas fa-music bd-placeholder-img card-img-top fa-5x "></i>
+                <span class="card-title">全曲</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-xs-4 col-sm-3 col-md-2">
+          <a href="<?php echo get_permalink("359");?>">
+            <div class="card text-center">
+              <div class="card-block">
+                <i class="fas fa-user bd-placeholder-img card-img-top fa-5x "></i>
+                <span class="card-title">アイドル</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-xs-4 col-sm-3 col-md-2">
+          <a href="<?php echo get_permalink("363");?>">
+            <div class="card text-center">
+              <div class="card-block">
+                <i class="fas fa-users bd-placeholder-img card-img-top fa-5x "></i>
+                <span class="card-title">ユニット</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        
+        <div class="col-xs-4 col-sm-3 col-md-2">
+          <a href="<?php echo get_permalink("374");?>">
+            <div class="card text-center">
+              <div class="card-block">
+                <i class="fas fa-compact-disc bd-placeholder-img card-img-top fa-5x "></i>
+                <span class="card-title">CD</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        
+        <div class="col-xs-4 col-sm-3 col-md-2">
+          <a href="<?php echo get_permalink("881");?>">
+            <div class="card text-center">
+              <div class="card-block">
+                <i class="fas fa-calendar bd-placeholder-img card-img-top fa-5x "></i>
+                <span class="card-title">ライブ・イベント</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-xs-4 col-sm-3 col-md-2">
+          <a href="<?php echo get_permalink("568");?>">
+            <div class="card text-center">
+              <div class="card-block">
+                <i class="fas fa-pen bd-placeholder-img card-img-top fa-5x "></i>
+                <span class="card-title">クリエイター</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+    </div>
 </div>
-<h1 class="prBlock_title">About</h1>
-<p class="prBlock_summary">アイドルマスターの楽曲をまとめています。<br>現在は<?php echo $count_all;?>曲掲載しています。</p>
-</article></a>
 
-
-<article class="prBlock prBlock_lighnt col-sm-4">
-<div class="prBlock_icon_outer">
-<i class="fas fa-music font_icon prBlock_icon"></i>
+<div>
+<div class="alert alert-primary" role="alert">
+<a href="https://fujiwarahaji.me/?p=3525">
+  15周年もアイマスですよ！アイマス<span style="color: #ff99cc;">！</span><span style="color: #00ccff;">！</span><span style="color: #ffcc00;">！</span><span style="color: #2fcca2;">！</span><span style="color: #99ccff;">！</span>
+</a>
 </div>
-<h1 class="prBlock_title">Music</h1>
-<p class="prBlock_summary">楽曲の検索はナビゲーションの「曲をさがす」からさがせます。</p>
-</article>
-
-<a href="https://fujiwarahaji.me/data/">
-<article class="prBlock prBlock_lighnt col-sm-4">
-<div class="prBlock_icon_outer">
-<i class="fas fa-table font_icon prBlock_icon"></i>
-</div>
-<h1 class="prBlock_title">Data</h1>
-<p class="prBlock_summary">表形式でデータをまとめたページがあります。<br>なお、シャイニーカラーズには非対応です。</p>
-</article></a>
-
-
 </div>
 
 
 
+<div class="container top_menu_sub">
+    <div class="row">
 
+        <div class="col-xs-4 col-sm-3 col-md-2">
+          <a href="<?php echo get_permalink("1007");?>">
+            <div class="card text-center">
+              <div class="card-block">
+                <i class="fas fa-question bd-placeholder-img card-img-top fa-5x "></i>
+                <span class="card-title">About</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-xs-4 col-sm-3 col-md-2">
+          <a href="<?php echo get_permalink("3147");?>">
+            <div class="card text-center">
+              <div class="card-block">
+                <i class="fas fa-keyboard bd-placeholder-img card-img-top fa-5x "></i>
+                <span class="card-title">IME</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-xs-4 col-sm-3 col-md-2">
+          <a href="<?php echo get_permalink("720");?>">
+            <div class="card text-center">
+              <div class="card-block">
+                <i class="fa-brands fa-discord bd-placeholder-img card-img-top fa-5x "></i>
+                <span class="card-title">Discord・ファンサイト</span>
+              </div>
+            </div>
+          </a>
+        </div>
+
+        
+
+    </div>
+</div>

@@ -1,6 +1,6 @@
 ﻿<?php
 $disc_series = array(
-    //array('name'=>'見出しとして表示するseries名' , 'word'=>'検索ワード' , 'type'=>'cg ml sc radio as godo')
+    //array('name'=>'見出しとして表示するseries名' , 'word'=>'検索ワード' , 'type'=>'cg ml sc radio as godo sidem')
     //array('name'=>'' , 'word'=>'' 'type'=>'')
     array("name"=>"CINDERELLA MASTER ソロCD" , "word"=>"THE IDOLM@STER CINDERELLA MASTER 0" , "type"=>"cg") ,
     array("name"=>"CINDERELLA MASTER ユニット・カバーCD" , "word"=>"THE IDOLM@STER CINDERELLA MASTER" , "type"=>"cg") ,
@@ -69,12 +69,12 @@ $disc_series = array(
 <p>CD名からの自動分類を実験中です。<br>
 
 シンデレラガールズ楽曲は<a href="https://cg-portal.net">CG-Portalさん</a>からもCD検索ができます。</p>
-
+<div class="disclist">
 <h3>ページ内ショートカット</h3>
 <ul>
 <?php
 foreach($disc_series as $S_No => $series){
-    echo '  <li><a href="#disc'.$S_No.'">'.$series[name].'</a></li>';
+    echo '  <li class="'.$series["type"].'"><a href="#disc'.$S_No.'">'.$series["name"].'</a></li>';
     echo PHP_EOL;
 
 }
@@ -102,8 +102,8 @@ if ( count( $terms ) != 0 ) {
     // タームのリスト $terms を $term に格納してループ
     foreach ( $terms as $term ) {
         foreach ( $disc_series as $series ){
-            $search = '/^'.$series[word].'/';
-            $series_name = $series[name];
+            $search = '/^'.$series["word"].'/';
+            $series_name = $series["name"];
             if ( preg_match( $search , $term->name ) ){
                 ${$series_name}[] = $term;
                 continue 2;
@@ -115,12 +115,12 @@ if ( count( $terms ) != 0 ) {
 }
 
 foreach($disc_series as $S_No => $series){
-    echo '<h2 class="'.$series[type].'" id="disc'.$S_No.'">'.$series[name]."</h2>";
+    echo '<h2 class="'.$series["type"].'" id="disc'.$S_No.'">'.$series["name"]."</h2>";
     echo PHP_EOL;
     echo "<ul>";
     echo PHP_EOL;
 
-    foreach (${$series[name]} as $term){
+    foreach (${$series["name"]} as $term){
         $term = sanitize_term( $term, $taxonomy );
         $term_link = get_term_link( $term, $taxonomy );
         if ( is_wp_error( $term_link ) ) {
@@ -137,7 +137,7 @@ foreach($disc_series as $S_No => $series){
 
 }
 
-echo '<h2  class="else" >未分類</h2>';
+echo '<h2 class="else" >未分類</h2>';
 echo PHP_EOL;
 
 echo "<ul>";
@@ -157,3 +157,4 @@ echo "</ul>";
 
 ?>
 
+</div>

@@ -1,71 +1,9 @@
 <?php
 
 /*-------------------------------------------*/
-/*  カスタム投稿タイプ「イベント情報」を追加
-/*-------------------------------------------*/
-// add_action( 'init', 'add_post_type_event', 0 );
-// function add_post_type_event() {
-//     register_post_type( 'event', /* カスタム投稿タイプのスラッグ */
-//         array(
-//             'labels' => array(
-//                 'name' => 'イベント情報',
-//                 'singular_name' => 'イベント情報'
-//             ),
-//         'public' => true,
-//         'menu_position' =>5,
-//         'has_archive' => true,
-//         'supports' => array('title','editor','excerpt','thumbnail','author')
-//         )
-//     );
-// }
-
-/*-------------------------------------------*/
-/*  カスタム分類「イベント情報カテゴリー」を追加
-/*-------------------------------------------*/
-// add_action( 'init', 'add_custom_taxonomy_event', 0 );
-// function add_custom_taxonomy_event() {
-//     register_taxonomy(
-//         'event-cat', /* カテゴリーの識別子 */
-//         'event', /* 対象の投稿タイプ */
-//         array(
-//             'hierarchical' => true,
-//             'update_count_callback' => '_update_post_term_count',
-//             'label' => 'イベントカテゴリー',
-//             'singular_label' => 'イベント情報カテゴリー',
-//             'public' => true,
-//             'show_ui' => true,
-//         )
-//     );
-// }
-
-/********* 備考1 **********
-Lightningはカスタム投稿タイプを追加すると、
-作成したカスタム投稿タイプのサイドバー用のウィジェットエリアが自動的に追加されます。
-プラグイン VK All in One Expansion Unit のウィジェット機能が有効化してあると、
-VK_カテゴリー/カスタム分類ウィジェット が使えるので、このウィジェットで、
-今回作成した投稿タイプ用のカスタム分類を設定したり、
-VK_アーカイブウィジェット で、今回作成したカスタム投稿タイプを指定する事もできます。
-
-/********* 備考2 **********
-カスタム投稿タイプのループ部分やサイドバーをカスタマイズしたい場合は、
-下記の命名ルールでファイルを作成してアップしてください。
-module_loop_★ポストタイプ名★.php
-*/
-
-/*-------------------------------------------*/
-/*  フッターのウィジェットエリアの数を増やす
-/*-------------------------------------------*/
-// add_filter('lightning_footer_widget_area_count','lightning_footer_widget_area_count_custom');
-// function lightning_footer_widget_area_count_custom($footer_widget_area_count){
-//     $footer_widget_area_count = 4; // ← 1~4の半角数字で設定してください。
-//     return $footer_widget_area_count;
-// }
-
-/*-------------------------------------------*/
 /*  <head>タグ内に自分の追加したいタグを追加する
 /*-------------------------------------------*/
 function add_wp_head_custom(){ ?>
-<!-- head内に書きたいコード -->
 <!--カスタムフォント-->
 <link href="https://fonts.googleapis.com/css?family=Kosugi|Noto+Sans" rel="stylesheet">
 <?php
@@ -76,13 +14,32 @@ echo '<meta name="theme-color" content="#7272b4">';
 }
 ?>
 
-<!--ボックスの基礎CSS-->
-<link href="<?php echo get_stylesheet_directory_uri(); ?>/css/allpage.css" rel="stylesheet" />
-
+<!--bootstrap-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 <!--検索タグ-->
 <link rel="search" type="application/opensearchdescription+xml" title="ふじわらはじめ" href="<?php echo site_url(); ?>/search/search_main.xml">
-<!--Gアナリティクス アウトバウンド-->
-<script>// <![CDATA[
+<!-- OGP -->
+<?php get_template_part('parts/allpage/ogp/core'); ?>
+<!-- マニフェスト -->
+<link rel="manifest" href="<?php echo get_stylesheet_directory_uri(); ?>/resources/PWA_manifest.json">
+<!-- Gアナリティクス -->
+<script>
+	<?php if(!is_user_logged_in()){
+		//ログインしているときは出力しない
+		echo "
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-101017535-1', 'fujiwarahaji.me');
+ga('send', 'pageview');";
+	}?>
+
+
+// <![CDATA[
 var trackOutboundLink = function(url) {
  ga('send', 'event', 'outbound', 'click', url, {
  'transport': 'beacon',
@@ -90,12 +47,12 @@ var trackOutboundLink = function(url) {
  });
 }
 // ]]></script>
-<?php }
+<?php } //ここまでheader
 add_action( 'wp_head', 'add_wp_head_custom',1);
 
+//footer
 function add_wp_footer_custom(){?>
 
-<!-- footerに書きたいコード -->
 <!--Gアナリティクス アウトバウンド-->
 <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/resources/Gana_outbound_foot.js"></script>
 
@@ -134,19 +91,37 @@ function idolicon($name,$listtype){
 		if( get_term_by('name',$name,'idol_cg') ){
 		  // シンデレラガールズ有無判定 
 		$term = get_term_by('name',$name,'idol_cg');
-		$dir = 'cinderella';
 		}elseif( get_term_by('name',$name,'idol_765') ){
 		  //ミリオンライブ有無判定
 		$term = get_term_by('name',$name,'idol_765');
-		$dir = 'millionlive';
 		}elseif( get_term_by('name',$name,'idol_sc') ){
 		  //シャイニーカラーズ有無判定
 		$term = get_term_by('name',$name,'idol_sc');
-		$dir = 'shinycolors';
+		}elseif( get_term_by('name',$name,'idol_315') ){
+		//SideM有無判定
+		$term = get_term_by('name',$name,'idol_315');
+		}
+
+		//ディレクトリ設定
+		switch ($term->taxonomy){
+			case 'idol_cg':
+				$dir = 'cinderella';
+				break;
+			case 'idol_765':
+				$dir = 'millionlive';
+				break;
+			case 'idol_sc':
+				$dir = 'shinycolors';
+				break;
+			case 'idol_315':
+				$dir = 'sidem';
+				break;
 		}
 	  
 			  // タームのURLを取得
+		if(!is_wp_error( get_term_link( $term ) )){
 	  $term_link = get_term_link( $term );
+		}
 		
 		$live_temp = $term->name;
 
@@ -161,9 +136,10 @@ function idolicon($name,$listtype){
 			  //echo PHP_EOL;
 
 			  if($listtype == "live"){
-			  echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd '.$idol_term.'" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
+			  echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon '.$idol_term.'" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
 			  }elseif($listtype == "cdsolo"){
-				echo '<div class="idol"><img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd '.$idol_term.'" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"></a><p class="fuchidori solo" title="ソロ">S</p></div>';
+				echo '<div class="badge badge-info icon_badge">ソロ</div>
+				<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon '.$idol_term.'" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"></a>';
 			  }elseif($listtype == "data_only"){
 				$image_url = $upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png';
 				if(empty($idol_term)){
@@ -171,17 +147,31 @@ function idolicon($name,$listtype){
 				}else{
 					$image = 'image';
 				}
-				return array("url" => $image_url,"color" => $idol_color,"info" => $image,"link" => $term_link);
+				return array(
+					"url" => $image_url,
+					"color" => $idol_color,
+					"info" => $image,
+					"link" => $term_link,
+					"id" => $term->term_id,
+					"tax" => $term->taxonomy,
+					"cv" => $cv,
+					"parent" => $term->patrent,
+					"production" => $dir,
+
+				);
   			  }elseif($listtype == "cdicon"){
-				echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd '.$idol_term.'" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"><p class="fuchidori solo" title="ソロ">S</p></a>';
+				echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon '.$idol_term.'" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"><p class="fuchidori solo" title="ソロ">S</p></a>';
 			  }else{
-				echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon_cd '.$idol_term.'" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"></a>';
+				echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon '.$idol_term.'" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"></a>';
 			  }
 			  if(!($listtype == "data_only")){
-			  echo "<!--".PHP_EOL."-->";
+			  echo "<!--
+			  -->";
 			  }
 			}
-	  return $live_temp;
+			if(!empty($live_temp)){
+				return $live_temp;
+			}
 }
 
 
@@ -218,6 +208,9 @@ function idollist($idol_name_roop,$listtype){
 	  }elseif( get_term_by('name',$name,'idol_sc') ){
 		//シャイニーカラーズ有無判定
 	  $term = get_term_by('name',$name,'idol_sc');
+	  }elseif( get_term_by('name',$name,'idol_315') ){
+		//シャイニーカラーズ有無判定
+	  $term = get_term_by('name',$name,'idol_315');
 	  }
 	  $live_member = get_field('cv', $term);
 
@@ -230,7 +223,9 @@ function idollist($idol_name_roop,$listtype){
 		echo PHP_EOL;
 
 }
-return $live_member;
+if(!empty($live_member)){
+	return $live_member;
+}
 
 }
 
@@ -256,9 +251,14 @@ function itunes($atts) {
 		'song_id' => 0,
 	), $atts));
  
-	return '<iframe src="https://tools.applemusic.com/embed/v1/song/'.$song_id.'?country=jp&at=1001lM5U" width="100%" height="110px" frameborder="0"></iframe>'
-		.PHP_EOL.
+	return
+		// 旧iTunesの試聴ウィジェット（もう死んでる） 
+		//'<iframe src="https://tools.applemusic.com/embed/v1/song/'.$song_id.'?country=jp&at=1001lM5U" width="100%" height="110px" frameborder="0"></iframe>'
+		//.PHP_EOL.
+		//iTunesのロゴだけ表示するやつ（味気ない）
 		'<a href="https://music.apple.com/jp/album/'.$album_id.'?i='.$song_id.'&app=itunes&at=1001lM5U" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/ja-jp/badge-lrg.svg?releaseDate=2018-06-27T00:00:00Z&kind=song&bubble=itunes_music) no-repeat;width:140px;height:41px;"></a>'
+		// AppleMusicの単曲のやつ（試聴できないけどここらが落とし所）
+		//'<iframe src="https://embed.music.apple.com/jp/album/'.$album_id.'?i='.$song_id.'&amp;app=music&amp;itsct=music_box&amp;itscg=30200&amp;at=1001lM5U&amp;ls=1" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *;" style="width: 100%; max-width: 800px; overflow: hidden; border-radius: 10px; background: transparent none repeat scroll 0% 0%;" height="150px" frameborder="0"></iframe>'
 		.PHP_EOL;
 }
 add_shortcode('itunes', 'itunes');
@@ -269,3 +269,118 @@ function wpt_nomedia(){
 	$media = false;
 }
 
+//オンガクタイプを返す
+function allsongtype() {
+	return array('music_cg','music_ml','music_shiny','music_as','music_godo','music_cover','music_sidem','music_remix');
+}
+
+//アイドルのタームをすべてまとめて返す
+function allidolterm() {
+	return array('idol_cg','idol_765','idol_sc','idol_315');
+}
+
+//略称
+$ryakusyou = "アイドルマスター";
+
+/* BodyにBox用のClassを追加 */
+
+add_filter( 'body_class', 'my_class_names' );
+function my_class_names( $classes ) {
+	if(is_singular('music_ml') OR is_tax('idol_765') OR is_singular('music_as')){
+		$box_class = 'box_765';
+	}
+	if(is_singular('music_shiny') OR is_tax('idol_sc')){
+		$box_class = 'box_sc';
+	}
+	if(!empty($box_class)){
+		$classes[] = $box_class;
+	}
+	return $classes;
+}
+
+//タイトルヘッダの変更
+function archive_header($title){
+	//ヘッダはここ
+	return get_template_part('parts/tax/header/core');
+}
+add_filter('lightning_archive-header', 'archive_header');
+
+//ターム説明の削除
+remove_filter('lightning_archive_description', 'archive_header');
+
+//ライブセトリ表示
+add_filter( 'lightning_is_extend_loop', function( $return ){
+    // 改変するアーカイブページを指定
+    if ( is_tax('live') ){
+        // ループエリアの改変を有効にする
+		return true;
+    }else{
+		return false;
+	}
+} );
+
+add_action( 'lightning_loop_before', function(){
+	if ( is_tax('live') ){
+		get_template_part('parts/tax/live_setlist');
+	}
+});
+
+//G3
+//update_option( 'lightning_theme_generation', 'g3' );
+function lightning_ver($title){
+	return true;
+}
+//add_filter('lightning_is_g3', 'lightning_ver');
+
+//モジュール
+function module($attr) {
+	get_template_part($attr["type"]);
+}
+add_shortcode('module', 'module');
+
+//フロントページの改造
+add_filter( 'lightning_is_extend_single', function( $return ){
+    if (is_home() || is_front_page()){
+		return true;
+    }else{
+		return false;
+	}
+});
+add_action('lightning_extend_single',function(){
+	if(is_home() || is_front_page()){
+		get_template_part('parts/toppage');
+	}
+});
+
+//フッターのカテゴリー一覧削除
+add_filter( 'lightning_is_entry_footer', function( $return ){
+	return false;
+});
+
+//AmazonJS代替
+// functions.php
+
+
+function amazonLink($atts) {
+    $atts = shortcode_atts(array(
+        'asin' => '',
+		'title' => '',
+        'title1' => '関連商品',
+    ), $atts);
+    return '
+<a target="_blank" href="https://www.amazon.co.jp/dp/'.$atts['asin'].'/ref=as_sl_pc_tf_til?tag=fujiwarahajime-22&linkCode=w00&linkId=&creativeASIN='.$atts['asin'].'">
+<div class="card mb-3">
+  <div class="row no-gutters">
+    <div class="bd-placeholder-img col-auto d-flex align-items-center">
+      <img src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN='.$atts['asin'].'&Format=_SL110_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=fujiwarahajime-22&language=ja_JP">
+    </div>
+    <div class="col">
+      <div class="card-body">
+        <p class="card-text">「'.$atts['title'].'」をAmazon.co.jpで検索</p>
+      </div>
+    </div>
+  </div>
+</div>
+</a>';
+}
+add_shortcode('amazonjs', 'amazonLink');

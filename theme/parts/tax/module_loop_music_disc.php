@@ -10,8 +10,12 @@
 	</div>
 	<?php endif; ?>
 	<div class="media-body">
-		<?php get_template_part('module_loop_post_meta');?>
-		<h1 class="media-heading entry-title"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h1>
+		<?php if(get_post_type ($post) == "music_remix"){
+					//何も表示しない
+				}else{
+					get_template_part('module_loop_post_meta');
+				}?>
+		<h1 class="media-heading entry-title looplink"><a href="<?php the_permalink(); ?>" class="looplink"><?php the_title(); ?></a></h1>
 <div class="media-body_excerpt">
 
 <?php if(!wp_is_mobile()): ?>

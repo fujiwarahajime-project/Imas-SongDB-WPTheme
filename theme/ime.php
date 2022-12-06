@@ -47,6 +47,12 @@ switch ($post->post_type){
 	case 'music_cover':
 		$music_type = 'アイドルマスターシリーズでカバーされた楽曲';
 	break;	
+	case 'music_remix':
+		$music_type = 'アイドルマスターシリーズのリミックス楽曲';
+	break;	
+	case 'music_sidem':
+		$music_type = 'アイドルマスターSideMの楽曲';
+	break;	
 	default:
 		$music_type = "アイドルマスターシリーズの楽曲";
 	break;
@@ -59,9 +65,9 @@ echo "\t";?>固有名詞<?php echo "\t"; echo $music_type;echo PHP_EOL;?>
 <?php endif; endwhile; endif; ?>
 <?php wp_reset_query(); ?>
 
-<?php /*
+<?php 
 // カスタム分類名
-$taxonomy = 'idol_765';
+$taxonomy = array('idol_765','idol_cg','idol_sc','idol_315');
 // パラメータ 
 $args = array(
     // 投稿記事がないタームも取得
@@ -76,24 +82,84 @@ $terms = get_terms( $taxonomy , $args );
 
     // タームのリスト $terms を $term に格納してループ
     foreach ( $terms as $term ) {
+
 //データの取得
+if($term->taxonomy == 'idol_sc' AND $term->parent == 0){
+	continue;
+}
+if($term->name == '萩原雪歩.'){
+	continue;
+}
+
         		$cv = get_field('cv', $term);
 				$CVKana = get_field('CVKana', $term);
 				$Kana = get_field('Kana', $term);
 
-				echo preg_replace("/[^ぁ-んー]+/u",'' ,mb_convert_kana( $Kana , "cH"));
-				echo "\t";
-				echo $term->name;
-				echo "\t";
-				echo "人名\tアイドルマスターミリオンライブ！のアイドル";
-				echo PHP_EOL;
-				echo preg_replace("/[^ぁ-んー]+/u",'' ,mb_convert_kana( $CVKana , "cH"));
-				echo "\t";
-				echo $cv;
-				echo "\t";
-				echo "人名\tアイドルマスターミリオンライブ！ ".$term->name."役";
-				echo PHP_EOL;
+				//データを作る
+				unset($brand);
+				switch($term->taxonomy){
+					case 'idol_cg':
+						$brand = 'アイドルマスターシンデレラガールズ';
+						$id = 10000+$term->term_id;
+					break;
+					case 'idol_765':
+						$brand = 'アイドルマスターミリオンライブ！';
+						$id = 20000+$term->term_id;
+					break;
+					case 'idol_sc':
+						$brand = 'アイドルマスターシャイニーカラーズ';
+						$id = 30000+$term->term_id;
+					break;
+					case 'idol_315':
+						$brand = 'アイドルマスターSideM';
+						$id = 40000+$term->term_id;
+					break;
+					default:
+						$brand = "アイドルマスターシリーズ";
+					break;
+					}
+				
+				$idoldata[] =  array(
+					'kana' => preg_replace("/[^ぁ-んー]+/u",'' ,mb_convert_kana( $Kana , "cH")),
+					'brand' => $brand,
+					'name' => $term->name
+				);
+
+				if($cv == '未定' OR $cv == '未発表' or empty($cv)){
+					continue;
+				}
+				$cvdata[] = array(
+					'kana' => preg_replace("/[^ぁ-んー]+/u",'' ,mb_convert_kana( $CVKana , "cH")),
+					'brand' => $brand,
+					'name' => $cv,
+					'idol' => $term->name
+				);
+
 		
 //最後の処理
-} */
+}
+
+echo '!アイドル'.PHP_EOL;
+foreach($idoldata as $data){
+	echo $data[kana]."\t".$data[name]."\t".'人名'."\t".$data[brand].'のアイドル'.PHP_EOL;
+}
+echo PHP_EOL.'!声優'.PHP_EOL;
+foreach($cvdata as $data){
+	echo $data[kana]."\t".$data[name]."\t".'人名'."\t".$data[brand].' '.$data[idol].' 役'.PHP_EOL;
+}
+
+?>
+
+!ユニット
+<?php 
+$terms = get_terms('unit');
+foreach ( $terms as $term ) {
+	$Kana = get_field('Kana', $term);
+	if(empty($Kana)){
+		continue;
+	}
+	echo preg_replace("/[^ぁ-んー]+/u",'' ,mb_convert_kana( $Kana , "cH"))."\t".$term->name."\t".'固有名詞'."\tアイドルマスターシリーズのユニット".PHP_EOL;
+}
+
+
 ?>

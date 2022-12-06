@@ -3,14 +3,49 @@
 <!-- TableSorterのJSとCSS -->
 <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/resources/table_css/style.css" type="text/css" media="print, projection, screen" />
 <script src="<?php echo get_stylesheet_directory_uri(); ?>/resources/jquery.tablesorter.min.js" type="text/javascript"></script>
-<!-- TableSorterを動かす -->
+
 <script type="text/javascript">
+// TableSorterを動かす
 $(document).ready(function()
 {
 $("#tablesort").tablesorter();
 }
 );
+
+// 絞り込み検索
+
+$(function() {
+    var $searchInput = $('#textarea'); // 入力エリア
+    var $searchElem = $('.setlist_card'); // 絞り込む要素
+    var excludedClass = 'setlist_hide'; // 絞り込み対象外の要素に付与するclass
+ 
+    // 絞り込み処理
+    function extraction() {
+        var keywordArr = $searchInput.val().toLowerCase().replace('　', ' ').split(' '); // 入力文字列を配列に格納
+        $searchElem.removeClass(excludedClass).show();// 現在非表示にしているリストを表示する
+        for (var i = 0; i < keywordArr.length; i++) {
+            for (var j = 0; j < $searchElem.length; j++) {
+                var thisString = $searchElem.eq(j).text().toLowerCase();
+                if(thisString.indexOf(keywordArr[i]) == -1) { // 入力文字列と一致する文字列がない場合
+                    $searchElem.eq(j).addClass(excludedClass); // 絞り込み対象外のclass付与
+                }
+            }
+        }
+        $('.' + excludedClass).hide(); // 絞り込み対象外の要素の非表示
+    }
+ 
+    $searchInput.on('load keyup blur', function() {
+        extraction();
+    });
+    <?php
+    if(isset($_GET['word'])){
+        echo 'document.getElementById( "textarea" ).value = "'.$_GET['word'].'" ;';
+        echo 'extraction();';
+    }
+    ?>
+});
 </script>
+
 
 <!-- カレンダーをCDNから引っ張り出す -->
 <link href='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.css' rel='stylesheet' />
@@ -29,8 +64,10 @@ $("#tablesort").tablesorter();
 「<i class="fas fa-list-ul"></i>」がついているライブは、詳細なセットリストを掲載しています。<br>
 詳しい情報につきましてはイベント名をクリック・タップした先で確認できます。</p>
 
+<input type="text" id="textarea" placeholder="「yyyy-mm-dd」形式の日付、ライブ名、会場名で絞り込みできます。" />
+
 <table id="tablesort" class="tablesorter"><thead>
-<tr><th></th><th>イベント名</th><th>会場</th><th>曲数</th></th></thead><tbody>
+<tr><th></th><th>イベント名</th><th>会場</th><th>曲数</th></thead><tbody>
 <?php
 // カスタム分類名
 $taxonomy = 'live';
@@ -60,7 +97,7 @@ if ( count( $terms ) != 0 ) {
 				$place = get_field('place', $term);
                 $setlist_hantei = count(SCF::get_term_meta( $term, $taxonomy, 'setlist' )) >= 2; //セットリスト判定
 
-            echo '<tr>';
+            echo '<tr class="setlist_card">';
 
     echo '<td>';
 
@@ -121,9 +158,9 @@ document.addEventListener('DOMContentLoaded', function() {
       <?php //イベント一覧のタームを形式通りに出力
       foreach($cal_data as $event){
         echo "{".PHP_EOL;
-        echo "title:'".$event[title]."（".$event[place]."）',".PHP_EOL;
-        echo "url:'".$event[url]."',".PHP_EOL;
-        echo "start:'".$event[day]."'".PHP_EOL;
+        echo "title:'".$event["title"]."（".$event["place"]."）',".PHP_EOL;
+        echo "url:'".$event["url"]."',".PHP_EOL;
+        echo "start:'".$event["day"]."'".PHP_EOL;
         echo "},".PHP_EOL;
       }
       ?>

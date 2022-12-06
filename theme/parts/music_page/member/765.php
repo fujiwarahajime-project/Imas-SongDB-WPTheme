@@ -12,18 +12,24 @@ $CV = get_field('cv',$term_idmenu.$term_id);//声優の名前を取得
 $idol_term = get_field('idol-thum',$term_idmenu.$term_id);//アイドル固有ID（画像のファイル名）を取得
 $idol_color = get_field('idol_color',$term_idmenu.$term_id);//アイドルのテーマカラーを取得
 $solo_temp = get_query_var('solo_temp');
+$idolpic_dir = 'millionlive';
+
 
 //出力
-echo '<div class="idol"><a href="'.$link.'"><div class="idolicon" style="background:'.$idol_color.';position: relative;"><img src="'.$upload_dir['baseurl'].'/idol/millionlive/'.$idol_term.'.png"" title="'.$term->term_id.'">';
-if(in_array($term->name, $solo_temp)){
-echo '<p class="fuchidori solo" title="ソロあり">S</p>';
-}
-echo '</div>';
-echo "\n";
-echo '<div class="info"><div class="idolname"><a href="'.$link.'">'.esc_html($term->name).'</a></div>';
-echo "\n";
-echo '<div class="moreinfo">CV：'.$CV.'</div></div></div>';
-echo "\n";
+echo '<div class="col-sm-6 col-md-4 idol_card">
+<a href="' . $link . '" class="card">
+<div class="row no-gutters">
+  <img class="col-auto bd-placeholder-img idol_icon" img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/'.$idol_term.'.png" style="background:'.$idol_color.';">';
+  if(in_array($term->name, $solo_temp)){
+    echo '<div class="badge badge-info icon_badge">ソロ</div>';
+  }
+echo '<div class="col">
+<div class="card-body">
+<h5 class="card-title">'.$term->name.'</h5>
+<p class="card-text">'.$CV.'</p>
+</div></div>
+</div></a></div>
+';
     }
 echo "</div>";
 }

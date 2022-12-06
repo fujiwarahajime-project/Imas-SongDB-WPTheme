@@ -1,33 +1,21 @@
-<?php get_header(); ?>
-<?php get_template_part('template-parts/page-header'); ?>
-<?php get_template_part('template-parts/breadcrumb'); ?>
-
 <?php
-if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
-	get_template_part('sitehensu/cinderella');
-	$ryakusyou = 'シンデレラガールズ';
-} elseif(is_singular( 'music_ml' )){ //ミリオンライブの場合
-	get_template_part('sitehensu/millionlive');
-	$ryakusyou = 'ミリオンライブ';
-	$css_pass = 'millionlive';
-
-} elseif(is_singular( 'music_shiny' )){ //シャイニーカラーズの場合
-	get_template_part('sitehensu/shiny');
-	$ryakusyou = 'シャイニーカラーズ';
-	$css_pass = 'shiny';
-
-} elseif(is_singular( 'music_as' )){ //シャイニーカラーズの場合
-	get_template_part('sitehensu/as');
-	$ryakusyou = '765AS';
-	$css_pass = 'millionlive';
-
-} elseif(is_singular( 'music_godo' )){ //シャイニーカラーズの場合
-	get_template_part('sitehensu/godo');
-	$ryakusyou = 'プロジェクトをまたいだ合同';
+//環境変数類
+if(is_singular( 'music_remix' )){ //リミックス曲の場合
+	//リミックス曲の原曲データを取得
+		foreach (get_the_terms($post->ID, 'music') as $term){
+			$remix_id = $term->name;
+		}
 }
-elseif(is_singular( 'music_cover' )){ //シャイニーカラーズの場合
-	get_template_part('sitehensu/cover');
-	$ryakusyou = 'カバー';
+
+$kiji_id = get_the_ID();
+if(empty($remix_id)){
+	$remix_id = $kiji_id;
+}
+$idollist_type = get_post_type($remix_id);
+
+//リミックスの場合データを上書き
+if(is_singular( 'music_remix' )){
+	$ryakusyou = 'リミックス';
 }
 $site_twitter = 'fujiwarahaji_me';//＠をはぶくこと
 $creator_twitter = 'fujiwarahaji_me';//＠をはぶくこと
@@ -35,25 +23,11 @@ $creator_twitter = 'fujiwarahaji_me';//＠をはぶくこと
 $url_share=urlencode( get_the_permalink() );
 $title_share=urlencode(get_the_title()).'｜'.get_bloginfo('name');
 
-if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
-	$MV_Tag = 'デレステMV';
-	} elseif(is_singular( 'music_ml' )){ //ミリオンライブの場合
-	$MV_Tag = 'ミリシタMV';
-	} elseif(is_singular( 'music_shiny' )){ //シャイニーカラーズの場合
-	$MV_Tag = '';
-	} elseif(is_singular( 'music_as' )){ //ASの場合
-	$MV_Tag = 'ミリシタMV';
-	} elseif(is_singular( 'music_godo' )){ //合同の場合
-	$MV_Tag = '';
-	}
+$upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
 
 ?>
-<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/song.css" type="text/css" />
 <link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/no_git.css" type="text/css" />
 <script type="text/javascript" src="<?php echo get_stylesheet_directory_uri(); ?>/resources/cd_accordion.js"></script>
-<?php if(!empty($css_pass)):?>
-<link rel="stylesheet" href="<?php echo get_stylesheet_directory_uri(); ?>/css/box/<?php echo $css_pass; ?>.css" type="text/css" />
-<?php endif; ?>
 
 <!-- Metaデータ -->
 <meta name="description" content="<?php echo "$ryakusyou"; ?>曲「<?php the_title(); ?>」の曲情報です。">
@@ -79,33 +53,33 @@ if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 } ?>
 ">
 
-<?php //MVのタグを指定
-	$kiji_id = get_the_ID();
-    $upload_dir = wp_upload_dir();//WPのアップロードファイルのディレクトリを取得
-
-?>
-
-<div class="section siteContent">
-<div class="container">
-<div class="row">
-<div class="col mainSection mainSection-col-two" id="main" role="main">
 
 	<header>
 
 <!-- タイトル -->
-<?php get_template_part( 'module_loop_post_meta' ); ?>
-<?php if (is_object_in_term($post->ID, 'musictype','rearrange')): //リアレンジ曲の場合、Rubyタグを使わない
+<?php 
+if(is_singular( 'music_remix' )){
+	//リミックスのときはカテゴリ情報を表示しないやつをヒョビア出す
+	get_template_part( 'template-parts/post/meta-remix' );
+}else{
+	get_template_part( 'template-parts/post/meta' );
+}
+	 ?>
+<?php if (is_object_in_term($post->ID, 'musictype','rearrange') OR is_singular( 'music_remix' ) ){
+	//リアレンジ曲の場合ふりがななしのタイトルにする
+	echo '<h1><span class="entry-title">'.get_the_title().'</span></h1>';
+
+}elseif(strlen(get_the_title()) > 40){
+	//タイトルが長い楽曲（スポ食など）の場合、Rubyタグを使わない
+	echo '<span class="ruby">'.get_post_meta($post->ID,'Kana',true).'</span>
+	<h1><span class="entry-title">'.get_the_title().'</span></h1>';
+
+}else{
+
+	echo '<h1 class="entry-title"><ruby><rb>'.get_the_title().'</rb>
+	<rp>（</rp><rt>'.get_post_meta($post->ID,'Kana',true).'</rt><rp>）</rp></ruby></h1>';
+}
 ?>
-
-<span class="ruby"><?php echo get_post_meta($post->ID,'Kana',true); ?></span>
-<h1><span class="entry-title"><?php the_title(); ?></span></h1>
-
-<?php else: //リアレンジ曲以外の処理
-?>
-	<h1 class="entry-title"><ruby><rb><?php the_title(); ?></rb>
-<rp>（</rp><rt><?php echo get_post_meta($post->ID,'Kana',true); ?></rt><rp>）</rp></ruby></h1>
-<?php endif; ?>
-
 	</header>
 
 <?php get_template_part('share'); ?>
@@ -114,19 +88,10 @@ if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 <div class="entry-body">
 
 <?php if(wp_is_mobile()): ?>
-<!-- モバイル向けジャケット画像表示 -->
-<div style="text-align:center;">
-<div class="case">
-      <div>
-        <div class="img">
-        <?php the_post_thumbnail( 'full' ); ?>
-        </div>
-      </div>
-</div>
-</div>
-<!-- モバイル向け広告 -->
-<?php get_template_part('parts/music_page/ad'); ?>
 
+<?php 
+	//get_template_part( 'parts/music_page/jacket' );
+	get_template_part('parts/music_page/ad'); ?>
 <?php endif; //モバイル表示閉じ ?>
 
 
@@ -137,51 +102,61 @@ if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
 <table class="songinfo">
 	<tbody>
 		<tr>
-			<td>ニコ動タグ</td>
-			<td><a href="http://www.nicovideo.jp/tag/<?php echo get_post_meta($post->ID,'NicoTag',true); ?>" rel="nofollow" id="button" style="display:block;padding:0px 15px;text-align:center;"><span style="line-height: 0px;"><?php echo get_post_meta($post->ID,'NicoTag',true);; ?></span></a></td>
-		</tr>
-		<tr>
 			<td>作詞</td>
-			<td><?php echo get_the_term_list( $post->ID, lyrics, '', '、', ''); ?></td>
+			<td><?php echo get_the_term_list( $remix_id, 'lyrics', '', '、', ''); ?></td>
 		</tr>
 		<tr>
 			<td>作曲</td>
-			<td><?php echo get_the_term_list( $post->ID, composer, '', '、', ''); ?></td>
+			<td><?php echo get_the_term_list( $remix_id, 'composer', '', '、', ''); ?></td>
 		</tr>
 		<tr>
-			<td>編曲</td>
-			<td><?php echo get_the_term_list( $post->ID, arrange, '', '、', ''); ?></td>
+			<td><?php if(is_singular( 'music_remix' )){
+				echo 'アレンジ';
+			}else{
+				echo '編曲';
+			}?></td>
+			<td><?php echo get_the_term_list( $post->ID, 'arrange', '', '、', ''); ?></td>
 		</tr>
 		<tr>
 			<td>ユニット</td>
-			<td><?php
-//if(is_singular( 'music_shiny' )){
-//シャイニーカラーズ出力用タグ
-//$taxonomy = 'idol_sc';
-//$terms = wp_get_object_terms($post->ID, $taxonomy);
-//if ($terms) {
-//foreach ( $terms as $term ) {
-//$term_id = $term->term_id;//タームID取得
-//$link = get_term_link( $term, $taxonomy );//タームのリンクを取得
-
-//if($term->parent == 0){ //子タクソノミーがある（ユニット）のみ出力
-//echo '<div><a href="'.$link.'">'.esc_html($term->name).'</a></div>';
-//    }}}
-//} else { //シンデレラガールズ出力タグ
-echo get_the_term_list( $post->ID, unit, '', '<br>', '');
-//}?></td>
+			<td><?php echo get_the_term_list( $post->ID, 'unit', '', '<br>', '');?></td>
 		</tr>
 		<tr>
 			<td>オリジナル</td>
 			<td><?php echo get_post_meta($post->ID,'orig-artist',true); ?></td>
 		</tr>
 		<tr>
-			<td>関連</td>
-			<td><?php echo get_the_term_list( $post->ID, music, '', '<br>', ''); ?></td>
+			<td><?php if(is_singular( 'music_remix' )){
+				echo 'アレンジ元</td><td>
+				<a href="'.get_permalink( $remix_id ).'">'.get_the_title( $remix_id ).'</a>';
+			}else{
+				echo 'リアレンジ楽曲</td><td>';
+					foreach(get_posts(array(
+						'posts_per_page' => 1000,
+						'orderby' => 'date',
+						'order' => 'DESC',
+						'post_type'  => allsongtype(),
+						'tax_query' => array(array(
+							'taxonomy' => 'music',
+							'field' => 'name',
+							'terms' => $post->ID,
+							'operator' => 'IN'
+						))
+						))as $post_remix){
+							echo '<div><a href="'.get_permalink($post_remix).'">'.$post_remix->post_title.'</a></div>';
+						}
+			}?></td>
 		</tr>
 
 	</tbody>
 </table>
+
+
+<?php
+if(!empty(get_post_meta($post->ID, 'kasi', true))){
+	echo '<a href="'.get_post_meta($post->ID, 'kasi', true).'" rel="nofollow" class="button">歌詞サイトで歌詞を見る</a>';
+}
+?>
 
 </div>
   <div class="msgboxfoot">
@@ -210,20 +185,29 @@ ${"cdidols_".$field_value['cd_term']} = array_unique(explode(',', $field_value['
 }
 
 //アイドル表示の順番を指定
-if(is_singular( 'music_cg' )){ //シンデレラガールズの場合
-get_template_part('parts/music_page/member/cin');
-get_template_part('parts/music_page/member/765');
-get_template_part('parts/music_page/member/shiny');
-} elseif(is_singular( 'music_shiny' )){ //シャイニーカラーズの場合
-get_template_part('parts/music_page/member/shiny');
-get_template_part('parts/music_page/member/765');
-get_template_part('parts/music_page/member/cin');
+
+if($idollist_type == 'music_cg' ){ //シンデレラガールズの場合
+	get_template_part('parts/music_page/member/cin');
+	get_template_part('parts/music_page/member/765');
+	get_template_part('parts/music_page/member/shiny');
+	get_template_part('parts/music_page/member/sidem');
+} elseif($idollist_type == 'music_shiny' ){ //シャイニーカラーズの場合
+	get_template_part('parts/music_page/member/shiny');
+	get_template_part('parts/music_page/member/765');
+	get_template_part('parts/music_page/member/cin');
+	get_template_part('parts/music_page/member/sidem');
+} elseif($idollist_type == 'music_sidem' ){ //SideMの場合
+	get_template_part('parts/music_page/member/sidem');
+	get_template_part('parts/music_page/member/765');
+	get_template_part('parts/music_page/member/cin');
+	get_template_part('parts/music_page/member/shiny');
 } else{ //ミリオンライブ、合同、765ASの場合
-get_template_part('parts/music_page/member/765');
-get_template_part('parts/music_page/member/cin');
-get_template_part('parts/music_page/member/shiny');
+	get_template_part('parts/music_page/member/765');
+	get_template_part('parts/music_page/member/cin');
+	get_template_part('parts/music_page/member/shiny');
 }
-get_template_part('parts/music_page/member/cv');
+	//CVはいつも最後に来る
+	get_template_part('parts/music_page/member/cv');
 
 ?>
 
@@ -233,25 +217,6 @@ if(!empty($idol_temp)):?>
 <?php endif;?>
 
 </div>
-  <div class="msgboxfoot">
-  </div>
-</div>
-
-<div class="msgbox" id="movie">
-  <div class="msgboxtop">公式動画</div>
-  <div class="msgboxbody">
-<?php $movie = get_post_meta($post->ID, 'movie', true);//公式動画が入力されているか判定
-?>
-<?php if(!empty($movie))://動画がある場合は動画を表示
-?>
-<?php echo apply_filters('the_content',$movie); ?>
-<?php endif;?>
-<?php if(empty($movie))://動画がない場合場合の記述　この場合は配信の埋め込みを取得。
-?>
-<p>この曲に動画はありません。</p>
-<?php echo apply_filters('the_content',get_post_meta($post->ID, 'haishin', true)); ?>
-<?php endif;?>
-  </div>
   <div class="msgboxfoot">
   </div>
 </div>
@@ -272,6 +237,10 @@ if(!empty($idol_temp)):?>
 <?php endif; ?>
 <!-- ここまでCD情報用CSS -->
 
+<?php 
+	get_template_part('parts/music_page/movie');
+?>
+
 <!-- CD情報 -->
 <div class="msgbox" id="CD">
   <div class="msgboxtop">CD情報</div>
@@ -281,10 +250,11 @@ if(!empty($idol_temp)):?>
 ?>
 
 <!-- すべて操作ボタン -->
-<div class="vmenu_all_action" style="text-align: center;">
-<span id="button" onclick="doReplaceClassName('vmenu_off', 'vmenu_on')" style="display:inline-block;width:45%;">詳細を全て表示</span>
-<span id="button" onclick="doReplaceClassName('vmenu_on',  'vmenu_off')" style="display:inline-block;width:45%;">詳細を全て非表示</span>
-</div>
+<div class="container">
+<div class="vmenu_all_action row justify-content-around" style="text-align: center;">
+	<div class="button col-5" onclick="doReplaceClassName('vmenu_off', 'vmenu_on')">詳細 全表示</div>
+	<div class="button col-5" onclick="doReplaceClassName('vmenu_on',  'vmenu_off')">詳細 非表示</div>
+</div></div>
 
 <?php if(get_post_meta($post->ID, 'haishin', true)): ?>
 <!-- 配信がある場合の情報 -->
@@ -294,12 +264,14 @@ if(!empty($idol_temp)):?>
 <div class="info_C">
 <?php 
 //アイドル画像出力ループ
+if(!empty($cdidol_h)){
 foreach ($cdidol_h as $idol_name_roop) {
 	idollist($idol_name_roop,"CD");
-}
+}}
+if(!empty($cdidols_h)){
 foreach ($cdidols_h as $idol_name_roop) {
 	idollist($idol_name_roop,"cdsolo");
-}
+}}
 
 ?>
 <?php echo apply_filters('the_content',get_post_meta($post->ID, 'haishin', true)); ?></div></div><br>
@@ -317,15 +289,17 @@ $shop = get_field('shop',$term_idmenu.$term_id);//販売情報を取得
 //出力
 echo '<div class="vmenu_off">';
 echo '<div class="vmenuitem" onclick="doToggleClassName(getParentObj(this),\'vmenu_on\',\'vmenu_off\')">';
+if(!empty(${"cdidol_".$term_id})){
 if(count(${"cdidol_".$term_id}) == "1"){
 	echo '<img title="'.$term->term_id.'" class="cdicon" src="';
 	foreach (${"cdidol_".$term_id} as $idol_name_roop) {
 		$icon_data = idolicon($idol_name_roop,"data_only");
-		if($icon_data[info] == "image" AND ($icon_data[parent] == 0) AND !($icon_data[production] == "shinycolors") ){
-			echo $icon_data[url].'" style="background:'.$icon_data[color];
+		if($icon_data['url'] == $upload_dir['baseurl'].'/idol//.png'){
+			echo get_stylesheet_directory_uri().'/resources/cd_icon.png';
+		}elseif((isset($icon_data['info'])) == "image" AND ($icon_data['parent'] == 0) AND !($icon_data['production'] == "shinycolors") ){
+			echo $icon_data['url'].'" style="background:'.$icon_data['color'];
 		}else{
-			echo get_stylesheet_directory_uri();
-			echo '/resources/cd_icon.png';
+			echo get_stylesheet_directory_uri().'/resources/cd_icon.png';
 		}
 	}
 	echo '">';
@@ -333,20 +307,24 @@ if(count(${"cdidol_".$term_id}) == "1"){
 
 	echo '<img src="'.get_stylesheet_directory_uri().'/resources/cd_icon.png" class="cdicon"  title="'.$term->term_id.'">';
 
+}}else{
+	echo '<img src="'.get_stylesheet_directory_uri().'/resources/cd_icon.png" class="cdicon"  title="'.$term->term_id.'">';
 }
 echo '<div class="cdname">' .str_ireplace("THE IDOLM@STER ","", esc_html($term->name)).'</div></div>';
 
 echo "\n";
-echo '<div class="info_C"><a href="'.$link.'" id="button" style="text-align:center;display:inline-block;width:100%;">このCDのすべての収録曲を見る</a>';//リンク
+echo '<div class="info_C"><a href="'.$link.'" class="button" style="text-align:center;display:inline-block;width:100%;">このCDのすべての収録曲を見る</a>';//リンク
 echo "\n";
 
 //アイドル画像出力ループ
+if(!empty(${"cdidol_".$term_id})){
 foreach (${"cdidol_".$term_id} as $idol_name_roop) {
 	idollist($idol_name_roop,"CD");
-}
+}}
+if(!empty(${"cdidols_".$term_id})){
 foreach (${"cdidols_".$term_id} as $idol_name_roop) {
 	idollist($idol_name_roop,"cdsolo");
-}
+}}
 
 
 echo $shop;
@@ -365,129 +343,28 @@ echo "\n";
 
 <?php get_template_part('parts/music_page/livelist');?>
 
-<div class="msgbox" id="link">
-  <div class="msgboxtop">リンク集</div>
-
-  <div class="msgboxbody" style="text-align: center;">
-
-<!-- リンク集 -->
-
-<div class="tab_wrap">
-<input id="tabni" type="radio" name="tab_btn" checked>
-<input id="tabtw" type="radio" name="tab_btn">
-
-<div class="tab_area link_label">
-<span class="btn_item_5" style="border-top: medium solid thistle;border-left: medium solid thistle;padding:2px 0px 2px 2px;">
-	<label class="tabni_label btn_item_in" for="tabni" id="button" style="border-radius:10px 0px 0px 15px;margin:0px;">
-	<img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/nico_logo.png" width="25px"></label>
-</span>
-<span class="btn_item_5" style="border-top: medium solid thistle;border-right: medium solid thistle;padding:2px 2px 2px 0px;">
-	<label class="tabtw_label btn_item_in" for="tabtw" id="button" style="border-radius:0px 15px 15px 0px;margin:0px;">
-	<i class="fab fa-twitter"></i></label>
-</span>
-<span class="btn_item_5 under_line">
-	<a href="https://www.google.co.jp/search?q=<?php the_title(); ?>" rel="nofollow"  id="button" class="btn_item_in"><i class="fab fa-google"></i></a>
-</span>
-<span class="btn_item_5 under_line">
-	<a href="https://www.pixiv.net/search.php?s_mode=s_tc&amp;word=<?php the_title(); ?>" rel="nofollow"  id="button" class="btn_item_in">
-	<img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/pixiv_logo.jpg" width="25px"></a>
-</span>
-<span class="btn_item_5 under_line">
-	<a href="https://www.youtube.com/results?search_query=<?php the_title(); ?>" rel="nofollow" id="button" class="btn_item_in"><i class="fab fa-youtube"></i></a>
-</span>
-</div>
-
-
-<div class="panel_area">
-<div id="panelni" class="tab_panel">
-<!-- niconicoのタブの中身 -->
-<p class="tab_title">niconicoでさがす</p>
-<div class="tab_area_long">
-<?php
-$NicoTag = get_post_meta($post->ID,'NicoTag',true);
-if(is_singular( 'music_shiny' ) or is_singular( 'music_godo' ) or  is_singular( 'music_cover' )): //シャイニーカラーズまたは合同曲（MVがない）の場合
-?>
-<a href="http://www.nicovideo.jp/search/<?php the_title(); ?>" rel="nofollow" id="button" class="btn_item_long2">ワード</a>
-<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long2">タグ</a>
-<a href="http://dic.nicovideo.jp/a/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long2">大百科</a>
-<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?> アイマスRemix" rel="nofollow" id="button" class="btn_item_long2">Remix</a>
-<?php else //シンデレラガールズやミリオンライブの場合
-: ?>
-<a href="http://www.nicovideo.jp/search/<?php the_title(); ?>" rel="nofollow" id="button" class="btn_item_long">ワード</a>
-<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long">タグ</a>
-<a href="http://dic.nicovideo.jp/a/<?php echo $NicoTag; ?>" rel="nofollow" id="button" class="btn_item_long">大百科</a>
-<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?> アイマスRemix" rel="nofollow" id="button" class="btn_item_long">Remix</a>
-<a href="http://www.nicovideo.jp/tag/<?php echo $NicoTag; ?> <?php echo "$MV_Tag"; ?>" rel="nofollow" id="button" class="btn_item_long">MV</a>
-<?php endif; ?>
-</div>
-</div>
-
-<div id="paneltw" class="tab_panel">
-<!-- Twitterのタブの中身 -->
-<p class="tab_title">Twitterでさがす</p>
-<div class="tab_area_long">
-<a href="https://twitter.com/search?q=&quot;<?php the_title(); ?>&quot;" rel="nofollow" id="button" class="btn_item_long2">人気</a>
-<a href="https://twitter.com/search?q=&quot;<?php the_title(); ?>&quot;&f=live" rel="nofollow" id="button"class="btn_item_long2">最新</a>
-<a href="https://twitter.com/search?q=&quot;<?php the_title(); ?>&quot;&f=image" rel="nofollow" id="button"class="btn_item_long2">動画</a>
-<a href="https://twitter.com/search?q=&quot;<?php the_title(); ?>&quot;&f=video" rel="nofollow" id="button" class="btn_item_long2">画像</a>
-</div>
-</div>
-
-</div>
-
-</div>
-
-
-
-<?php $kasi_umu = get_post_meta($post->ID, 'kasi', true);?>
-<?php if(!empty($kasi_umu)):?>
-	<p class="tab_title">歌詞をみる</p>
-	<p><a href="<?php echo get_post_meta($post->ID, 'kasi', true); ?>" rel="nofollow" id="button">歌詞サイトでFULL歌詞を見る</a></p>
-<?php endif;?>
-
-  </div>
-  <div class="msgboxfoot">
-  </div>
-</div>
 
 <!--ここまで-->
 <div class="msgbox">
   <div class="msgboxtop">その他情報</div>
   <div class="msgboxbody">
 	<?php the_content();//ここがWPの本文とその前後に付随するプラグインの出力先になる。
+	get_template_part( 'template-parts/post/next-prev', get_post_type() );
 ?>
-<?php related_posts(); ?>
+<?php
+yarpp_related(array(
+	// 関連記事を表示する最大件数
+    'limit'    => 5, 
+    // ソート順を指定。 ソート順の対象と昇降順（ASCかDESC）を指定
+    'order'    => 'score DESC',
+    // 使用するテンプレートの名前を指定
+    //'template' => 'yarpp-template.php',
+		));
+?>
   </div>
   <div class="msgboxfoot">
   </div>
 </div>
 
-	</div><!-- [ /.entry-body ] -->
-</article>
-</div><!-- [ /.mainSection ] -->
 
-<div class="col subSection sideSection sideSection-col-two">
-<?php if(!wp_is_mobile()): //PC版ではジャケット画像をサイドバーに表示します。
-?>
-<?php if(have_posts()): while(have_posts()): the_post(); ?>
-    <?php if (has_post_thumbnail()) : ?>
-    <div class="case">
-      <div>
-        <div class="img">
-        <?php the_post_thumbnail( 'full' ); ?>
-        </div>
-      </div>
-    </div>
-    <?php endif ; ?>
-<?php endwhile; endif; ?>
-<?php endif; ?>
-
-<?php get_sidebar(get_post_type()); ?>
-
-
-</div><!-- [ /.subSection ] -->
-
-</div><!-- [ /.row ] -->
-</div><!-- [ /.container ] -->
-</div><!-- [ /.siteContent ] -->
-<?php get_footer(); ?>
+</div>

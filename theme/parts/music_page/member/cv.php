@@ -15,22 +15,29 @@ $chara = SCF::get_term_meta( $term_id, $taxonomy, 'chara_name' );
 //$solo_temp = get_query_var('solo_temp');
 
 if($content == 'cg'){
-    $idol_dir = 'cinderella';
+    $idolpic_dir = 'cinderella';
 }elseif($content == 'ml'){
-    $idol_dir = 'millionlive';
+    $idolpic_dir = 'millionlive';
 }elseif($content == 'cg'){
-    $idol_dir = 'shinycolors';
+    $idolpic_dir = 'shinycolors';
 }
 
 //出力
-echo '<div class="idol"><a href="'.$link.'"><div class="idolicon" style="background:'.$idol_color.';position: relative;"><img src="'.$upload_dir['baseurl'].'/idol/'.$idol_dir.'/'.$idol_term.'.png"" title="'.$term->term_id.'">';
-echo '<p class="fuchidori solo" title="声優名義">声</p>';
-echo '</div>';
-echo "\n";
-echo '<div class="info"><div class="idolname"><a href="'.$link.'">'.esc_html($term->name).'</a></div>';
-echo "\n";
-echo '<div class="moreinfo">'.$chara.'役</div></div></div>';
-echo "\n";
+
+echo '<div class="col-sm-6 col-md-4 idol_card">
+<a href="' . $link . '" class="card">
+<div class="row no-gutters">
+  <img class="col-auto bd-placeholder-img idol_icon" img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/'.$idol_term.'.png" style="background:'.$idol_color.';">
+    <div class="badge badge-info icon_badge">声優</div>
+    <div class="col">
+<div class="card-body">
+<h5 class="card-title">'.$term->name.'</h5>
+<p class="card-text">'.$chara.'役</p>
+</div></div>
+</div></a></div>
+';
+
+
     }
 echo "</div>";
 }

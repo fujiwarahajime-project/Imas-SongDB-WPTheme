@@ -25,8 +25,21 @@ $(function() {
     $searchInput.on('load keyup blur', function() {
         extraction();
     });
+    <?php
+    if(isset($_GET['word']) AND preg_match( "/[ぁ-ん]+|[ァ-ヴー]+|[一-龠]/u", $_GET['word']) AND !(preg_match("/[a-z0-9ａ-ｚＡ-Ｚ０-９]/u",$_GET['word']))){
+        echo 'document.getElementById( "textarea" ).value = "'.htmlspecialchars ($_GET['word']).'" ;';
+        echo 'extraction();';
+    }
+    ?>
 });
 </script>
+
+<style>
+/* Webフォントを使うと絶望的に重くなるのでその対策 */
+.setlist_card{
+    font-family:"BIZ UDPGothic","Hiragino Kaku Gothic Pro","ヒラギノ角ゴ Pro W3","メイリオ",Meiryo,"ＭＳ Ｐゴシック" !important;
+}
+</style>
 
 <p>
 登録してあるセットリストを全表示しています。<br>
@@ -66,14 +79,25 @@ if ( count( $terms ) != 0 ) {
         // タームのURLを取得
         $term = sanitize_term( $term, $taxonomy );
         $term_link = get_term_link( $term, $taxonomy );
-        if ( is_wp_error( $term_link ) ) {
-            continue;
-        }
+
 				$place = get_field('place', $term);
                 $live_bd = get_field('shop', $term);
-                if(count(SCF::get_term_meta( $term, $taxonomy, 'setlist' )) >= 2){
-                $setlist = SCF::get_term_meta( $term, $taxonomy, 'setlist' ); //セットリスト判定
-                $setlist_hide = array_search("term", SCF::get_term_meta( $term, $taxonomy, 'hide_setlist' ));
+
+                    unset($setlist_id);
+                    foreach (SCF::get_term_meta($term, $taxonomy, 'same_setlist') as $s_temp) {
+                        if(!empty($s_temp)){
+                          $setlist_id = $s_temp;
+                          }
+                      }
+
+
+                    if(empty($setlist_id)){
+                        $setlist_id = $term;
+                    }
+    
+                if(count(SCF::get_term_meta( $setlist_id, $taxonomy, 'setlist' )) >= 2){
+                $setlist = SCF::get_term_meta( $setlist_id, $taxonomy, 'setlist' ); //セットリスト判定
+                $setlist_hide = array_search("term", SCF::get_term_meta( $setlist_id, $taxonomy, 'hide_setlist' ));
                 if(!($setlist_hide !== false)){
         
                 foreach ($setlist as $fields ) {

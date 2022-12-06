@@ -1,92 +1,6 @@
-﻿<style type="text/css">
+﻿<div class="container">
+  <div class="row idollist">
 
-
-@media screen and (min-width:641px) {
-  /*　横幅1201px以上（PCフル表示などの場合）は3列表示　*/
-  .idol {width:50%;}
-  .solocolle .idol {width:50%;}
-  :root{
-  --idolpic: 100px;
-  }
-  .idolname{
-    margin:3px 3px;
-  }
-  .moreinfo{
-    margin:3px 3px;
-  }
-
-}
-
-@media screen and (max-width: 640px) { 
-  /*　横幅520px以下（スマホなど）は1列表示　*/
-  .idol {width:100%;}
-  :root{
-  --idolpic: 90px;
-  }
-  .idolname{
-    margin:2px 2px;
-  }
-  .moreinfo{
-    margin:7px 7px;
-  }
-}
-
-@-moz-document url-prefix(){
-  /*Firefox*/
-  .idolname{
-    margin:7px 5px;
-  }
-  .moreinfo{
-    margin:2px 2px;
-  }
-}
-
-.idollist{/* フレックスボックスにする */
-  display: flex;
-  flex-wrap: wrap;
-}
-.idol{/* アイテムの外枠、全体フォントに関する設定 */
-  height:calc(var(--idolpic) + 2px);
-  border:solid 1px darkgray;
-  border-radius:2px;
-}
-.idolicon{/* アイコンに関する設定（バックグラウンドは、アイドルのテーマカラーを指定しなかったときのみ使用されます） */
-  background:linear-gradient(lightgray,gray);
-  float:left;
-  padding:8px;
-  height:var(--idolpic);
-  margin-bottom:0px;
-  display:block;
-}
-.idolname{/* アイドルの名前まわりのスタイル設定 */
-  font-size:20px;
-  border-bottom:dotted 2px gray;
-  font-weight: bold;
-}
-
-.info{
-  margin-left:var(--idolpic);
-}
-
-.count{
-    text-align: right;
-}
-
-.cv{
-    float: left;
-}
-
-.entry-body h2{
-  margin-bottom:0px;
-}
-
-.unitpic{
-  height:40px;
-  margin-right:10px;
-}
-</style>
-
-<div class="idollist">
 <?php
 // カスタム分類名
 $taxonomy = 'cv';
@@ -102,7 +16,7 @@ $args = array(
     'hide_empty' => true,
    //並び順
 'orderby' => $orderby,
-'order' => DESC,
+'order' => 'DESC',
 );
 
 // カスタム分類のタームのリストを取得
@@ -134,26 +48,23 @@ if($content == 'cg'){
 $idol_term = get_field('idol-thum', $term);
 $idol_color = get_field('idol_color', $term);
 $count = $term->count;
-$chara = SCF::get_term_meta( $term_id, $taxonomy, 'chara_name' );
+$chara = get_field('chara_name',$term);
 
-
-        echo '<div class="idol">';
-        echo PHP_EOL;
-        echo '  <a href="' . esc_url( $term_link ) . '">';
-        echo PHP_EOL;
-        echo '  <img src="'.$upload_dir['baseurl'].'/idol/'.$idol_dir.'/'.$idol_term.'.png" class="idolicon" style="background:'.$idol_color.';">';
-        echo PHP_EOL;
-        echo '  <div class="info"><p class="idolname">'.$term->name.'</a></p>';
-        echo PHP_EOL;
-        echo '  <div class="moreinfo"><p class="cv">'.$chara.'役</p>';
-        echo PHP_EOL;
-        echo '  <p class="count">'.$count.'</p></div></div>';
-        echo PHP_EOL;
-        echo '</div>';
-        echo PHP_EOL;
+echo '
+<div class="col-sm-6 col-md-4 idol_card" data-sort="'.$count.'">
+<a href="' . esc_url( $term_link ) . '" class="card">
+<div class="row no-gutters">
+  <img class="col-auto bd-placeholder-img idol_icon" src="'.$upload_dir['baseurl'].'/idol/'.$idol_dir.'/'.$idol_term.'"  style="background:'.$idol_color.';">
+<div class="col">
+<div class="card-body">
+<h5 class="card-title">'.$term->name.'</h5>
+<p class="card-text">'.$chara.'役</p>
+</div></div>
+</div></a></div>
+';
 
 
 //最後の処理
 }}
 ?>
-</div>
+</div></div>

@@ -71,22 +71,22 @@ $name_data = array_unique($name_data);
 foreach ($name_data as $name){
   echo '<tr class="setlist_card"><td>'.$name.'<td>';
   //作詞情報
-  if(!empty(${$name}[lyrics])){
-    echo '<a href="'.get_term_link(${$name}[lyrics][id]).'">'.${$name}[lyrics][count].'</a>';
+  if(!empty(${$name}["lyrics"])){
+    echo '<a href="'.get_term_link(${$name}["lyrics"]["id"]).'">'.${$name}["lyrics"]["count"].'</a>';
   }else{
     echo '-';
   }
   echo '</td><td>';
   //作曲情報
-  if(!empty(${$name}[composer])){
-    echo '<a href="'.get_term_link(${$name}[composer][id]).'">'.${$name}[composer][count].'</a>';
+  if(!empty(${$name}["composer"])){
+    echo '<a href="'.get_term_link(${$name}["composer"]["id"]).'">'.${$name}["composer"]["count"].'</a>';
   }else{
     echo '-';
   }
   echo '</td><td>';  
   //編曲情報
-  if(!empty(${$name}[arrange])){
-    echo '<a href="'.get_term_link(${$name}[arrange][id]).'">'.${$name}[arrange][count].'</a>';
+  if(!empty(${$name}["arrange"])){
+    echo '<a href="'.get_term_link(${$name}["arrange"]["id"]).'">'.${$name}["arrange"]["count"].'</a>';
   }else{
     echo '-';
   }
