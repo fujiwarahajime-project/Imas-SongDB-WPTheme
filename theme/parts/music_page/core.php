@@ -16,6 +16,8 @@ $idollist_type = get_post_type($remix_id);
 //リミックスの場合データを上書き
 if(is_singular( 'music_remix' )){
 	$ryakusyou = 'リミックス';
+}else{
+	$ryakusyou = "アイドルマスター";
 }
 $site_twitter = 'fujiwarahaji_me';//＠をはぶくこと
 $creator_twitter = 'fujiwarahaji_me';//＠をはぶくこと
@@ -39,17 +41,23 @@ $upload_dir = wp_upload_dir();//WPのアップロードファイルのディレ�
 <meta property="og:image" content="<?php if ( has_post_thumbnail() ) {
 	$image_id = get_post_thumbnail_id ();
 	$image_url = wp_get_attachment_image_src ($image_id, true);
-	echo $image_url[0];
+	//echo $image_url[0];
+	echo get_stylesheet_directory_uri().'/resources/default.png';
+
 } else {
-	echo get_bloginfo( 'template_directory' ) . '/images/thumbnail.png';
+	//echo get_bloginfo( 'template_directory' ) . '/images/thumbnail.png';
+	echo get_stylesheet_directory_uri().'/resources/default.png';
+
 } ?>
 ">
 <meta property="thumbnail" content="<?php if ( has_post_thumbnail() ) {
 	$image_id = get_post_thumbnail_id ();
 	$image_url = wp_get_attachment_image_src ($image_id, true);
-	echo $image_url[0];
+	//echo $image_url[0];
+	echo get_stylesheet_directory_uri().'/resources/default.png';
+
 } else {
-	echo get_bloginfo( 'template_directory' ) . '/images/thumbnail.png';
+	echo get_stylesheet_directory_uri().'/resources/default.png';
 } ?>
 ">
 
@@ -82,7 +90,7 @@ if(is_singular( 'music_remix' )){
 ?>
 	</header>
 
-<?php get_template_part('share'); ?>
+<?php get_template_part('parts/share'); ?>
 
 <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 <div class="entry-body">

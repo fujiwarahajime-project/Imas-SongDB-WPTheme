@@ -1,13 +1,12 @@
 ﻿
-
 <?php
 date_default_timezone_set('Asia/Tokyo');
 $today_live = get_terms('live',array('hide_empty'=>FALSE,'search'=>date("Y-m-d"),));
 
 $today_cont = strtotime(date('Y-m-d H:i'));
-if ($today_cont >= strtotime(/* 開始時間→ */'2021-06-15 0:00') AND $today_cont < strtotime(/* 終了時間→ */'2021-06-16 0:00') )
+if ($today_cont >= strtotime(/* 開始時間→ */'2022-06-15 0:00') AND $today_cont < strtotime(/* 終了時間→ */'2022-06-16 0:00') )
 {
-get_template_part('parts/kikaku/birthday_2021');
+get_template_part('parts/kikaku/birthday_2022');
 }
 
 
@@ -35,12 +34,14 @@ if(!empty($tomorrow_live)){
   ';
 }
 ?>
+<script async src="https://cse.google.com/cse.js?cx=b3d5f4139c0168e80"></script>
+<div class="gcse-search"></div>
 
 
 <div class="container top_menu">
     <div class="row">
 
-        <div class="col-xs-4 col-sm-3 col-md-2">
+        <div class="col-6 col-sm-3 col-md-2">
           <a href="<?php echo get_permalink("355");?>">
             <div class="card text-center">
               <div class="card-block">
@@ -51,7 +52,7 @@ if(!empty($tomorrow_live)){
           </a>
         </div>
 
-        <div class="col-xs-4 col-sm-3 col-md-2">
+        <div class="col-6 col-sm-3 col-md-2">
           <a href="<?php echo get_permalink("359");?>">
             <div class="card text-center">
               <div class="card-block">
@@ -62,7 +63,7 @@ if(!empty($tomorrow_live)){
           </a>
         </div>
 
-        <div class="col-xs-4 col-sm-3 col-md-2">
+        <div class="col-6 col-sm-3 col-md-2">
           <a href="<?php echo get_permalink("363");?>">
             <div class="card text-center">
               <div class="card-block">
@@ -74,7 +75,7 @@ if(!empty($tomorrow_live)){
         </div>
 
         
-        <div class="col-xs-4 col-sm-3 col-md-2">
+        <div class="col-6 col-sm-3 col-md-2">
           <a href="<?php echo get_permalink("374");?>">
             <div class="card text-center">
               <div class="card-block">
@@ -86,7 +87,7 @@ if(!empty($tomorrow_live)){
         </div>
 
         
-        <div class="col-xs-4 col-sm-3 col-md-2">
+        <div class="col-6 col-sm-3 col-md-2">
           <a href="<?php echo get_permalink("881");?>">
             <div class="card text-center">
               <div class="card-block">
@@ -97,7 +98,7 @@ if(!empty($tomorrow_live)){
           </a>
         </div>
 
-        <div class="col-xs-4 col-sm-3 col-md-2">
+        <div class="col-6 col-sm-3 col-md-2">
           <a href="<?php echo get_permalink("568");?>">
             <div class="card text-center">
               <div class="card-block">
@@ -124,7 +125,7 @@ if(!empty($tomorrow_live)){
 <div class="container top_menu_sub">
     <div class="row">
 
-        <div class="col-xs-4 col-sm-3 col-md-2">
+        <div class="col-6 col-sm-3 col-md-2">
           <a href="<?php echo get_permalink("1007");?>">
             <div class="card text-center">
               <div class="card-block">
@@ -135,7 +136,7 @@ if(!empty($tomorrow_live)){
           </a>
         </div>
 
-        <div class="col-xs-4 col-sm-3 col-md-2">
+        <div class="col-6 col-sm-3 col-md-2">
           <a href="<?php echo get_permalink("3147");?>">
             <div class="card text-center">
               <div class="card-block">
@@ -146,7 +147,18 @@ if(!empty($tomorrow_live)){
           </a>
         </div>
 
-        <div class="col-xs-4 col-sm-3 col-md-2">
+        <!--<div class="col-6 col-sm-3 col-md-2">
+          <a href="<?php echo get_permalink("4921");?>">
+            <div class="card text-center">
+              <div class="card-block">
+                <i class="fas fa-mobile-alt bd-placeholder-img card-img-top fa-5x "></i>
+                <span class="card-title">ふじわらはじめアプリ</span>
+              </div>
+            </div>
+          </a>
+        </div>-->
+
+        <div class="col-6 col-sm-3 col-md-2">
           <a href="<?php echo get_permalink("720");?>">
             <div class="card text-center">
               <div class="card-block">

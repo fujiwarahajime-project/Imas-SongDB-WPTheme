@@ -1,6 +1,6 @@
 ﻿<?php
 //APIのエンドポイント指定
-$endpoint = 'https://api.fujiwarahaji.me/v1/';
+$endpoint = 'https://api.fujiwarahaji.me/v2/';
 
 if(is_singular(array('music_cg','music_ml','music_shiny','music_as','music_godo','music_cover'))){
     //曲の場合

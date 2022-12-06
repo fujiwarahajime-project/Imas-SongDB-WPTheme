@@ -25,10 +25,15 @@ if(!($setlist_hide !== false) or is_admin_bar_showing()){
     本番環境で表示する場合には編集画面から「term」のチェックボックスを操作してください。</span>';
     echo '<table class="setlist" style="border:10px solid red;">';
   }else{
+    //通常表示のときループを消す
+    add_filter( 'lightning_is_extend_loop', function( $return ){
+      return true;
+    });
     echo '<table class="setlist"><tbody>';
   }
-  echo PHP_EOL;
-  echo '<tr><th>曲名</th><th>アイドル</th></tr>';
+
+  echo '
+  <tr><th>曲名</th><th>アイドル</th></tr>';
 
 
 $setlist = SCF::get_term_meta( $term_id, $taxonomy, 'setlist' );

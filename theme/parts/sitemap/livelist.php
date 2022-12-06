@@ -48,13 +48,13 @@ $(function() {
 
 
 <!-- カレンダーをCDNから引っ張り出す -->
-<link href='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.css' rel='stylesheet' />
-<link href='https://unpkg.com/@fullcalendar/daygrid@4.3.0/main.min.css' rel='stylesheet' />
-<link href='https://unpkg.com/@fullcalendar/list@4.3.0/main.min.css' rel='stylesheet' />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.css' rel='stylesheet' />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.css' rel='stylesheet' />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/list/main.min.css' rel='stylesheet' />
 
-<script src='https://unpkg.com/@fullcalendar/core@4.3.1/main.min.js'></script>
-<script src='https://unpkg.com/@fullcalendar/list@4.3.0/main.min.js'></script>
-<script src='https://unpkg.com/@fullcalendar/daygrid@4.3.0/main.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/core/main.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/daygrid/main.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/4.2.0/list/main.min.js'></script>
 
 <h2>イベントカレンダー</h2>
 <div id='calendar'></div>
@@ -78,7 +78,12 @@ $args = array(
     'pad_counts' => true,
   
     // 投稿記事がないタームも取得
-    'hide_empty' => false
+    'hide_empty' => false,
+
+    //逆順
+    'order'         => 'DESC',
+
+
 );
 
 // カスタム分類のタームのリストを取得
@@ -147,6 +152,7 @@ document.addEventListener('DOMContentLoaded', function() {
       center: 'title',
       right: 'prev,next'
     },
+    nowIndicator: true,
     buttonText: {
       today:    '今日',
       month:    '月',

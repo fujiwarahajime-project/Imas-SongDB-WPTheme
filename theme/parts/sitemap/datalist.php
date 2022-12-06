@@ -62,6 +62,7 @@ $("#tablesort").tablesorter();
 <div class="item music_godo">合同曲</div>
 <div class="item music_cover">アイマス外からの曲</div>
 </div>
+
 <table id="tablesort" class="tablesorter">
 <thead>
 <tr>
@@ -104,7 +105,7 @@ if ( $the_query->have_posts() ) :
 echo "○";
 } else {
 echo "";
-}?></td>
+} ?></td>
 <td><?php
 if(!empty(get_the_terms($post->ID,'idol_cg'))){
 $cg_count = count(get_the_terms($post->ID,'idol_cg'));}

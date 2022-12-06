@@ -172,11 +172,16 @@ https://opensource.org/licenses/mit-license.php
   }
   
   .box_sc .msgboxtop:before{
-    content:"";
-    display:inline-block;
-    width: 20px;
-    height:20px;
-    vertical-align:middle;
+    content:"\1FAB6";
+    color: transparent;
+    text-shadow: 0 0 0 gray;
+  }
+  .box_sc .msgboxtop:after{
+    content:"\2728";
+    color: transparent;
+    text-shadow: 0 0 0 #f2f2f2;
+    position:absolute;
+    right:10px;
   }
   
   .box_sc .msgboxbody{
@@ -241,7 +246,8 @@ https://opensource.org/licenses/mit-license.php
   .amazonjs_item .amazonjs_info a:visited { color:#f78f1e; }
   .amazonjs_item .amazonjs_info a:hover { color:#8253d7; }
   .amazonjs_item .amazonjs_info a:active { color:#6a3cbc; }
-  
+
+
   .cdinfo{
     height:auto;
   }
@@ -295,6 +301,9 @@ https://opensource.org/licenses/mit-license.php
     border-bottom: none;
   }
   
+  .tax-live .main-section-no-posts{
+    display:none;
+  }
   /* ライブセットリストのスマホ対応 */
   @media screen and (max-width : 750px) {
     /* ヘッダー削除 */
@@ -306,10 +315,34 @@ https://opensource.org/licenses/mit-license.php
     }
     /* 曲名欄の装飾 */
     .setlist td:nth-child(1) {
-      margin-top:20px;
-      background-color: lavender;
+      margin-top:5px;
       font-size: 1.05em;
       font-weight:bold;
+      background-color: lavender;
+      border-width: 0;
+    }
+
+    .setlist td:nth-child(2) {
+      border-width : 0px 3px 3px;
+      border-color: lavender;
+    }
+
+    /* 奇数偶数での色分け */
+    /*
+    .setlist tr:nth-child(even) td:nth-child(1) {
+      background-color: lavender;
+    }
+    .setlist tr:nth-child(even) td:nth-child(2) {
+      
+    }
+    .setlist tr:nth-child(odd) td:nth-child(1) {
+      background-color: lavender;
+    }
+    */
+
+    /*サムネイルを小さくする*/
+    .setlist .idolicon{
+      max-height: 62px !important;
     }
   }
   
@@ -681,6 +714,9 @@ div.setlist_tooltip .setlist {
 }
 
 /* セットリストのアイコン */
+.idolicon_link{
+  vertical-align:middle;
+}
 .tax-live .idolicon{
   max-height: 70px;
   background:linear-gradient(lightgray,gray);
@@ -701,4 +737,12 @@ div.setlist_tooltip .setlist {
   float:left;
   display:block;
   padding: 3px;
+}
+
+/* サブスク */
+.subscription_yt .arve-iframe{
+  max-height: 110px;
+}
+.subscription_yt .arve{
+  max-height: 110px;
 }

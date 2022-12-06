@@ -144,35 +144,35 @@ $(function() {
 <form>
 <div class="container">
 <div class="search-box row">
-  <div class="form-check custom-control custom-checkbox col-xs-6 col-md-3">
+  <div class="form-check custom-control custom-checkbox col-6 col-md-3">
 		<input type="checkbox" class="custom-control-input" name="brand" value="music_cg" id="checkcg">
     <label class="custom-control-label check_cg" for="checkcg">シンデレラガールズ曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-xs-6 col-md-3">
+  <div class="custom-control custom-checkbox col-6 col-md-3">
     <input type="checkbox" class="custom-control-input" name="brand" value="music_ml" id="checkml">
     <label class="custom-control-label check_ml" for="checkml">ミリオンライブ！曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-xs-6 col-md-3">
+  <div class="custom-control custom-checkbox col-6 col-md-3">
 		<input type="checkbox" class="custom-control-input" name="brand" value="music_shiny" id="checksc">
     <label class="custom-control-label check_sc" for="checksc">シャイニーカラーズ曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-xs-6 col-md-3">
+  <div class="custom-control custom-checkbox col-6 col-md-3">
 		<input type="checkbox" class="custom-control-input" name="brand" value="music_as" id="checkas">
     <label class="custom-control-label check_as" for="checkas">765AS曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-xs-6 col-md-3">
+  <div class="custom-control custom-checkbox col-6 col-md-3">
     <input type="checkbox" class="custom-control-input" name="brand" value="music_sidem" id="checkm">
     <label class="custom-control-label check_sidem" for="checkm">SideM曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-xs-6 col-md-3">
+  <div class="custom-control custom-checkbox col-6 col-md-3">
 		<input type="checkbox" class="custom-control-input" name="brand" value="music_godo" id="checkjo">
     <label class="custom-control-label check_jo" for="checkjo">合同曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-xs-6 col-md-3">
+  <div class="custom-control custom-checkbox col-6 col-md-3">
     <input type="checkbox" class="custom-control-input" name="brand" value="music_cover" id="checkco">
     <label class="custom-control-label check_co" for="checkco">カバー曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-xs-6 col-md-3">
+  <div class="custom-control custom-checkbox col-6 col-md-3">
 		<input type="checkbox" class="custom-control-input" name="brand" value="music_remix" id="checkrm">
     <label class="custom-control-label check_rm" for="checkrm">リミックス曲</label>
   </div>
@@ -186,21 +186,26 @@ $(function() {
 <form>
 <div class="container">
 <div class="search-box row">
-  <div class="form-check custom-control custom-checkbox col-xs-6 col-md-3">
+  <div class="form-check custom-control custom-checkbox col-6 col-md-3">
 		<input type="checkbox" class="custom-control-input" name="musictype" value="solo" id="checksolo">
     <label class="custom-control-label" for="checksolo">ソロ曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-xs-6 col-md-3">
+  <div class="custom-control custom-checkbox col-6 col-md-3">
     <input type="checkbox" class="custom-control-input" name="musictype" value="unit" id="checkunit">
     <label class="custom-control-label" for="checkunit">ユニット曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-xs-6 col-md-3">
+  <div class="custom-control custom-checkbox col-6 col-md-3">
 		<input type="checkbox" class="custom-control-input" name="musictype" value="zentai" id="checkzentai">
     <label class="custom-control-label" for="checkzentai">全体曲</label>
   </div>
 </div>
 </div>
 </form>
+
+<?php
+if(wp_is_mobile()){
+  get_template_part('ad/musiclist');
+}?>
 
 <div class="musiclist list">
 <ul class="listwrap list-group list-group-flush">

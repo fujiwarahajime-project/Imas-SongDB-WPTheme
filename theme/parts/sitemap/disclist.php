@@ -26,6 +26,8 @@ $disc_series = array(
     array("name"=>"THE@TER BOOST" , "word"=>"THE IDOLM@STER THE@TER BOOST" , "type"=>"ml") ,
     array("name"=>"MILLION THE@TER WAVE" , "word"=>"THE IDOLM@STER MILLION THE@TER WAVE" , "type"=>"ml") ,
     array("name"=>"THE@TER CHALLENGE" , "word"=>"THE IDOLM@STER THE@TER CHALLENGE" , "type"=>"ml") ,
+    array("name"=>"THE@TER SEASON" , "word"=>"THE IDOLM@STER MILLION THE@TER SEASON" , "type"=>"ml") ,
+    array("name"=>"THE@TER VARIETY" , "word"=>"THE IDOLM@STER MILLION THE@TER VARIETY" , "type"=>"ml") ,
     array("name"=>"LIVE THE@TER SOLO COLLECTION（ソロコレ）" , "word"=>"THE IDOLM@STER LIVE THE@TER SOLO COLLECTION" , "type"=>"ml") ,
     array("name"=>"ゲッサン版ミリオンライブ！" , "word"=>"ゲッサン版ミリオンライブ！" , "type"=>"ml") ,
     array("name"=>"Blooming Clover" , "word"=>"アイドルマスター ミリオンライブ！ Blooming Clover" , "type"=>"ml") ,
@@ -37,6 +39,8 @@ $disc_series = array(
     array("name"=>"GR@DATE WING" , "word"=>"THE IDOLM@STER SHINY COLORS GR@DATE WING" , "type"=>"sc") ,
     array("name"=>"COLORFUL FE@THERS" , "word"=>"THE IDOLM@STER SHINY COLORS COLORFUL FE@THERS -" , "type"=>"sc") ,
     array("name"=>"L@YERED WING" , "word"=>"THE IDOLM@STER SHINY COLORS L@YERED WING " , "type"=>"sc") ,
+    array("name"=>"PANOR@MA WING" , "word"=>"THE IDOLM@STER SHINY COLORS PANOR@MA WING " , "type"=>"sc") ,
+    array("name"=>"Synthe-Side" , "word"=>"THE IDOLM@STER SHINY COLORS Synthe-Side " , "type"=>"sc") ,
     array("name"=>"SOLO COLLECTION（ソロコレ）" , "word"=>"THE IDOLM@STER SHINY COLORS SOLO COLLECTION" , "type"=>"sc") ,
     array("name"=>"その他シャイニーカラーズ" , "word"=>"THE IDOLM@STER SHINY COLORS" , "type"=>"sc") ,
 
@@ -49,11 +53,14 @@ $disc_series = array(
     array("name"=>"MASTERPIECE" , "word"=>"THE IDOLM@STER MASTERPIECE" , "type"=>"as") ,
     array("name"=>"映画関係" , "word"=>"THE IDOLM@STER MOVIE" , "type"=>"as") ,
     array("name"=>"映画関係" , "word"=>"劇場版『THE IDOLM@STER MOVIE 輝きの向こう側へ" , "type"=>"as") ,
-
+    array("name"=>"PLATINUM MASTER" , "word"=>"THE IDOLM@STER PLATINUM MASTER" , "type"=>"as") ,
     array("name"=>"STELLA MASTER" , "word"=>"THE IDOLM@STER STELLA MASTER" , "type"=>"as") ,
 
     array("name"=>"MOIW関係" , "word"=>"THE IDOLM@STER M@STERS OF IDOL WORLD!!" , "type"=>"joint") ,
     array("name"=>"なんどでも笑おう" , "word"=>"なんどでも笑おう" , "type"=>"joint") ,
+    array("name"=>"STARLIT SEASON" , "word"=>"THE IDOLM@STER STARLIT SEASON" , "type"=>"joint") ,
+    array("name"=>"VOY@GER" , "word"=>"VOY@GER" , "type"=>"joint") ,
+
 
     array("name"=>"デレパ" , "word"=>"CINDERELLA PARTY!" , "type"=>"radio") ,
     array("name"=>"作者によるカバー" , "word"=>"☆" , "type"=>"cover") ,

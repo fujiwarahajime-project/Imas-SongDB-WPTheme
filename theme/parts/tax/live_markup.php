@@ -2,7 +2,7 @@
 $term_id = get_queried_object_id(); // タームIDの取得
 $term_idmenu = $taxonomy.'_'; //「taxonomyname_ + termID」を取得
 
-$title = preg_replace('/\d{4}\-\d{1,2}\-\d{1,2}/', '' , get_the_archive_title() );
+$title = preg_replace('/\d{4}\-\d{1,2}\-\d{1,2}\s/', '' , get_the_archive_title() );
 
 preg_match('/\d{4}\-\d{1,2}\-\d{1,2}/' , get_the_archive_title(), $date_match);
 $day = array_shift($date_match);

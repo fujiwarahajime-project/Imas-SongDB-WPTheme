@@ -24,21 +24,60 @@ echo '<meta name="theme-color" content="#7272b4">';
 <!-- OGP -->
 <?php get_template_part('parts/allpage/ogp/core'); ?>
 <!-- マニフェスト -->
-<link rel="manifest" href="<?php echo get_stylesheet_directory_uri(); ?>/resources/PWA_manifest.json">
-<!-- Gアナリティクス -->
+<?php if (preg_match('/iPhone|iPod|iPad/iu', $_SERVER['HTTP_USER_AGENT'])){
+	echo '<link href="/splashscreens/iphone5_splash.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="/splashscreens/iphone6_splash.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="/splashscreens/iphoneplus_splash.png" media="(device-width: 621px) and (device-height: 1104px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+	<link href="/splashscreens/iphonex_splash.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+	<link href="/splashscreens/iphonexr_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="/splashscreens/iphonexsmax_splash.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3)" rel="apple-touch-startup-image" />
+	<link href="/splashscreens/ipad_splash.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="/splashscreens/ipadpro1_splash.png" media="(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="/splashscreens/ipadpro3_splash.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<link href="/splashscreens/ipadpro2_splash.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2)" rel="apple-touch-startup-image" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-touch-fullscreen" content="yes" />
+	<meta name="apple-mobile-web-app-status-bar-style" content="default">
+	';
+	$pwa_manifest = 'PWA_manifest_iOS.json';
+}else{
+	$pwa_manifest = 'PWA_manifest.json';
+} ?>
+<link rel="manifest" href="<?php echo get_stylesheet_directory_uri(); ?>/resources/<?php echo $pwa_manifest; ?>">
 <script>
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./pwa.js').then(function(registration) {
+        console.log('SW OK.');
+    }).catch(function(err) {
+        console.log('SW Error.');
+    });
+  }
+</script>
+
+<!-- Gアナリティクス -->
 	<?php if(!is_user_logged_in()){
 		//ログインしているときは出力しない
-		echo "
+		echo "<script>
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
 m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 ga('create', 'UA-101017535-1', 'fujiwarahaji.me');
-ga('send', 'pageview');";
+ga('send', 'pageview');
+
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+
+gtag('config', 'G-FN2BN6562G');
+</script>
+".'<script async src="https://www.googletagmanager.com/gtag/js?id=G-FN2BN6562G"></script>
+
+';
 	}?>
 
 
+<script>
 // <![CDATA[
 var trackOutboundLink = function(url) {
  ga('send', 'event', 'outbound', 'click', url, {
@@ -47,6 +86,8 @@ var trackOutboundLink = function(url) {
  });
 }
 // ]]></script>
+
+
 <?php } //ここまでheader
 add_action( 'wp_head', 'add_wp_head_custom',1);
 
@@ -256,9 +297,11 @@ function itunes($atts) {
 		//'<iframe src="https://tools.applemusic.com/embed/v1/song/'.$song_id.'?country=jp&at=1001lM5U" width="100%" height="110px" frameborder="0"></iframe>'
 		//.PHP_EOL.
 		//iTunesのロゴだけ表示するやつ（味気ない）
-		'<a href="https://music.apple.com/jp/album/'.$album_id.'?i='.$song_id.'&app=itunes&at=1001lM5U" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/ja-jp/badge-lrg.svg?releaseDate=2018-06-27T00:00:00Z&kind=song&bubble=itunes_music) no-repeat;width:140px;height:41px;"></a>'
+		//'<a href="https://music.apple.com/jp/album/'.$album_id.'?i='.$song_id.'&app=itunes&at=1001lM5U" style="display:inline-block;overflow:hidden;background:url(https://linkmaker.itunes.apple.com/ja-jp/badge-lrg.svg?releaseDate=2018-06-27T00:00:00Z&kind=song&bubble=itunes_music) no-repeat;width:140px;height:41px;"></a>'
 		// AppleMusicの単曲のやつ（試聴できないけどここらが落とし所）
 		//'<iframe src="https://embed.music.apple.com/jp/album/'.$album_id.'?i='.$song_id.'&amp;app=music&amp;itsct=music_box&amp;itscg=30200&amp;at=1001lM5U&amp;ls=1" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation" allow="autoplay *; encrypted-media *;" style="width: 100%; max-width: 800px; overflow: hidden; border-radius: 10px; background: transparent none repeat scroll 0% 0%;" height="150px" frameborder="0"></iframe>'
+		// サブスク配信
+		'<iframe allow="autoplay *; encrypted-media *;" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/jp/album/'.$album_id.'?i='.$song_id.'&app=music" height="150" frameborder="0"></iframe>'
 		.PHP_EOL;
 }
 add_shortcode('itunes', 'itunes');
@@ -308,17 +351,6 @@ add_filter('lightning_archive-header', 'archive_header');
 //ターム説明の削除
 remove_filter('lightning_archive_description', 'archive_header');
 
-//ライブセトリ表示
-add_filter( 'lightning_is_extend_loop', function( $return ){
-    // 改変するアーカイブページを指定
-    if ( is_tax('live') ){
-        // ループエリアの改変を有効にする
-		return true;
-    }else{
-		return false;
-	}
-} );
-
 add_action( 'lightning_loop_before', function(){
 	if ( is_tax('live') ){
 		get_template_part('parts/tax/live_setlist');
@@ -357,6 +389,15 @@ add_filter( 'lightning_is_entry_footer', function( $return ){
 	return false;
 });
 
+//CDページではメインループの出力を逆にする
+function disc_loop( $query ) {
+	if ( is_tax('disc') ) {
+		$query->set('order', 'ASC');
+  	}
+}
+add_action( 'pre_get_posts', 'disc_loop' );
+
+
 //AmazonJS代替
 // functions.php
 
@@ -368,8 +409,10 @@ function amazonLink($atts) {
         'title1' => '関連商品',
     ), $atts);
     return '
+
+<div class="card amazonjs_item m-0">
+<div class="amazonjs_info">
 <a target="_blank" href="https://www.amazon.co.jp/dp/'.$atts['asin'].'/ref=as_sl_pc_tf_til?tag=fujiwarahajime-22&linkCode=w00&linkId=&creativeASIN='.$atts['asin'].'">
-<div class="card mb-3">
   <div class="row no-gutters">
     <div class="bd-placeholder-img col-auto d-flex align-items-center">
       <img src="//ws-fe.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN='.$atts['asin'].'&Format=_SL110_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=fujiwarahajime-22&language=ja_JP">
@@ -380,7 +423,28 @@ function amazonLink($atts) {
       </div>
     </div>
   </div>
-</div>
-</a>';
+</a>
+</div></div>
+';
 }
 add_shortcode('amazonjs', 'amazonLink');
+
+
+//CDページ
+add_action( 'lightning_loop_before', function(){
+	if ( is_tax('disc') ){
+		get_template_part('parts/tax/cd_setlist');
+	}
+});
+
+//サブスク周り
+function spotify($atts) {
+    extract(shortcode_atts(array(
+		'id' => 0,
+	), $atts));
+ 
+	return
+		'<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/'.$id.'?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>'
+		.PHP_EOL;
+}
+add_shortcode('spotify', 'spotify');
