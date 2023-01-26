@@ -15,7 +15,7 @@ switch ($taxonomy){
         break;
     case 'disc':
         $pic = get_stylesheet_directory_uri().'/resources/cd_icon.png';
-        $parts = array('parts/tax/header/buy');
+        $parts = array('parts/tax/header/buy','parts/tax/header/subscription');
         break;
     case 'live':
         preg_match('/\d{4}\-\d{1,2}\-\d{1,2}/' , get_the_archive_title(), $date_match);

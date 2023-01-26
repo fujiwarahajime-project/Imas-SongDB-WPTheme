@@ -106,6 +106,7 @@ if(!empty($fields['itunesid'])){
   <i class="fa-brands fa-itunes"></i>
   </a></div>';
 }
+/*
 if(!empty($fields['spotifyid'])){
   echo '<div class="p-2 flex-fill bd-highlight">
   <a class="btn btn-outline-info btn-block" data-toggle="collapse" href="#spotify'.$rand_id.'" role="button" aria-expanded="false" aria-controls="#spotify'.$rand_id.'">
@@ -117,7 +118,7 @@ if(!empty(SCF::get_term_meta( $term_id, $taxonomy, 'amazon_albumid' ))){
   <a class="btn btn-outline-info btn-block" role="button" href="https://www.amazon.co.jp/dp/'.SCF::get_term_meta( $term_id, $taxonomy, 'amazon_albumid' ).'/ref=as_sl_pc_tf_til?tag=fujiwarahajime-22&linkCode=w00&linkId=&creativeASIN='.SCF::get_term_meta( $term_id, $taxonomy, 'amazon_albumid' ).'">
   <i class="fa-brands fa-amazon"></i><i class="fa-solid fa-arrow-up-right-from-square"></i>
   </a></div>';
-}
+}*/
 echo '</div>';
 
 //サブスク出力
