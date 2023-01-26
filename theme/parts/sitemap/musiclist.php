@@ -49,19 +49,19 @@ $(function() {
 	display: none;
 }
 .music_cg{
-  border-color: var(--cg) !important;
+  border-color: var(--cg);
 }
 .music_ml{
-  border-color: var(--ml) !important;
+  border-color: var(--ml);
 }
 .music_shiny{
-  border-color: var(--sc) !important;
+  border-color: var(--sc);
 }
 .music_as{
-  border-color: var(--as) !important;
+  border-color: var(--as);
 }
 .music_sidem{
-  border-color: var(--sidem) !important;
+  border-color: var(--sidem);
 }
 .music_godo{
   border-color: gray !important;
@@ -70,110 +70,111 @@ $(function() {
   border-color: purple !important;
 }
 .music_remix{
-  border-color: mistyrose !important;
+  border-color: saddlebrown  !important;
 }
 .musiclist .list_item{
   border-style: solid;
   border-width: 0 0 3px 5px !important;
   list-style: none;
   padding:4px;
+  margin:2px;
 }
 .list_item a{
   text-decoration: unset;
 }
 
 /* チェックボックスの色変更 */
-.check_cg::before{
-  border-color: var(--cg) !important;
+#checkcg{
+  border-color: var(--cg);
   border-width: 3px;
 }
-.custom-control-input:checked ~ .check_cg::before{
+#checkcg:checked{
   background-color: var(--cg);
 }
-.check_ml::before{
-  border-color: var(--ml) !important;
+#checkml{
+  border-color: var(--ml);
   border-width: 3px;
 }
-.custom-control-input:checked ~ .check_ml::before{
+#checkml:checked{
   background-color: var(--ml);
 }
-.check_sc::before{
-  border-color: var(--sc) !important;
+#checksc{
+  border-color: var(--sc);
   border-width: 3px;
 }
-.custom-control-input:checked ~ .check_sc::before{
+#checksc:checked{
   background-color: var(--sc);
 }
-.check_as::before{
-  border-color: var(--as) !important;
+#checkas{
+  border-color: var(--as);
   border-width: 3px;
 }
-.custom-control-input:checked ~ .check_as::before{
+#checkas:checked{
   background-color: var(--as);
 }
-.check_sidem::before{
-  border-color: var(--sidem) !important;
+#checkm{
+  border-color: var(--sidem);
   border-width: 3px;
 }
-.custom-control-input:checked ~ .check_sidem::before{
+#checkm:checked{
   background-color: var(--sidem);
 }
-.check_jo::before{
-  border-color: gray !important;
+#checkjo{
+  border-color: gray;
   border-width: 3px;
 }
-.custom-control-input:checked ~ .check_jo::before{
+#checkjo:checked{
   background-color: gray;
 }
-.check_co::before{
-  border-color: purple !important;
+#checkco{
+  border-color: purple;
   border-width: 3px;
 }
-.custom-control-input:checked ~ .check_co::before{
+#checkco:checked{
   background-color: purple;
 }
-.check_rm::before{
-  border-color: mistyrose !important;
+#checkrm{
+  border-color: saddlebrown ;
   border-width: 3px;
 }
-.custom-control-input:checked ~ .check_rm::before{
-  background-color: mistyrose;
+#checkrm:checked{
+  background-color: saddlebrown ;
 }
 </style>
 
 <form>
 <div class="container">
 <div class="search-box row">
-  <div class="form-check custom-control custom-checkbox col-6 col-md-3">
-		<input type="checkbox" class="custom-control-input" name="brand" value="music_cg" id="checkcg">
+  <div class="p-0 col-6 col-md-3">
+		<input type="checkbox" class="form-check-input" name="brand" value="music_cg" id="checkcg">
     <label class="custom-control-label check_cg" for="checkcg">シンデレラガールズ曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-6 col-md-3">
-    <input type="checkbox" class="custom-control-input" name="brand" value="music_ml" id="checkml">
+  <div class="p-0 col-6 col-md-3">
+    <input type="checkbox" class="form-check-input" name="brand" value="music_ml" id="checkml">
     <label class="custom-control-label check_ml" for="checkml">ミリオンライブ！曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-6 col-md-3">
-		<input type="checkbox" class="custom-control-input" name="brand" value="music_shiny" id="checksc">
+  <div class="p-0 col-6 col-md-3">
+		<input type="checkbox" class="form-check-input" name="brand" value="music_shiny" id="checksc">
     <label class="custom-control-label check_sc" for="checksc">シャイニーカラーズ曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-6 col-md-3">
-		<input type="checkbox" class="custom-control-input" name="brand" value="music_as" id="checkas">
+  <div class="p-0 col-6 col-md-3">
+		<input type="checkbox" class="form-check-input" name="brand" value="music_as" id="checkas">
     <label class="custom-control-label check_as" for="checkas">765AS曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-6 col-md-3">
-    <input type="checkbox" class="custom-control-input" name="brand" value="music_sidem" id="checkm">
+  <div class="p-0 col-6 col-md-3">
+    <input type="checkbox" class="form-check-input" name="brand" value="music_sidem" id="checkm">
     <label class="custom-control-label check_sidem" for="checkm">SideM曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-6 col-md-3">
-		<input type="checkbox" class="custom-control-input" name="brand" value="music_godo" id="checkjo">
+  <div class="p-0 col-6 col-md-3">
+		<input type="checkbox" class="form-check-input" name="brand" value="music_godo" id="checkjo">
     <label class="custom-control-label check_jo" for="checkjo">合同曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-6 col-md-3">
-    <input type="checkbox" class="custom-control-input" name="brand" value="music_cover" id="checkco">
+  <div class="p-0 col-6 col-md-3">
+    <input type="checkbox" class="form-check-input" name="brand" value="music_cover" id="checkco">
     <label class="custom-control-label check_co" for="checkco">カバー曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-6 col-md-3">
-		<input type="checkbox" class="custom-control-input" name="brand" value="music_remix" id="checkrm">
+  <div class="p-0 col-6 col-md-3">
+		<input type="checkbox" class="form-check-input" name="brand" value="music_remix" id="checkrm">
     <label class="custom-control-label check_rm" for="checkrm">リミックス曲</label>
   </div>
 </div>
@@ -186,16 +187,16 @@ $(function() {
 <form>
 <div class="container">
 <div class="search-box row">
-  <div class="form-check custom-control custom-checkbox col-6 col-md-3">
-		<input type="checkbox" class="custom-control-input" name="musictype" value="solo" id="checksolo">
+  <div class="p-0 col-6 col-md-3">
+		<input type="checkbox" class="form-check-input" name="musictype" value="solo" id="checksolo">
     <label class="custom-control-label" for="checksolo">ソロ曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-6 col-md-3">
-    <input type="checkbox" class="custom-control-input" name="musictype" value="unit" id="checkunit">
+  <div class="p-0 col-6 col-md-3">
+    <input type="checkbox" class="form-check-input" name="musictype" value="unit" id="checkunit">
     <label class="custom-control-label" for="checkunit">ユニット曲</label>
   </div>
-  <div class="custom-control custom-checkbox col-6 col-md-3">
-		<input type="checkbox" class="custom-control-input" name="musictype" value="zentai" id="checkzentai">
+  <div class="p-0 col-6 col-md-3">
+		<input type="checkbox" class="form-check-input" name="musictype" value="zentai" id="checkzentai">
     <label class="custom-control-label" for="checkzentai">全体曲</label>
   </div>
 </div>

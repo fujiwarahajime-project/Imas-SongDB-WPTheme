@@ -16,14 +16,14 @@ $idolpic_dir = 'cinderella';
 
 //出力
 
-echo '<div class="col-sm-6 col-md-4 idol_card">
-<a href="' . $link . '" class="card">
+echo '<div class="col-sm-6 col-md-4 idol_card">';
+if(in_array($term->name, $solo_temp)){
+  echo '<div class="badge bg-info icon_badge">ソロ</div>';
+}
+echo '<a href="' . $link . '" class="card">
 <div class="row no-gutters">
-  <img class="col-auto bd-placeholder-img idol_icon" img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/'.$idol_term.'.png" style="background:'.$idol_color.';">';
-  if(in_array($term->name, $solo_temp)){
-    echo '<div class="badge badge-info icon_badge">ソロ</div>';
-  }
-echo '<div class="col">
+  <img class="col-auto bd-placeholder-img idol_icon" img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/'.$idol_term.'.png" style="background:'.$idol_color.';">
+  <div class="col">
 <div class="card-body">
 <h5 class="card-title">'.$term->name.'</h5>
 <p class="card-text">'.$CV.'</p>

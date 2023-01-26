@@ -25,10 +25,10 @@ if($content == 'cg'){
 //出力
 
 echo '<div class="col-sm-6 col-md-4 idol_card">
+<div class="badge bg-info icon_badge">声優</div>
 <a href="' . $link . '" class="card">
 <div class="row no-gutters">
   <img class="col-auto bd-placeholder-img idol_icon" img src="'.$upload_dir['baseurl'].'/idol/'.$idolpic_dir.'/'.$idol_term.'.png" style="background:'.$idol_color.';">
-    <div class="badge badge-info icon_badge">声優</div>
     <div class="col">
 <div class="card-body">
 <h5 class="card-title">'.$term->name.'</h5>

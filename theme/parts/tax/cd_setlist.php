@@ -96,13 +96,13 @@ $rand_id = rand(1,9999);
 
 if(!empty($fields['ytid'])){
   echo '<div class="p-2 flex-fill bd-highlight">
-  <a class="btn btn-outline-info btn-block" data-toggle="collapse" href="#yt'.$rand_id.'" role="button" aria-expanded="false" aria-controls="#yt'.$rand_id.'">
+  <a class="btn btn-outline-info btn-block" data-bs-toggle="collapse" href="#yt'.$rand_id.'" role="button" aria-expanded="false" aria-controls="#yt'.$rand_id.'">
   <i class="fa-brands fa-youtube"></i>
   </a></div>';
 }
 if(!empty($fields['itunesid'])){
   echo '<div class="p-2 flex-fill bd-highlight">
-  <a class="btn btn-outline-info btn-block" data-toggle="collapse" href="#itunes'.$rand_id.'" role="button" aria-expanded="false" aria-controls="#itunes'.$rand_id.'">
+  <a class="btn btn-outline-info btn-block" data-bs-toggle="collapse" href="#itunes'.$rand_id.'" role="button" aria-expanded="false" aria-controls="#itunes'.$rand_id.'">
   <i class="fa-brands fa-itunes"></i>
   </a></div>';
 }

@@ -65,14 +65,7 @@ $upload_dir = wp_upload_dir();//WPのアップロードファイルのディレ�
 	<header>
 
 <!-- タイトル -->
-<?php 
-if(is_singular( 'music_remix' )){
-	//リミックスのときはカテゴリ情報を表示しないやつをヒョビア出す
-	get_template_part( 'template-parts/post/meta-remix' );
-}else{
-	get_template_part( 'template-parts/post/meta' );
-}
-	 ?>
+
 <?php if (is_object_in_term($post->ID, 'musictype','rearrange') OR is_singular( 'music_remix' ) ){
 	//リアレンジ曲の場合ふりがななしのタイトルにする
 	echo '<h1><span class="entry-title">'.get_the_title().'</span></h1>';
@@ -175,22 +168,23 @@ if(!empty(get_post_meta($post->ID, 'kasi', true))){
   <div class="msgboxtop">メンバー情報</div>
 <div class="msgboxbody">
 <?php
-//繰り返しフィールド（CDごとのパート情報）を変数にセット
-$cd_group = SCF::get( 'CD_group',$id );
-foreach ( $cd_group as $field_name => $field_value ) {
 
-
-$idol_temp =  $field_value['cd_mem'];
-foreach ( explode(',', $field_value['cd_solo']) as $idol_solo ) {
-	$solo_temp[] = $idol_solo;
+//メンバー情報を格納
+$solo_temp[] = "";
+if ($terms = get_the_terms($post->ID, 'disc')) {
+	foreach ( $terms as $term ) {
+		$cd_data = cd_member($post->ID,$term->term_id);
+		if(is_array($cd_data)){
+			$solo_temp = array_merge($solo_temp , $cd_data);
+		}
+	}
 }
-//CDソロ判定用の配列をつくる
-$solo_temp[] = $idol_temp;
+
+$solo_temp = array_unique($solo_temp);
 set_query_var('solo_temp',$solo_temp);
+//var_dump($solo_temp);
 //CD表示用の配列をつくる
-${"cdidol_".$field_value['cd_term']} = array_unique(explode(',', $idol_temp));
-${"cdidols_".$field_value['cd_term']} = array_unique(explode(',', $field_value['cd_solo']));
-}
+//set_query_var("cdidol_".$term->term_id,$solo_temp);
 
 //アイドル表示の順番を指定
 
@@ -220,7 +214,7 @@ if($idollist_type == 'music_cg' ){ //シンデレラガールズの場合
 ?>
 
 <?php
-if(!empty($idol_temp)):?>
+if(!empty($solo_temp)):?>
 <p>この曲には、CDごとのメンバー情報があります。くわしくは<a href="#CD">CD情報</a>で確認ください。</p>
 <?php endif;?>
 
@@ -228,6 +222,7 @@ if(!empty($idol_temp)):?>
   <div class="msgboxfoot">
   </div>
 </div>
+
 
 <!-- CD情報用CSS（OSにより分岐） -->
 <?php if(wp_is_mobile()): ?>
@@ -247,109 +242,9 @@ if(!empty($idol_temp)):?>
 
 <?php 
 	get_template_part('parts/music_page/movie');
+	get_template_part('parts/music_page/cdlist');
+	get_template_part('parts/music_page/livelist');
 ?>
-
-<!-- CD情報 -->
-<div class="msgbox" id="CD">
-  <div class="msgboxtop">CD情報</div>
-  <div class="msgboxbody">
-
-<?php echo apply_filters('the_content',get_post_meta($post->ID, 'partinfo', true)); //パート分け情報の出力
-?>
-
-<!-- すべて操作ボタン -->
-<div class="container">
-<div class="vmenu_all_action row justify-content-around" style="text-align: center;">
-	<div class="button col-5" onclick="doReplaceClassName('vmenu_off', 'vmenu_on')">詳細 全表示</div>
-	<div class="button col-5" onclick="doReplaceClassName('vmenu_on',  'vmenu_off')">詳細 非表示</div>
-</div></div>
-
-<?php if(get_post_meta($post->ID, 'haishin', true)): ?>
-<!-- 配信がある場合の情報 -->
-<div class="vmenu_off">
-<div class="vmenuitem" onclick="doToggleClassName(getParentObj(this),'vmenu_on','vmenu_off')">
-<img src="<?php echo get_stylesheet_directory_uri(); ?>/resources/ipod_icon.png" class="cdicon"><div class="cdname">iTunes等の配信サイトで配信あり</div></div>
-<div class="info_C">
-<?php 
-//アイドル画像出力ループ
-if(!empty($cdidol_h)){
-foreach ($cdidol_h as $idol_name_roop) {
-	idollist($idol_name_roop,"CD");
-}}
-if(!empty($cdidols_h)){
-foreach ($cdidols_h as $idol_name_roop) {
-	idollist($idol_name_roop,"cdsolo");
-}}
-
-?>
-<?php echo apply_filters('the_content',get_post_meta($post->ID, 'haishin', true)); ?></div></div><br>
-<?php endif; ?>
-<?php 
-$taxonomy = 'disc';
-if ($terms = get_the_terms($post->ID, $taxonomy)) {
-foreach ( $terms as $term ) {
-$term_id = $term->term_id;//タームIDを取得
-$term_idmenu = $taxonomy.'_'; //「taxonomyname_ + termID」にする
-$link = get_term_link( $term, $taxonomy );//タームのリンクを取得
-$shop = get_field('shop',$term_idmenu.$term_id);//販売情報を取得
-
-
-//出力
-echo '<div class="vmenu_off">';
-echo '<div class="vmenuitem" onclick="doToggleClassName(getParentObj(this),\'vmenu_on\',\'vmenu_off\')">';
-if(!empty(${"cdidol_".$term_id})){
-if(count(${"cdidol_".$term_id}) == "1"){
-	echo '<img title="'.$term->term_id.'" class="cdicon" src="';
-	foreach (${"cdidol_".$term_id} as $idol_name_roop) {
-		$icon_data = idolicon($idol_name_roop,"data_only");
-		if($icon_data['url'] == $upload_dir['baseurl'].'/idol//.png'){
-			echo get_stylesheet_directory_uri().'/resources/cd_icon.png';
-		}elseif((isset($icon_data['info'])) == "image" AND ($icon_data['parent'] == 0) AND !($icon_data['production'] == "shinycolors") ){
-			echo $icon_data['url'].'" style="background:'.$icon_data['color'];
-		}else{
-			echo get_stylesheet_directory_uri().'/resources/cd_icon.png';
-		}
-	}
-	echo '">';
-}else{
-
-	echo '<img src="'.get_stylesheet_directory_uri().'/resources/cd_icon.png" class="cdicon"  title="'.$term->term_id.'">';
-
-}}else{
-	echo '<img src="'.get_stylesheet_directory_uri().'/resources/cd_icon.png" class="cdicon"  title="'.$term->term_id.'">';
-}
-echo '<div class="cdname">' .str_ireplace("THE IDOLM@STER ","", esc_html($term->name)).'</div></div>';
-
-echo "\n";
-echo '<div class="info_C"><a href="'.$link.'" class="button" style="text-align:center;display:inline-block;width:100%;">このCDのすべての収録曲を見る</a>';//リンク
-echo "\n";
-
-//アイドル画像出力ループ
-if(!empty(${"cdidol_".$term_id})){
-foreach (${"cdidol_".$term_id} as $idol_name_roop) {
-	idollist($idol_name_roop,"CD");
-}}
-if(!empty(${"cdidols_".$term_id})){
-foreach (${"cdidols_".$term_id} as $idol_name_roop) {
-	idollist($idol_name_roop,"cdsolo");
-}}
-
-
-echo $shop;
-echo '</div></div><br>';
-echo "\n";
-
-    }
-}
-?>
-
-
-  </div>
-  <div class="msgboxfoot">
-  </div>
-</div>
-
-<?php get_template_part('parts/music_page/livelist');?>
 
 
 <!--ここまで-->
