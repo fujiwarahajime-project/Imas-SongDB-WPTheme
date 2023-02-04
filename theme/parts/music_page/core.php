@@ -271,3 +271,41 @@ yarpp_related(array(
 
 
 </div>
+
+
+
+<!-- サブスク再生 -->
+<?php
+if(subscription_play_data($kiji_id,'')){
+	$subscription = subscription_play_data($kiji_id,'');
+	echo '<!-- モーダル -->
+	<a type="button" class="subscription_button" data-bs-toggle="modal" data-bs-target="#subscription_modal">
+		<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+			<path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+  		</svg>
+	</a>
+	
+	<!-- ウィンドウの中身 -->
+	<div class="modal fade" id="subscription_modal" tabindex="-1" aria-labelledby="subscription_modal_label" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="subscription_modal_label">Youtube Musicで再生</h5>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		  </div>
+		  <div class="modal-body">';
+		  if(!empty($subscription['ytid'])){
+			echo do_shortcode( '[arve url="https://www.youtube.com/watch?v='.$subscription['ytid'].'"]' );
+		  }
+		  
+		  echo '</div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	';
+	
+}
+?>

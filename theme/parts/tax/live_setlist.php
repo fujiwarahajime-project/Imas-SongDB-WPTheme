@@ -37,7 +37,7 @@ if(!($setlist_hide !== false) or is_admin_bar_showing()){
 
 
 $setlist = SCF::get_term_meta( $term_id, $taxonomy, 'setlist' );
-foreach ($setlist as $fields ) {
+foreach ($setlist as $number => $fields ) {
   unset($song_id);
 echo "<tr>";
 //メンバー情報があるか判定
@@ -53,6 +53,7 @@ if(empty($fields['setlist_idol']) and empty($fields['setlist_idol_hosoku'])){
   }else{
     echo '<td '.$hide_2cell.'style="padding:0px">';
   }
+
   foreach ($fields['setlist_song'] as $songname) {
      //ターム判定
     if(is_admin_bar_showing()){//WPの管理用ツールバーが表示されているときのみ表示
@@ -63,7 +64,37 @@ if(empty($fields['setlist_idol']) and empty($fields['setlist_idol_hosoku'])){
      }
     }
 
-    
+  //サブスク処理
+    if(subscription_play_data(get_post($songname)->ID,$fields['setlist_idol'])){
+      $subscription = subscription_play_data(get_post($songname)->ID,$fields['setlist_idol']);
+      echo '
+      <a data-bs-toggle="modal" data-bs-target="#subscription_modal_'.$number.'">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+        <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+        </svg>
+      </a>
+      <div class="modal fade" id="subscription_modal_'.$number.'" tabindex="-1" aria-labelledby="subscription_modal_label_'.$number.'" aria-hidden="true">
+        <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+          <h5 class="modal-title" id="subscription_modal_label_'.$number.'">Youtube Musicで再生</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">';
+          if(!empty($subscription['ytid'])){
+          echo do_shortcode( '[arve url="https://www.youtube.com/watch?v='.$subscription['ytid'].'"]' );
+          }
+          echo '</div>
+          <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+        </div>
+      </div>
+      ';
+    }
+
+  //曲名リンク  
   echo '<a href="'.get_permalink($songname).'">'.get_post($songname)->post_title.'</a>';
   if(!empty($songname)){
   $song_id = "song_".$term_id."_".$songname;

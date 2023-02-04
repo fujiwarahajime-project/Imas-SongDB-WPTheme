@@ -14,11 +14,10 @@ echo '<meta name="theme-color" content="#7272b4">';
 }
 ?>
 
-<!--bootstrap-->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <!--検索タグ-->
 <link rel="search" type="application/opensearchdescription+xml" title="ふじわらはじめ" href="<?php echo site_url(); ?>/search/search_main.xml">
 <!-- OGP -->
@@ -179,7 +178,7 @@ function idolicon($name,$listtype){
 			  if($listtype == "live"){
 			  echo '<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon '.$idol_term.'" style="background:'.$idol_color.';" title="'.$cv.'('.$term->name.'役)" alt="'.$cv.'('.$term->name.'役)"></a>';
 			  }elseif($listtype == "cdsolo"){
-				echo '<div class="badge badge-info icon_badge">ソロ</div>
+				echo '<div class="badge bg-info icon_badge">ソロ</div>
 				<img src="'.$upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png" class="idolicon '.$idol_term.'" style="background:'.$idol_color.';" title="'.$term->name.'(CV.'.$cv.')" alt="'.$term->name.'(CV.'.$cv.')"></a>';
 			  }elseif($listtype == "data_only"){
 				$image_url = $upload_dir['baseurl'].'/idol/'.$dir.'/'.$idol_term.'.png';
@@ -351,11 +350,13 @@ add_filter('lightning_archive-header', 'archive_header');
 //ターム説明の削除
 remove_filter('lightning_archive_description', 'archive_header');
 
+//ライブページではセットリストに差し替える
 add_action( 'lightning_loop_before', function(){
 	if ( is_tax('live') ){
 		get_template_part('parts/tax/live_setlist');
 	}
 });
+
 
 //G3
 //update_option( 'lightning_theme_generation', 'g3' );
@@ -429,7 +430,6 @@ function amazonLink($atts) {
 }
 add_shortcode('amazonjs', 'amazonLink');
 
-
 //CDページ
 add_action( 'lightning_loop_before', function(){
 	if ( is_tax('disc') ){
@@ -448,3 +448,151 @@ function spotify($atts) {
 		.PHP_EOL;
 }
 add_shortcode('spotify', 'spotify');
+
+/*
+function subscription_member($kiji_id,$term_id){
+	$setlist = SCF::get_term_meta( $term_id, $taxonomy, 'cd_setlist' );
+	foreach ($setlist as $fields ) {
+		foreach ($fields['setlist_song'] as $songname) {
+			if(get_post($songname)->ID == $kiji_id){
+
+			}
+		}
+	}	
+}
+*/
+
+//CDのメンバー情報を一括で吐くやつをつくる
+function cd_member($song_id,$disc_id) {
+	//旧システムのデータ
+	$cd_group = SCF::get( 'CD_group',$song_id );
+	foreach ( $cd_group as $field_name => $field_value ) {
+		
+		if($field_value['cd_term'] == $disc_id){
+
+			$member_temp[] = $field_value['cd_mem'];
+			foreach ( explode(',', $field_value['cd_solo']) as $idol_solo ) {
+				$member_temp[] = $idol_solo;
+			}
+			//旧システムメンバーデータ
+			/*
+			if(!strstr($field_value['cd_mem'] , ',')){
+				//メンバー欄にソロが入っている場合
+				$solo_temp[] = $field_value['cd_mem'];
+			}else{
+				foreach ( explode(',', $field_value['cd_mem']) as $member ) {
+					$member_temp[] = $member;
+				}
+			}
+			//旧システムソロのデータ
+			foreach ( explode(',', $field_value['cd_solo']) as $idol_solo ) {
+				$solo_temp[] = $idol_solo;
+			}*/
+		}
+	}
+
+	//新システム（サブスクシステム）のデータ
+	if(is_numeric($disc_id)){
+		$setlist = SCF::get_term_meta( $disc_id, 'disc', 'cd_setlist' );
+
+		foreach ($setlist as $fields ) {
+			if($fields['setlist_song'][0] == $song_id){
+				$member_temp[] = $fields['setlist_idol'];
+			}
+		}
+	}
+	$member_temp = array_values(array_filter($member_temp));
+
+	return $member_temp;
+}
+
+
+//ユニット名→メンバー と メンバーだけのやつを混合する
+function unit_member($data){
+	$unit_term = get_term_by('name',$data,'unit');
+	if($unit_term){
+		foreach(explode(',',get_field('member', $unit_term)) as $name){
+			$member[] = $name;
+		}
+		$member = array_unique($member);
+	}else{
+		$member[] = $data;
+	}
+	return $member;
+}
+
+//サブスクのURL吐くやつ
+function subscription_play_data($song_id,$member){
+	$live_member = array_unique(explode(',', $member));
+	$terms = wp_get_post_terms($song_id,'disc');
+	foreach ($terms as $term) {
+		$setlist = SCF::get_term_meta( $term, 'disc', 'cd_setlist' );
+		foreach ($setlist as $fields ) {
+			if($fields['setlist_song'][0] == $song_id){
+				if(!(empty($fields['ytid']) AND empty($fields['itunesid']))){
+					//オリジナルデータ
+					if(in_array('orig',$fields['song_flag'])){
+						$orig = 
+						array(
+							'ytid'=>$fields['ytid'],
+							'itunesid'=>$fields['itunesid']
+						);
+					}
+
+
+					unset($subscription_member);
+					//サブスクのメンバー取得
+					foreach (explode(',',$fields['setlist_idol']) as $name){
+						$subscription_member[] = '';
+						$subscription_member = array_merge(unit_member($name));
+					}
+					//サブスクデータが有る場合のみメンバー比較をする
+					$subscription_data[(count($subscription_member)/count(array_intersect($live_member , $subscription_member))*100)] =
+					array(
+						'ytid'=>$fields['ytid'],
+						'itunesid'=>$fields['itunesid']
+					);
+				}
+			}
+			
+		}
+		
+	}
+	if(empty($member)){
+		return $orig;
+		exit;
+	}
+	$key = array_keys($subscription_data);
+	//var_dump($key);
+	if($subscription_data[100]){
+		// 1　最優先　メンバー完全一致
+		$return = $subscription_data[100];
+	}elseif(max($key)>100){
+		// 2　メンバー100%以上
+		foreach ($key as $key){
+			if($key > 100){
+				$key_temp[] = $key;
+			}
+		}
+		$key = min($key_temp);
+		$return = $subscription_data[$key];
+	}elseif(max($key)<100){
+		// 3　メンバー100%未満
+		foreach ($key as $key){
+			if($key < 100){
+				$key_temp[] = $key;
+			}
+		}
+		$key = max($key_temp);
+		$return = $subscription_data[$key];
+	}elseif(!empty($orig)){
+		// 4　オリジナルフラグがあればオリジナルデータ
+		$return = $orig;
+	}elseif(!empty($key)){
+		// 5　ランダム
+		//$key_temp = rand(count());
+	}else{
+		$return = NULL;
+	}
+	return $return;
+}

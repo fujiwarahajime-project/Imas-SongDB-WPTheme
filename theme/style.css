@@ -381,6 +381,7 @@ https://opensource.org/licenses/mit-license.php
   position: absolute;
   left:0px;
   bottom:0px;
+  z-index: 1;
 }
 
 /* 曲ページのアイドルアイコンまわり */
@@ -436,21 +437,6 @@ div.setlist_tooltip .setlist {
   z-index:100;
   }
   
-  /*アイドルアイコンへのソロ表示*/
-  .solo{
-    float:left;
-    position:absolute;
-    top:0;
-    left:2px;
-    color:white;
-  }
-  .fuchidori{
-    text-shadow: 1px 1px 0 #000,
-                 -1px 1px 0 #000,
-                 1px -1px 0 #000,
-                 -1px -1px 0 #000;
-  }
-  
 
   /* 関連楽曲まわり */
 .musiclist {
@@ -488,62 +474,6 @@ div.setlist_tooltip .setlist {
     border-top: none !important;
   }
 
-}
-
-/* CDアイコンまわり */
-.cdinfo{
-  height:auto;
-}
-
-.info_C .idol{
-	display: inline-block;
-	position: relative;
-}
-
-.cdicon{
-  background:linear-gradient(lightgray,gray);
-  float:left;
-  padding:8px;
-  width:88px;
-  margin-bottom:0px;
-  display: block;
-}
-
-.cdname{
-  margin-left:104px;
-  margin-top:7px;
-}
-.info_C {
-  border-right:1px solid #cccc77;
-  border-bottom:1px solid #cccc77;
-  border-left:5px solid #cccc77;
-  padding: 10px;
-}
-
-/* 開閉メニュー */
-.vmenu_on, .vmenu_off{margin:2px 0px;}
-.vmenu_on .vmenuitem{
-  min-height:90px;
-  cursor:pointer;
-  border-right:1px solid #cccc77;
-  border-top:1px solid #cccc77; 
-  border-left:5px solid #cccc77;
-}
-.vmenu_off .vmenuitem{
-  min-height:90px;
-  cursor:pointer;
-  border:1px solid #77cccc;
-  border-left:5px solid #77cccc;
-}
-.vmenu_on {
-  display:auto;
-  margin:2px auto;
-}
-.vmenu_off .info_C{
-  display:none;
-}
-.vmenu_all_action {
-  cursor: pointer;
 }
 
 /* シェアボタン */
@@ -718,31 +648,73 @@ div.setlist_tooltip .setlist {
   vertical-align:middle;
 }
 .tax-live .idolicon{
-  max-height: 70px;
+  max-height: 60px;
   background:linear-gradient(lightgray,gray);
   float:left;
   display:block;
   padding: 3px;
 }
 .tax-disc .idolicon{
-  max-height: 70px;
+  max-height: 60px;
   background:linear-gradient(lightgray,gray);
   float:left;
   display:block;
   padding: 3px;
 }
 .tax-unit .idolicon{
-  max-height: 70px;
+  max-height: 60px;
   background:linear-gradient(lightgray,gray);
   float:left;
   display:block;
   padding: 3px;
 }
 
-/* サブスク */
 .subscription_yt .arve-iframe{
   max-height: 110px;
 }
 .subscription_yt .arve{
   max-height: 110px;
+}
+
+/* CDのアコーディオンまわり */
+.accordion-header{
+  padding :0;
+  border-top: initial;
+}
+.accordion-button{
+  padding: 0;
+}
+.accordion-body{
+  color :black;
+}
+.accordion_dark::after{
+  filter: invert();
+}
+
+/* サブスクボタン */
+.scrolled .subscription_button{
+  display: inline-block;
+  opacity: 1;
+  color: white;
+  text-align: center;
+  z-index: 10000;
+}
+.subscription_button{
+  display: none;
+  position: fixed;
+  bottom: calc(2% + 7px);
+  right: 55px;
+  width:40px;
+  height:38px;
+  border:none;
+  background: gray;
+  vertical-align: middle;
+}
+.subscription_button svg {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%) translateX(-50%);
+}
+.page_top_btn{
+  right:10px;
 }
