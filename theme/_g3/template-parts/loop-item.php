@@ -55,7 +55,7 @@ continue;
 <?php
 //バッジ部分
 if(isset($solo)){
-	echo '<span class="badge badge-info float-right">ソロ音源あり</span>';
+	echo '<span class="badge bg-info float-right">ソロ音源あり</span>';
 }
 ?></div>
 <h5 class="card-title font-weight-bold">
