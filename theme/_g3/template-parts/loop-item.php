@@ -35,26 +35,62 @@ $options = array(
 
 //ソロ判定
 $solotype = ['duet', 'unit', 'zentai']; //ソロ音源情報を表示する曲のタイプを指定
+$solo=FALSE;
 if(is_tax(allidolterm())){
+	$idolname = get_queried_object()->name;
 if(has_term($solotype,'musictype')){
-$cd_group = SCF::get( 'CD_group',$id );
-$term_name = single_term_title("", false); //タームの名前を取得
-
-foreach ( $cd_group as $field_name => $field_value ) {
-	$solo_idol = explode(',', $field_value['cd_solo']);
-if($field_value['cd_mem'] == $term_name or in_array($term_name, $solo_idol, true) ){
-$solo = TRUE;
-continue;
-}}}}
+	foreach ( get_the_terms($id, 'disc') as $term ) {
+		foreach(cd_member($id,$term->term_id) as $member){
+			if($member = $idolname){
+				$solo=TRUE;
+				continue;
+			}
+		}
+	}
+}}
 
 ?>
 
 <div <?php post_class('card col-12'); ?>>
 <div class="card-body">
-<div class="card-subtitle text-muted small"><?php echo get_post_time('Y年n月j日')?>
+<div class="card-subtitle text-muted small">
+<?php
+  //サブスク処理
+	$number = $id;
+  if(subscription_play_data($id,$idolname)){
+	$subscription = subscription_play_data($id,$idolname);
+	echo '
+	<a data-bs-toggle="modal" data-bs-target="#subscription_modal_'.$number.'">
+	<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+	  <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z"/>
+	  </svg>
+	</a>
+	<div class="modal fade" id="subscription_modal_'.$number.'" tabindex="-1" aria-labelledby="subscription_modal_label_'.$number.'" aria-hidden="true">
+	  <div class="modal-dialog">
+	  <div class="modal-content">
+		<div class="modal-header">
+		<h5 class="modal-title" id="subscription_modal_label_'.$number.'">Youtube Musicで再生</h5>
+		<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</div>
+		<div class="modal-body">';
+		if(!empty($subscription['ytid'])){
+		echo do_shortcode( '[arve url="https://www.youtube.com/watch?v='.$subscription['ytid'].'"]' );
+		}
+		echo '</div>
+		<div class="modal-footer">
+		<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+		</div>
+	  </div>
+	  </div>
+	</div>
+	';
+  }
+
+?>	
+<?php echo get_post_time('Y年n月j日');?>
 <?php
 //バッジ部分
-if(isset($solo)){
+if($solo){
 	echo '<span class="badge bg-info float-right">ソロ音源あり</span>';
 }
 ?></div>
