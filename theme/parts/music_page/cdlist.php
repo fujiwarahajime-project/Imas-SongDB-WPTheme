@@ -13,6 +13,21 @@ if(is_singular() AND !is_singular(array('music_ml','music_as','music_shiny'))){
   $dark_class = ' bg-dark text-white carousel-dark accordion_dark';
 }
 
+//旧来の配信情報
+if (get_post_meta($post->ID, 'haishin', true)){
+  echo '<div class="accordion-item">
+  <h2 class="accordion-header" id="disc_head_haishin">
+  <button type="button" class="accordion-button collapsed'.$dark_class.'" data-bs-toggle="collapse" data-bs-target="#disc_haishin" aria-expanded="false" aria-controls="disc_haishin">
+      配信サイトで単曲配信あり
+  </button>
+  </h2>
+  <div id="disc_haishin" class="accordion-collapse collapse" aria-labelledby="disc_head_haishin" data-bs-parent="#discaccordion">
+  <div class="accordion-body'.$dark_class.'">'.
+  do_shortcode(get_post_meta($post->ID, 'haishin', true))
+  .'
+</div></div></div>';
+}
+
 if ($terms = get_the_terms($post->ID, 'disc')) {
 	foreach ( $terms as $term ) {
     unset($solo);
@@ -29,7 +44,7 @@ if ($terms = get_the_terms($post->ID, 'disc')) {
       }
     }
     $solo = array_unique(array_filter($solo));
-    $member_temp = array_filter($member_temp);
+    $member_temp = array_unique(array_filter($member_temp));
 
     $link = get_term_link( $term, $taxonomy );
         echo '

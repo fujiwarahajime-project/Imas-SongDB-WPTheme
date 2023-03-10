@@ -15,7 +15,7 @@ switch ($taxonomy){
         break;
     case 'disc':
         $pic = get_stylesheet_directory_uri().'/resources/cd_icon.png';
-        $parts = array('parts/tax/header/buy','parts/tax/header/subscription');
+        $parts = array('parts/tax/header/buy','parts/tax/header/tax_add','parts/tax/header/subscription');
         break;
     case 'live':
         preg_match('/\d{4}\-\d{1,2}\-\d{1,2}/' , get_the_archive_title(), $date_match);
@@ -24,7 +24,7 @@ switch ($taxonomy){
         $pic = get_stylesheet_directory_uri().'/resources/mic_icon.png';
         $title = preg_replace('/\d{4}\-\d{1,2}\-\d{1,2}/', '' , get_the_archive_title() );
         $text = '開催日：'.$day.'<br>開催場所：'.get_field('place',$term_idmenu.$term_id).'<br>';
-        $parts = array('parts/tax/header/buy','parts/tax/header/sample_movie','parts/tax/header/unit_member','parts/tax/live_markup','ad/musiclist');
+        $parts = array('parts/tax/header/buy','parts/tax/header/sample_movie','parts/tax/header/unit_member','parts/tax/live_markup','parts/tax/header/tax_add','ad/musiclist');
         break;
     case 'unit':
         if(!empty(SCF::get_term_meta( $term_id, $taxonomy, 'Kana' ))){

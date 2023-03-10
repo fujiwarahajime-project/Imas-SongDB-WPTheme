@@ -7,13 +7,7 @@
 </p>
 
 <h2>使用方法</h2>
-<section>
-  <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="collapse" data-target="#mime">
-  <i class="fab fa-windows"></i>Windows Microsoft IME
-  </button>
-  <div id="mime" class="collapse">
-    <div class="panel panel-default">
-      <div class="panel-body">
+<h3><i class="fab fa-windows"></i>Windows Microsoft IME</h3>
 <p>UTF-8版を保存します。<br>
 ダウンロードされたテキストファイルをメモ帳で開き「ファイル」→「名前をつけて保存」を開きます。<br>
 画面下部のエンコードを「UTF-16 LE」に変更して保存します。（デフォルトではUTF-8となっていると思います）</p>
@@ -21,42 +15,19 @@
 「ツール」→「テキストファイルからの登録」で先ほどのテキストファイルをインポートします。</p>
 <p>ShiftJIS版ではメモ帳でのテキストファイルの変換をしなくてもインポートできます。<br>
 ただし「♡」など一部の文字が「?」に文字化けします。これは文字エンコードの仕様です。</p>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section>
-  <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="collapse" data-target="#windows">
-  <i class="fab fa-google"></i>Windows Google日本語入力
-  </button>
-  <div id="windows" class="collapse">
-    <div class="panel panel-default">
-      <div class="panel-body">
+
+<h3><i class="fab fa-google"></i>Windows Google日本語入力</h3>
 <p>UTF-8版を保存します。</p>
 <p>タスクバーのIME項目（「A」や「あ」などと表示されています）を右クリック→「辞書ツール」で辞書ツールを開きます。<br>
 「管理」→「新規辞書にインポート」または「選択した辞書にインポート」で先ほどのテキストファイルをインポートします。<br>
 フォーマット、エンコードは自動判定のままで正常にインポートされます。</p>
 
-      </div>
-    </div>
-  </div>
-</section>
 
-<section>
-  <button type="button" class="btn btn-default btn-lg btn-block" data-toggle="collapse" data-target="#android">
-  <i class="fab fa-android"></i></i>Android Gboard
-  </button>
-  <div id="android" class="collapse">
-    <div class="panel panel-default">
-      <div class="panel-body">
+<h3><i class="fab fa-android"></i>Android Gboard</h3>
 <p>Gboard用のファイルをダウンロードします。</p>
 <p>Gboardアプリを起動し「単語リスト」→「単語リスト」→「日本語」→右上の「︙」→「インポート」を開きます。<br>
 先ほどダウンロードしたZIPファイルを選択します。（通常はダウンロードフォルダにダウンロードされます）</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <h2>ダウンロード</h2>
 <p>ボタンをクリック後にファイルを生成しますのでダウンロード開始まで少し時間がかかります。<br>

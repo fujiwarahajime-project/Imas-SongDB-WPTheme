@@ -30,17 +30,17 @@ if(!($setlist_hide !== false) or is_admin_bar_showing()){
 $setlist = SCF::get_term_meta( $term_id, $taxonomy, 'cd_setlist' );
 foreach ($setlist as $fields ) {
   unset($song_id);
+  echo '<div ';
+  post_class('card col-12');
+  echo '>
+  <div class="card-body">';
 
 //メンバー情報があるか判定
 //メンバー情報がない場合、セルを結合
 
   //曲名を表示
   foreach ($fields['setlist_song'] as $songname) {
-    echo '<div ';
-post_class('card col-12');
-echo '>
-<div class="card-body">
-<div class="card-subtitle text-muted small">'./*get_post_time('Y年n月j日').*/'</div>
+echo '<div class="card-subtitle text-muted small">'./*get_post_time('Y年n月j日').*/'</div>
 <h5 class="card-title font-weight-bold">
 <a href="'.get_permalink($songname).'">'.
 get_post($songname)->post_title.'</a>'.$fields['setlist_song2'];

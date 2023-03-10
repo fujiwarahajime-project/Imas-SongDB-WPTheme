@@ -214,31 +214,14 @@ if($idollist_type == 'music_cg' ){ //シンデレラガールズの場合
 ?>
 
 <?php
-if(!empty($solo_temp)):?>
-<p>この曲には、CDごとのメンバー情報があります。くわしくは<a href="#CD">CD情報</a>で確認ください。</p>
-<?php endif;?>
+/*if(!empty($solo_temp)){
+	echo '<p>この曲には、CDごとのメンバー情報があります。くわしくは<a href="#CD">CD情報</a>で確認ください。</p>';
+}*/?>
 
 </div>
   <div class="msgboxfoot">
   </div>
 </div>
-
-
-<!-- CD情報用CSS（OSにより分岐） -->
-<?php if(wp_is_mobile()): ?>
-<!-- スマホ用CSS -->
-<style type="text/css">
-.cdname{font-size:15px;}
-</style>
-<?php endif; ?>
-
-<?php if(!wp_is_mobile()): ?>
-<!-- PC用CSS -->
-<style type="text/css">
-.cdname{font-size:20px;}
-</style>
-<?php endif; ?>
-<!-- ここまでCD情報用CSS -->
 
 <?php 
 	get_template_part('parts/music_page/movie');
